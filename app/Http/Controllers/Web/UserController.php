@@ -230,10 +230,12 @@ class UserController extends Controller
             $query->where('instructor_type',1);
         if ($request->has('trustees'))
             $query->where('instructor_type',2);
-        if ($request->has('members'))
-            $query->where('instructor_type',3);
         if ($request->has('experts'))
+            $query->where('instructor_type',3);
+
+        if ($request->has('members'))
             $query->where('instructor_type',4);
+
         $query->where('role_name', $role)
             //->where('verified', true)
             ->where('users.status', 'active')
