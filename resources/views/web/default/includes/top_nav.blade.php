@@ -39,43 +39,43 @@
                 @endif
             </div>
 
-            <div class="d-flex align-items-center justify-content-between justify-content-md-center">
-                <form action="{{url('/locale')}}" id="form-language" method="post" class="mx-md-20">
-                    {{ csrf_field() }}
+{{--            <div class="d-flex align-items-center justify-content-between justify-content-md-center">--}}
+{{--                <form action="{{url('/locale')}}" id="form-language" method="post" class="mx-md-20">--}}
+{{--                    {{ csrf_field() }}--}}
 
-                    <input type="hidden" id="selectedLang" name="locale">
+{{--                    <input type="hidden" id="selectedLang" name="locale">--}}
 
-                    <div class="dropdown show">
-                        <a class="btn btn-transparent btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ getLanguages(mb_strtoupper(app()->getLocale())) }}
-                            <i class="fa fa-arrow-circle-down"></i>
-                        </a>
+{{--                    <div class="dropdown show">--}}
+{{--                        <a class="btn btn-transparent btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+{{--                            {{ getLanguages(mb_strtoupper(app()->getLocale())) }}--}}
+{{--                            <i class="fa fa-arrow-circle-down"></i>--}}
+{{--                        </a>--}}
 
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            @foreach($localLanguage as $key=>$lang)
-                                <a class="dropdown-item lang" data-lang="{{$key}}">{{$lang}}</a>
-                            @endforeach
+{{--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+{{--                            @foreach($localLanguage as $key=>$lang)--}}
+{{--                                <a class="dropdown-item lang" data-lang="{{$key}}">{{$lang}}</a>--}}
+{{--                            @endforeach--}}
 
-                        </div>
-                    </div>
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    {{--                    <div class="language-select">--}}
-                    {{--                        <div id="localItems"--}}
-                    {{--                             data-selected-country="{{ localeToCountryCode(mb_strtoupper(app()->getLocale())) }}"--}}
-                    {{--                             data-countries='{{ json_encode($localLanguage) }}'>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-                </form>
+{{--                    --}}{{--                    <div class="language-select">--}}
+{{--                    --}}{{--                        <div id="localItems"--}}
+{{--                    --}}{{--                             data-selected-country="{{ localeToCountryCode(mb_strtoupper(app()->getLocale())) }}"--}}
+{{--                    --}}{{--                             data-countries='{{ json_encode($localLanguage) }}'>--}}
+{{--                    --}}{{--                        </div>--}}
+{{--                    --}}{{--                    </div>--}}
+{{--                </form>--}}
 
 
-                <form action="/search" method="get" class="form-inline my-2 my-lg-0 navbar-search position-relative">
-                    <input class="form-control mr-5 rounded" type="text" name="search" placeholder="{{ trans('navbar.search_anything') }}" aria-label="Search">
+{{--                <form action="/search" method="get" class="form-inline my-2 my-lg-0 navbar-search position-relative">--}}
+{{--                    <input class="form-control mr-5 rounded" type="text" name="search" placeholder="{{ trans('navbar.search_anything') }}" aria-label="Search">--}}
 
-                    <button type="submit" class="btn-transparent d-flex align-items-center justify-content-center search-icon">
-                        <i data-feather="search" width="20" height="20" class="mr-10"></i>
-                    </button>
-                </form>
-            </div>
+{{--                    <button type="submit" class="btn-transparent d-flex align-items-center justify-content-center search-icon">--}}
+{{--                        <i data-feather="search" width="20" height="20" class="mr-10"></i>--}}
+{{--                    </button>--}}
+{{--                </form>--}}
+{{--            </div>--}}
         </div>
 
         <div class="xs-w-100 d-flex align-items-center justify-content-between ">

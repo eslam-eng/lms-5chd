@@ -57,3 +57,35 @@
        url('Vazir-Black.ttf') format('truetype');
   font-weight: 900;
 }
+
+
+@font-face {
+  font-family: Vazir;
+  src: url('Vazir-Black.eot');
+  src: url('Vazir-Black.eot?#iefix') format('embedded-opentype'),
+       url('Vazir-Black.woff2') format('woff2'),
+       url('Vazir-Black.woff') format('woff'),
+       url('Vazir-Black.ttf') format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: Tajawal;
+  src: url('Tajawal-Black.ttf');
+  src: url('Tajawal-Black.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Tajawal;
+  src: url('Tajawal-Light.ttf');
+  src: url('Tajawal-Light.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: Tajawal;
+  src: url('Tajawal-Regular.ttf');
+  src: url('Tajawal-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
