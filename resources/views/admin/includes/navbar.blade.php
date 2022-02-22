@@ -63,22 +63,22 @@
             </li>
         @endcan
 
-            <li class="dropdown">
-                <form action="{{url('/locale')}}" id="form-language" method="post" class="mx-md-20">
-                    {{ csrf_field() }}
+{{--            <li class="dropdown">--}}
+{{--                <form action="{{url('/locale')}}" id="form-language" method="post" class="mx-md-20">--}}
+{{--                    {{ csrf_field() }}--}}
 
-                    <input type="hidden" id="selectedLang" name="locale">
-                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        <div class="d-sm-none d-lg-inline-block"><i class="pr-2 pl-2 fa fa-language"></i>{{ getLanguages(mb_strtoupper(app()->getLocale())) }}</div>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        @foreach($localLanguage as $key=>$lang)
-                            <a class="dropdown-item lang" style="cursor: pointer;" data-lang="{{$key}}">{{$lang}}</a>
-                        @endforeach
+{{--                    <input type="hidden" id="selectedLang" name="locale">--}}
+{{--                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">--}}
+{{--                        <div class="d-sm-none d-lg-inline-block"><i class="pr-2 pl-2 fa fa-language"></i>{{ getLanguages(mb_strtoupper(app()->getLocale())) }}</div>--}}
+{{--                    </a>--}}
+{{--                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">--}}
+{{--                        @foreach($localLanguage as $key=>$lang)--}}
+{{--                            <a class="dropdown-item lang" style="cursor: pointer;" data-lang="{{$key}}">{{$lang}}</a>--}}
+{{--                        @endforeach--}}
 
-                    </div>
-                </form>
-            </li>
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </li>--}}
 
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="/assets/admin/img/avatar/avatar-1.png" class="rounded-circle mr-1">
