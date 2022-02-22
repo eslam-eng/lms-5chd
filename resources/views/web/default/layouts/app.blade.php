@@ -27,6 +27,10 @@
 
     <style>
         {!! !empty(getCustomCssAndJs('css')) ? getCustomCssAndJs('css') : '' !!}
+         *{
+            font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif !important;
+        }
+
     </style>
 
 
