@@ -48,12 +48,27 @@
                                         <div class="col-12 col-md-5">
 
                                             <div class="form-group mt-15 ">
+                                                <label class="input-label d-block">{{ trans('admin/main.select_lang') }}</label>
+
+                                                <select name="course_type" class="custom-select @error('course_type')  is-invalid @enderror">
+                                                    <option value="en" @if((!empty($webinar) and $webinar->course_type=='en') or old('course_type') == 'en') selected @endif>English</option>
+                                                    <option value="ar" @if((!empty($webinar) and $webinar->course_type=='ar') or old('course_type') =='ar') selected @endif>العربيه</option>
+                                                </select>
+
+                                                @error('course_type')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group mt-15 ">
                                                 <label class="input-label d-block">{{ trans('panel.course_type') }}</label>
 
                                                 <select name="type" class="custom-select @error('type')  is-invalid @enderror">
                                                     <option value="webinar" @if((!empty($webinar) and $webinar->isWebinar()) or old('type') == \App\Models\Webinar::$webinar) selected @endif>{{ trans('webinars.webinar') }}</option>
-{{--                                                    <option value="course" @if((!empty($webinar) and $webinar->isCourse()) or old('type') == \App\Models\Webinar::$course) selected @endif>{{ trans('product.video_course') }}</option>--}}
-{{--                                                    <option>{{ trans('product.text_course') }} (Paid plugin)</option>--}}
+                                                    {{--                                                    <option value="course" @if((!empty($webinar) and $webinar->isCourse()) or old('type') == \App\Models\Webinar::$course) selected @endif>{{ trans('product.video_course') }}</option>--}}
+                                                    {{--                                                    <option>{{ trans('product.text_course') }} (Paid plugin)</option>--}}
                                                 </select>
 
                                                 @error('type')

@@ -28,6 +28,21 @@
                                   method="Post">
                                 {{ csrf_field() }}
 
+                                <div class="form-group mt-15 ">
+                                    <label class="input-label d-block">{{ trans('admin/main.select_lang') }}</label>
+
+                                    <select name="category_type" class="custom-select @error('category_type')  is-invalid @enderror">
+                                        <option value="en" @if((!empty($category) and $category->category_type=='en') or old('category_type') == 'en') selected @endif>English</option>
+                                        <option value="ar" @if((!empty($category) and $category->category_type=='ar') or old('category_type') =='ar') selected @endif>العربيه</option>
+                                    </select>
+
+                                    @error('category_type')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+
                                 <div class="form-group">
                                     <label>{{ trans('admin/main.title_en') }}</label>
                                     <input type="text" name="title"
@@ -40,17 +55,6 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
-                                    <label>{{ trans('admin/main.title_ar') }}</label>
-                                    <input type="text" name="title_ar"
-                                           class="form-control  @error('title') is-invalid @enderror"
-                                           value="{{ !empty($category) ? $category->title_ar : old('title_ar') }}"/>
-                                    @error('title_ar')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
 
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.icon') }}</label>
