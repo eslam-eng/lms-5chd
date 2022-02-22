@@ -903,6 +903,7 @@ return [
     'expertize' => 'Expertize',
     'major' => 'Major',
     'study_lang' => 'Study Language',
+    'course_lang' => 'Course Language',
     'school_level' => 'School Level',
     'registration_fees' => 'Registration Fees',
     'establish_fees' => 'Establish Fees',
@@ -912,6 +913,7 @@ return [
     'select_role' => 'Select a user role',
     'select_school_level' => 'Select School Level',
     'select_study_lang' => 'Please Select Study Language',
+    'select_lang' => 'Please Select view Language',
     'select_status' => 'Select a status',
     'select_course' => 'Select a course',
     'create_field_email_placeholder' => 'Example: username@gmail.com',
@@ -1232,8 +1234,4 @@ return [
     "additional_pages_title"=>"Additional Pages",
     "discount_codes_title"=>"Discount Codes",
 
-    'secondary'=>"Secondary",
-    'above_secondary'=>'Above Secondary',
-    'university'=>"University",
-    'above_university'=>"Above University"
 ];

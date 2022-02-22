@@ -900,6 +900,7 @@ return [
     "expertize"=>"خبرة",
     "major"=>"رئيسي",
     "study_lang"=>"لغة الدراسة",
+    'course_lang' => 'لغه الكورس',
     "school_level"=>"نوع شهادة الثانوية العامة",
     "registration_fees"=>"رسوم التسجيل",
     "establish_fees"=>"رسوم التأسيس",
@@ -908,6 +909,7 @@ return [
     "create_field_address_placeholder"=>"الرجاء إدخال عنوانك",
     "select_role"=>"حدد دور المستخدم ",
     "select_study_lang"=>"الرجاء تحديد لغة الدراسة ",
+    "select_lang"=>"اختر لغه العرض",
     "select_status"=>"حدد حالة",
     'select_course' => 'اختر كورس',
     "create_field_email_placeholder"=>"مثال: username@gmail.com ",
@@ -1239,10 +1241,4 @@ return [
     "new_support_ticket_title"=>"تذكرة دعم جديدة",
     "edit_support_ticket_title"=>"تحرير تذكرة الدعم",
     "staff_list_title"=>"قائمة الموظفين",
-
-    'secondary'=>"ثانوي",
-    'above_secondary'=>'فوق الثانوية',
-    'university'=>"جامعة",
-    'above_university'=>"اعلى الجامعة"
-
 ];
