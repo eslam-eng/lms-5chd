@@ -1,6 +1,6 @@
 <html lang="fa">
 @php
-    app()->setLocale('ar');
+      app()->setLocale('ar');
         $rtlLanguages = !empty($generalSettings['rtl_languages']) ? $generalSettings['rtl_languages'] : [];
 
         $isRtl = ((in_array(mb_strtoupper(app()->getLocale()), $rtlLanguages)) or (!empty($generalSettings['rtl_layout']) and $generalSettings['rtl_layout'] == 1));
@@ -32,10 +32,6 @@
 
     <style>
         {!! !empty(getCustomCssAndJs('css')) ? getCustomCssAndJs('css') : '' !!}
-         *{
-            font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif !important;
-        }
-
     </style>
 </head>
 <body>

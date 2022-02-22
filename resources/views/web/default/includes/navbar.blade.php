@@ -4,15 +4,6 @@
     }
     $local = app()->getLocale();
 @endphp
-<style>
-    .web-nav-category
-    {
-        height: 450px !important;
-        overflow: auto !important;
-        min-width: 296px !important;
-
-    }
-</style>
 
 <div id="navbarVacuum"></div>
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
