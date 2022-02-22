@@ -25,7 +25,7 @@ return [
     'user_name' => 'Username',
     'title' => 'Title',
     'title_ar' => 'Title ar',
-    'title_en' => 'Title en',
+    'title_en' => 'Title',
     'link' => 'URL',
     'admin' => 'Admin',
     'min' => ' Min',
@@ -1233,5 +1233,11 @@ return [
     "marketing_title"=>"Marketing Dashboard ",
     "additional_pages_title"=>"Additional Pages",
     "discount_codes_title"=>"Discount Codes",
+
+
+    "group_of_administrations"=>"Administrations",
+    "group_of_trusts"=>"Group Of Trusts",
+    "group_of_experts"=>"Group Of Experts",
+    "group_of_members"=>"Group Of Members",
 
 ];

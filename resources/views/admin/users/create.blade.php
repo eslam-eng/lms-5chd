@@ -101,10 +101,10 @@
                                             <label>{{ trans('admin/main.type') }}</label>
                                             <select class="form-control @error('instructor_type') is-invalid @enderror" name="instructor_type">
                                                 <option disabled selected>{{ trans('admin/main.select_role') }}</option>
-                                                <option value="1" {{ old('instructor_type') === 1 ? 'selected' :''}}>مجلس الاداره</option>
-                                                <option value="2" {{ old('instructor_type') === 2 ? 'selected' :''}}>مجلس الامناء</option>
-                                                <option value="3" {{ old('instructor_type') === 3 ? 'selected' :''}}>الخبراء</option>
-                                                <option value="4" {{ old('instructor_type') === 4 ? 'selected' :''}}>الاعضاء</option>
+                                                <option value="1" {{ old('instructor_type') === 1 ? 'selected' :''}}>{{trans('admin/main.group_of_administrations')}}</option>
+                                                <option value="2" {{ old('instructor_type') === 2 ? 'selected' :''}}>{{trans('admin/main.group_of_trusts')}}</option>
+                                                <option value="3" {{ old('instructor_type') === 3 ? 'selected' :''}}>{{trans('admin/main.group_of_experts')}}</option>
+                                                <option value="4" {{ old('instructor_type') === 4 ? 'selected' :''}}>{{trans('admin/main.group_of_members')}}</option>
                                             </select>
                                             @error('instructor_type')
                                             <div class="invalid-feedback">

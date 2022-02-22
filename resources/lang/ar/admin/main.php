@@ -24,7 +24,7 @@ return [
     "user_name"=>"اسم المستخدم",
     "title"=>"عنوان",
     'title_ar' => 'العنوان بالعربية',
-    'title_en' => 'العنوان بالانجليزية',
+    'title_en' => 'العنوان ',
     "link"=>"رابط ",
     "admin"=>"مشرف",
     "min"=>"Min",
@@ -1241,4 +1241,9 @@ return [
     "new_support_ticket_title"=>"تذكرة دعم جديدة",
     "edit_support_ticket_title"=>"تحرير تذكرة الدعم",
     "staff_list_title"=>"قائمة الموظفين",
+
+    "group_of_administrations"=>"مجلس الاداره",
+    "group_of_trusts"=>"مجلس الامناء",
+    "group_of_experts"=>"الخبراء",
+    "group_of_members"=>"الاعضاء",
 ];
