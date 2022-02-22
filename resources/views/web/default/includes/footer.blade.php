@@ -37,38 +37,51 @@
     </div>
 
     @php
-        $columns = ['first_column','second_column','third_column','forth_column'];
+        $columns = ['first_column','second_column','third_column'];
     @endphp
 
     <div class="container">
         <div class="row">
 
             @foreach($columns as $column)
-                <div class="col-6 col-md-3">
+                <div class="col-6 {{$column=='first_column'?'col-md-6':' col-md-3 '}}">
                     @if(!empty($footerColumns[$column]))
                         @if(!empty($footerColumns[$column]['title']))
-                            <span class="header d-block text-white font-weight-bold">{{ $footerColumns[$column]['title'] }}</span>
+                                @if($column=='first_column')
+                                    <div class="footer-logo">
+                                    <a href="/">
+                                        @if(!empty($generalSettings['footer_logo']))
+                                            <img src="{{ $generalSettings['footer_logo'] }}" class="img-cover" alt="footer logo">
+                                        @endif
+                                    </a>
+                                </div>
+                                @endif
+{{--                            <span class="header d-block text-white font-weight-bold">{{ $footerColumns[$column]['title'] }}</span>--}}
                         @endif
 
-                        @if(!empty($footerColumns[$column]['value']))
+                        @if(!empty($footerColumns[$column]['value'])&&!empty($footerColumns[$column]['value_ar']))
                             <div class="mt-20">
-                                {!! $footerColumns[$column]['value'] !!}
+                                @if(app()->getLocale()=="en")
+                                     {!! $footerColumns[$column]['value'] !!}
+                                @else
+                                    {!! $footerColumns[$column]['value_ar'] !!}
+                                @endif
                             </div>
                         @endif
-                    @endif
                 </div>
+                    @endif
             @endforeach
 
         </div>
 
         <div class="mt-40 border-blue py-25 d-flex align-items-center justify-content-between">
-            <div class="footer-logo">
-                <a href="/">
-                    @if(!empty($generalSettings['footer_logo']))
-                        <img src="{{ $generalSettings['footer_logo'] }}" class="img-cover" alt="footer logo">
-                    @endif
-                </a>
-            </div>
+{{--            <div class="footer-logo">--}}
+{{--                <a href="/">--}}
+{{--                    @if(!empty($generalSettings['footer_logo']))--}}
+{{--                        <img src="{{ $generalSettings['footer_logo'] }}" class="img-cover" alt="footer logo">--}}
+{{--                    @endif--}}
+{{--                </a>--}}
+{{--            </div>--}}
             <div class="footer-social">
                 @foreach($socials as $social)
                     <a href="{{ $social['link'] }}">

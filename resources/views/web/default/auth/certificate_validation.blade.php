@@ -62,6 +62,11 @@
                     <span class="text-gray modal-student"></span>
                 </div>
 
+                <div class="mt-15 d-flex justify-content-between">
+                    <span class="text-gray font-weight-bold">{{ trans('admin/main.mobile') }}:</span>
+                    <span class="text-gray modal-student-mobile"></span>
+                </div>
+
                 <div class="mt-10 d-flex justify-content-between">
                     <span class="text-gray font-weight-bold">{{ trans('public.date') }}:</span>
                     <span class="text-gray"><span class="modal-date"></span></span>
@@ -71,6 +76,17 @@
                     <span class="text-gray font-weight-bold">{{ trans('webinars.webinar') }}:</span>
                     <span class="text-gray"><span class="modal-webinar"></span></span>
                 </div>
+
+                <div class="mt-10 d-flex justify-content-between">
+                    <span class="text-gray font-weight-bold">{{ trans('admin/main.classes_durations') }}:</span>
+                    <span class="text-gray"><span class="modal-webinar-duration"></span></span>
+                </div>
+
+                <div class="mt-10 d-flex justify-content-between">
+                    <span class="text-gray font-weight-bold">{{ trans('admin/main.attach') }}:</span>
+                    <span class="text-gray"><a class="modal-webinar-attachment" target="_blank"></a></span>
+                </div>
+
             </div>
         </div>
 
@@ -122,9 +138,19 @@
                     } else if (result && result.code === 200) {
                         const certificate = result.certificate;
 
+
                         $('#certificateModal .modal-student').text(certificate.student);
+                        $('#certificateModal .modal-student-mobile').text(certificate.student_mobile);
                         $('#certificateModal .modal-webinar').text(certificate.webinar_title);
+                        $('#certificateModal .modal-webinar-duration').text((certificate.course_duration/60)+"Hour");
                         $('#certificateModal .modal-date').text(certificate.date);
+                        if(certificate.certificate_attachment!=null)
+                        {
+                            $('#certificateModal .modal-webinar-attachment').attr('href',certificate.certificate_attachment);
+                            $('#certificateModal .modal-webinar-attachment').attr("download", "download");
+                            $('#certificateModal .modal-webinar-attachment').text("{{trans('quiz.download_certificate')}}");
+                        }else
+                            $('#certificateModal .modal-webinar-attachment').text("{{trans('admin/main.no_certificate_attach')}}");
 
                         let modal = '<div id="validCertificateModal">';
                         modal += $('#certificateModal').html();

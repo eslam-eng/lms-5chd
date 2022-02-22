@@ -1239,4 +1239,10 @@ return [
     "new_support_ticket_title"=>"تذكرة دعم جديدة",
     "edit_support_ticket_title"=>"تحرير تذكرة الدعم",
     "staff_list_title"=>"قائمة الموظفين",
+
+    'secondary'=>"ثانوي",
+    'above_secondary'=>'فوق الثانوية',
+    'university'=>"جامعة",
+    'above_university'=>"اعلى الجامعة"
+
 ];

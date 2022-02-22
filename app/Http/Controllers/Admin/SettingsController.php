@@ -59,7 +59,6 @@ class SettingsController extends Controller
         $values = $request->get('value', null);
 
         if (!empty($values)) {
-
             $values = array_filter($values, function ($val) {
                 if (is_array($val)) {
                     return array_filter($val);

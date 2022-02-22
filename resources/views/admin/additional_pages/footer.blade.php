@@ -42,13 +42,23 @@
                                                     {{ csrf_field() }}
 
                                                     <div class="form-group">
-                                                        <label>{{ trans('admin/main.title') }}</label>
+                                                        <label>{{ trans('admin/main.title_en') }}</label>
                                                         <input type="text" name="value[{{ $column }}][title]" value="{{ (!empty($value) and !empty($value[$column]) and !empty($value[$column]['title'])) ? $value[$column]['title'] : old('title') }}" class="form-control "/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>{{ trans('admin/main.title_ar') }}</label>
+                                                        <input type="text" name="value[{{ $column }}][title_ar]" value="{{ (!empty($value) and !empty($value[$column]) and !empty($value[$column]['title_ar'])) ? $value[$column]['title_ar'] : old('title_ar') }}" class="form-control "/>
                                                     </div>
 
                                                     <div class="form-group">
                                                         <label>{{ trans('admin/main.content') }}</label>
                                                         <textarea type="text" name="value[{{ $column }}][value]" class="summernote form-control">{{ (!empty($value) and !empty($value[$column]) and !empty($value[$column]['value'])) ? $value[$column]['value'] : old('value') }}</textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>{{ trans('admin/main.content_ar') }}</label>
+                                                        <textarea type="text" name="value[{{ $column }}][value_ar]" class="summernote form-control">{{ (!empty($value) and !empty($value[$column]) and !empty($value[$column]['value_ar'])) ? $value[$column]['value_ar'] : old('value_ar') }}</textarea>
                                                     </div>
 
                                                     <button type="submit" class="btn btn-primary">{{ trans('admin/main.submit') }}</button>

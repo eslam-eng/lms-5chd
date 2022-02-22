@@ -8,7 +8,7 @@ class Role extends Model
 {
     public $timestamps = false;
     static $admin = 'admin';
-    static $user = 'user';
+    static $user = 'student';
     static $teacher = 'teacher';
     static $organization = 'organization';
 

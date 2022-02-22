@@ -285,8 +285,9 @@ class WebinarController extends Controller
             'teacher_id' => 'required|exists:users,id',
             'category_id' => 'required',
             'duration' => 'required',
-            'start_date' => 'required_if:type,webinar',
-            'capacity' => 'required_if:type,webinar',
+            'start_date' => 'required_if:type,course',
+            'end_date' => 'required_if:type,course',
+            'capacity' => 'required_if:type,course',
         ]);
 
         $data = $request->all();
@@ -303,7 +304,8 @@ class WebinarController extends Controller
             'description' => $data['description'],
             'capacity' => $data['capacity'] ?? null,
             'start_date' => (!empty($data['start_date']) and $data['type'] == Webinar::$webinar) ? strtotime($data['start_date']) : null,
-            'duration' => $data['duration'] ?? null,
+            'end_date' => (!empty($data['end_date']) and $data['type'] == Webinar::$webinar) ? strtotime($data['end_date']) : null,
+            'duration' => $data['duration']*60 ?? null,
             'support' => !empty($data['support']) ? true : false,
             'downloadable' => !empty($data['downloadable']) ? true : false,
             'partner_instructor' => !empty($data['partner_instructor']) ? true : false,
@@ -359,6 +361,7 @@ class WebinarController extends Controller
         $webinar = Webinar::where('id', $id)
             ->with([
                 'tickets',
+                'installmentPlan',
                 'sessions',
                 'files',
                 'faqs',
@@ -403,6 +406,7 @@ class WebinarController extends Controller
             'webinarCategoryFilters' => $webinar->category->filters,
             'webinarFilterOptions' => $webinar->filterOptions->pluck('filter_option_id')->toArray(),
             'tickets' => $webinar->tickets,
+            'installmentPlans' => $webinar->installmentPlan,
             'sessions' => $webinar->sessions,
             'files' => $webinar->files,
             'textLessons' => $webinar->textLessons,
@@ -439,6 +443,7 @@ class WebinarController extends Controller
 
         if ($webinar->isWebinar()) {
             $rules['start_date'] = 'required|date';
+            $rules['end_date'] = 'required|date';
             $rules['duration'] = 'required';
             $rules['capacity'] = 'required|integer';
         }
@@ -465,6 +470,8 @@ class WebinarController extends Controller
 
         if ($webinar->type == 'webinar') {
             $data['start_date'] = strtotime($data['start_date']);
+            $data['end_date'] = strtotime($data['end_date']);
+            $data['duration'] = $data['duration']*60;
         }
 
         $data['private'] = (!empty($data['private']) and $data['private'] == 'on');
@@ -527,8 +534,13 @@ class WebinarController extends Controller
         } elseif ($reject) {
             sendNotification('course_reject', ['[c.title]' => $webinar->title], $webinar->teacher_id);
         }
+        $toastData = [
+            'title' => trans('public.success'),
+            'msg' => trans('admin/main.success'),
+            'status' => 'success'
+        ];
 
-        return redirect('/admin/webinars?type=' . $webinar->type);
+        return redirect('/admin/webinars?type=' . $webinar->type)->with(['toast' => $toastData]);
     }
 
     public function destroy(Request $request, $id)

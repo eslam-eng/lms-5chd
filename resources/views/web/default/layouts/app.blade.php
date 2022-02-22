@@ -85,6 +85,14 @@
 
 <script>
     {!! !empty(getCustomCssAndJs('js')) ? getCustomCssAndJs('js') : '' !!}
+    $(document).on('click','.lang',function (ele) {
+        ele.preventDefault();
+        var lang = $(this).data('lang');
+        if (lang && lang !== '') {
+            $("#selectedLang").val(lang);
+            $("#form-language").submit();
+        }
+    })
 </script>
 </body>
 </html>

@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'web'
         Route::group(['prefix' => 'students'], function () {
             Route::get('/', 'UserController@students');
             Route::get('/excel', 'UserController@exportExcelStudents');
-//            Route::post('/accept/interview', 'UserController@acceptInterView');
+            Route::post('/accept/interview', 'UserController@acceptInterView');
         });
 
         Route::group(['prefix' => 'instructors'], function () {
@@ -68,7 +68,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'web'
             Route::get('/{id}/delete', 'UserController@destroy');
             Route::get('/{id}/acceptRequestToInstructor', 'UserController@acceptRequestToInstructor');
             Route::get('/{user_id}/impersonate', 'UserController@impersonate');
-//            Route::get('/{id}/interview', 'UserController@sendInterViewLink');
+            Route::get('/{id}/interview', 'UserController@sendInterViewLink');
 
             Route::group(['prefix' => 'badges'], function () {
                 Route::get('/', 'BadgesController@index');
@@ -163,27 +163,27 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'web'
             });
         });
 
-//        Route::group(['prefix' => 'installment'], function () {
-//            Route::get('/', 'InstallmentController@index');
-//            Route::get('/create', 'InstallmentController@create');
-//            Route::post('/store', 'InstallmentController@store');
-//            Route::get('/{id}/edit', 'InstallmentController@edit');
-//            Route::get('/{id}/details', 'InstallmentController@show');
-//            Route::post('/{id}/update', 'InstallmentController@update');
-//            Route::get('/{id}/delete', 'InstallmentController@destroy');
-//            Route::post('/course/plans', 'InstallmentController@getCourseInstallmentPlans');
-//            Route::get('/details/{id}/paid', 'InstallmentController@installmentPaid');
-//        });
-//
-//        Route::group(['prefix' => 'interview-questions'], function () {
-//            Route::get('/', 'InterviewQuestionController@index');
-//            Route::get('/create', 'InterviewQuestionController@create');
-//            Route::post('/store', 'InterviewQuestionController@store');
-//            Route::get('/{id}/show', 'InterviewQuestionController@show');
-//            Route::get('/{id}/edit', 'InterviewQuestionController@edit');
-//            Route::post('/{id}/update', 'InterviewQuestionController@update');
-//            Route::get('/{id}/delete', 'InterviewQuestionController@destroy');
-//        });
+        Route::group(['prefix' => 'installment'], function () {
+            Route::get('/', 'InstallmentController@index');
+            Route::get('/create', 'InstallmentController@create');
+            Route::post('/store', 'InstallmentController@store');
+            Route::get('/{id}/edit', 'InstallmentController@edit');
+            Route::get('/{id}/details', 'InstallmentController@show');
+            Route::post('/{id}/update', 'InstallmentController@update');
+            Route::get('/{id}/delete', 'InstallmentController@destroy');
+            Route::post('/course/plans', 'InstallmentController@getCourseInstallmentPlans');
+            Route::get('/details/{id}/paid', 'InstallmentController@installmentPaid');
+        });
+
+        Route::group(['prefix' => 'interview-questions'], function () {
+            Route::get('/', 'InterviewQuestionController@index');
+            Route::get('/create', 'InterviewQuestionController@create');
+            Route::post('/store', 'InterviewQuestionController@store');
+            Route::get('/{id}/show', 'InterviewQuestionController@show');
+            Route::get('/{id}/edit', 'InterviewQuestionController@edit');
+            Route::post('/{id}/update', 'InterviewQuestionController@update');
+            Route::get('/{id}/delete', 'InterviewQuestionController@destroy');
+        });
 
         Route::group(['prefix' => 'interview-answer'], function () {
             Route::get('/{id}', 'InterviewAnswerController@studentAnswer');
@@ -279,12 +279,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'web'
             Route::get('/{id}/delete', 'TicketController@destroy');
         });
 
-//        Route::group(['prefix' => 'installment-plan'], function () {
-//            Route::post('/store', 'CourseInstallmentPlanController@store');
-//            Route::post('/{id}/edit', 'CourseInstallmentPlanController@edit');
-//            Route::post('/{id}/update', 'CourseInstallmentPlanController@update');
-//            Route::get('/{id}/delete', 'CourseInstallmentPlanController@destroy');
-//        });
+        Route::group(['prefix' => 'installment-plan'], function () {
+            Route::post('/store', 'CourseInstallmentPlanController@store');
+            Route::post('/{id}/edit', 'CourseInstallmentPlanController@edit');
+            Route::post('/{id}/update', 'CourseInstallmentPlanController@update');
+            Route::get('/{id}/delete', 'CourseInstallmentPlanController@destroy');
+        });
 
         Route::group(['prefix' => 'sessions'], function () {
             Route::post('/store', 'SessionController@store');
@@ -329,12 +329,34 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'web'
             Route::get('/{id}/delete', 'WebinarQuizController@destroy');
         });
 
+
         Route::group(['prefix' => 'certificates'], function () {
-            Route::get('/', 'CertificateController@index');
-            Route::get('/excel', 'CertificateController@exportExcel');
+            Route::get('/', 'StudentCertificateController@index');
+            Route::get('/create','StudentCertificateController@create');
+            Route::post('/store','StudentCertificateController@store');
+            Route::get('/{id}/edit','StudentCertificateController@edit');
+            Route::post('/update','StudentCertificateController@update');
+            Route::get('/{id}/delete','StudentCertificateController@delete');
 
 
         });
+
+
+//        Route::group(['prefix' => 'certificates'], function () {
+//            Route::get('/', 'CertificateController@index');
+//            Route::get('/excel', 'CertificateController@exportExcel');
+//
+//            Route::group(['prefix' => 'templates'], function () {
+//                Route::get('/', 'CertificateController@CertificatesTemplatesList');
+//                Route::get('/new', 'CertificateController@CertificatesNewTemplate');
+//                Route::post('/store', 'CertificateController@CertificatesTemplateStore');
+//                Route::get('/preview', 'CertificateController@CertificatesTemplatePreview');
+//                Route::get('/{template_id}/edit', 'CertificateController@CertificatesTemplatesEdit');
+//                Route::post('/{template_id}/update', 'CertificateController@CertificatesTemplateStore');
+//                Route::get('/{template_id}/delete', 'CertificateController@CertificatesTemplatesDelete');
+//            });
+//            Route::get('/{id}/download', 'CertificateController@CertificatesDownload');
+//        });
 
         Route::group(['prefix' => 'reviews'], function () {
             Route::get('/', 'ReviewsController@index');

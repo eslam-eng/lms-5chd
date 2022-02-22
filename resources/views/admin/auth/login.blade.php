@@ -77,10 +77,10 @@
           <div class="absolute-bottom-left index-2">
             <div class="text-light p-5 pb-2">
               <div class="mb-2 pb-3">
-                <h1 class="mb-2 display-4 font-weight-bold">Rocket LMS</h1>
+                <h1 class="mb-2 display-4 font-weight-bold">{{trans('auth.developed_company')}}</h1>
                 <h5 class="font-weight-normal text-muted-transparent">fully-featured educational platform</h5>
               </div>
-              Developed by <a class="text-light bb" target="_blank" href="">Rocket soft</a> on <a class="text-light bb" target="_blank" href="https://codecanyon.net/">Envato</a>
+                {{trans('auth.developed_by')}} <a class="text-light font-weight-bold bb" style="font-size: 20px" target="_blank" href="https://pixiagency.com">{{trans('auth.company')}}</a>
             </div>
           </div>
             </div>

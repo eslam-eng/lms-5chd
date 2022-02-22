@@ -1,4 +1,7 @@
 @extends(getTemplate().'.layouts.app')
+@php
+  $local = app()->getLocale();
+@endphp
 
 @push('styles_top')
     <link rel="stylesheet" href="/assets/default/vendors/swiper/swiper-bundle.min.css">
@@ -26,8 +29,14 @@
                 @if($heroSection == "2")
                     <div class="row slider-content align-items-center hero-section2 flex-column-reverse flex-md-row">
                         <div class="col-12 col-md-7 col-lg-6">
-                            <h1 class="text-secondary font-weight-bold">{{ $heroSectionData['title'] }}</h1>
-                            <p class="slide-hint text-gray mt-20">{!! nl2br($heroSectionData['description']) !!}</p>
+                            <h1 class="text-secondary font-weight-bold">{{ $local=='en'?$heroSectionData['title']:$heroSectionData['title_ar'] }}</h1>
+                            <p class="slide-hint text-gray mt-20">
+                                @if($local=='en')
+                                    {!! nl2br($heroSectionData['description']) !!}
+                                @else
+                                    {!! nl2br($heroSectionData['description_ar']) !!}
+                                @endif
+                            </p>
 
                             <form action="/search" method="get" class="d-inline-flex mt-30 mt-lg-30 w-100">
                                 <div class="form-group d-flex align-items-center m-0 slider-search p-10 bg-white w-100">
@@ -46,10 +55,17 @@
                     </div>
                 @else
                     <div class="text-center slider-content">
-                        <h1>{{ $heroSectionData['title'] }}</h1>
+                        <h1>{{ $local=='en'?$heroSectionData['title']:$heroSectionData['title_ar'] }}</h1>
                         <div class="row h-100 align-items-center justify-content-center text-center">
                             <div class="col-12 col-md-9 col-lg-7">
-                                <p class="mt-30 slide-hint">{!! nl2br($heroSectionData['description']) !!}</p>
+                                <p class="mt-30 slide-hint">
+                                    @if($local=='en')
+                                        {!! nl2br($heroSectionData['description']) !!}
+                                    @else
+                                        {!! nl2br($heroSectionData['description_ar']) !!}
+                                    @endif
+
+                                </p>
 
                                 <form action="/search" method="get" class="d-inline-flex mt-30 mt-lg-50 w-100">
                                     <div class="form-group d-flex align-items-center m-0 slider-search p-10 bg-white w-100">
@@ -68,7 +84,7 @@
     <div class="stats-container">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-lg-3 mt-25 mt-lg-0">
+                <div class="col-sm-6 col-lg-4 mt-25 mt-lg-0">
                     <div class="stats-item d-flex flex-column align-items-center text-center py-30 px-5 w-100">
                         <div class="stat-icon-box teacher">
                             <img src="/assets/default/img/stats/teacher.svg" alt=""/>
@@ -79,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-lg-3 mt-25 mt-lg-0">
+                <div class="col-sm-6 col-lg-4 mt-25 mt-lg-0">
                     <div class="stats-item d-flex flex-column align-items-center text-center py-30 px-5 w-100">
                         <div class="stat-icon-box student">
                             <img src="/assets/default/img/stats/student.svg" alt=""/>
@@ -90,7 +106,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-lg-3 mt-25 mt-lg-0">
+                <div class="col-sm-6 col-lg-4 mt-25 mt-lg-0">
                     <div class="stats-item d-flex flex-column align-items-center text-center py-30 px-5 w-100">
                         <div class="stat-icon-box video">
                             <img src="/assets/default/img/stats/video.svg" alt=""/>
@@ -98,17 +114,6 @@
                         <strong class="stat-number mt-10">{{ $liveClassCount }}</strong>
                         <h4 class="stat-title">{{ trans('home.live_classes') }}</h4>
                         <p class="stat-desc mt-10">{{ trans('home.live_classes_hint') }}</p>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 col-lg-3 mt-25 mt-lg-0">
-                    <div class="stats-item d-flex flex-column align-items-center text-center py-30 px-5 w-100">
-                        <div class="stat-icon-box course">
-                            <img src="/assets/default/img/stats/course.svg" alt=""/>
-                        </div>
-                        <strong class="stat-number mt-10">{{ $offlineCourseCount }}</strong>
-                        <h4 class="stat-title">{{ trans('home.offline_courses') }}</h4>
-                        <p class="stat-desc mt-10">{{ trans('home.offline_courses_hint') }}</p>
                     </div>
                 </div>
             </div>

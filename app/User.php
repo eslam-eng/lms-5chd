@@ -152,6 +152,11 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Meeting', 'creator_id', 'id');
     }
 
+    public function interViewAnswer()
+    {
+        return $this->hasMany('App\Models\InterviewAnswer','student_id')->with('question');
+    }
+
     public function hasMeeting()
     {
         return Meeting::where('disabled', false)

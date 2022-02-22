@@ -1,4 +1,4 @@
-<div class="webinar-card webinar-list webinar-list-2 d-flex mt-30">
+<div class="webinar-card webinar-list webinar-list-3 d-flex mt-30">
     <div class="image-box">
         @if($webinar->bestTicket() < $webinar->price)
             <span class="badge badge-danger">{{ trans('public.offer',['off' => $webinar->bestTicket(true)['percent']]) }}</span>
