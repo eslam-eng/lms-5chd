@@ -6,7 +6,6 @@ use App\Exports\OrganizationsExport;
 use App\Exports\StudentsExport;
 use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
-use App\Mail\SendInterviewlinkMailable;
 use App\Models\Badge;
 use App\Models\BecomeInstructor;
 use App\Models\Category;
@@ -20,7 +19,6 @@ use App\Models\Webinar;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
@@ -459,10 +457,8 @@ class UserController extends Controller
         $this->validate($request, [
             $username => ($username == 'mobile') ? 'required|numeric|unique:users' : 'required|string|email|max:255|unique:users',
             'full_name' => 'required|min:3|max:128',
-            'address' => 'nullable|string|max:128',
             'role_id' => 'required|exists:roles,id',
             'password' => 'required|string|min:6',
-            'school_level' => 'required_if:role_id,1',
             'instructor_type' => 'required_if:role_id,4',
             'status' => 'required',
         ]);
@@ -479,7 +475,6 @@ class UserController extends Controller
                     'password' => User::generatePassword($data['password']),
                     'status' => $data['status'],
                     'address' => $data['address'],
-                    'school_level' => $data['school_level']??null,
                     'instructor_type' => $data['instructor_type']??null,
                     'verified' => true,
                     'created_at' => time(),
@@ -548,8 +543,6 @@ class UserController extends Controller
         $roles = Role::all();
         $badges = Badge::all();
 
-        $cources = Webinar::where('type',Webinar::$webinar)->where('status',Webinar::$active)->get(['id','title','slug','price']);
-
         $data = [
             'pageTitle' => trans('admin/pages/users.edit_page_title'),
             'user' => $user,
@@ -558,8 +551,7 @@ class UserController extends Controller
             'badges' => $badges,
             'categories' => $categories,
             'occupations' => $occupations,
-            'becomeInstructor' => $becomeInstructor,
-            'courses' => $cources,
+            'becomeInstructor' => $becomeInstructor
         ];
 
         return view('admin.users.edit', $data);
@@ -582,8 +574,6 @@ class UserController extends Controller
             'status' => 'required|' . Rule::in(User::$statuses),
             'ban_start_at' => 'required_if:ban,on',
             'ban_end_at' => 'required_if:ban,on',
-            'address' => 'nullable|string|max:128',
-            'school_level' => 'required_if:role_id,1',
         ]);
 
         $data = $request->all();
@@ -913,37 +903,5 @@ class UserController extends Controller
         $becomeInstructors->delete();
 
         return redirect('/admin/users/become_instructors');
-    }
-
-    public function sendInterViewLink($id)
-    {
-        $user = User::find($id);
-
-        if ($user && $user->email!=null) {
-            Mail::to('eslamelbadr011@gmail.com')->send(new SendInterviewlinkMailable($user->id));
-
-            $toastData = [
-                'title' => trans('public.success'),
-                'msg' => "mail send successfully",
-                'status' => 'success'
-            ];
-            return redirect()->back()->with(['toast' => $toastData]);
-        }
-    }
-
-    public function acceptInterView(Request $request)
-    {
-        if (isset($request->student_id))
-        {
-            $student = User::findOrFail($request->student_id);
-
-            if ($student->update(['status'=>User::$active]))
-            {
-
-                return response()->json(['message'=>trans('public.request_success')]);
-            }
-            return response()->json(['message'=>trans('public.request_failed')]);
-
-        }
     }
 }

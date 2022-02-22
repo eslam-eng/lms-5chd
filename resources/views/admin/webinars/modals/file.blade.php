@@ -28,7 +28,7 @@
                     <label class="input-label">{{ trans('public.source') }}</label>
                     <select class="custom-select js-file-storage" name="storage">
                         <option value="local" selected>{{ trans('webinars.upload') }}</option>
-                        {{--                        <option value="online">{{ trans('webinars.youtube_vimeo') }}</option>--}}
+                        <option value="online">{{ trans('webinars.youtube_vimeo') }}</option>
                     </select>
                     <div class="invalid-feedback"></div>
                 </div>
@@ -86,15 +86,15 @@
             <div class="invalid-feedback"></div>
         </div>
 
-{{--        <div class="js-downloadable-file form-group mt-3">--}}
-{{--            <div class="d-flex align-items-center justify-content-between">--}}
-{{--                <label class="cursor-pointer input-label" for="downloadableSwitch_record">{{ trans('home.downloadable') }}</label>--}}
-{{--                <div class="custom-control custom-switch">--}}
-{{--                    <input type="checkbox" name="downloadable"  class="custom-control-input" id="downloadableSwitch_record">--}}
-{{--                    <label class="custom-control-label" for="downloadableSwitch_record"></label>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+        <div class="js-downloadable-file form-group mt-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <label class="cursor-pointer input-label" for="downloadableSwitch_record">{{ trans('home.downloadable') }}</label>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" name="downloadable" checked class="custom-control-input" id="downloadableSwitch_record">
+                    <label class="custom-control-label" for="downloadableSwitch_record"></label>
+                </div>
+            </div>
+        </div>
 
         <div class="mt-30 d-flex align-items-center justify-content-end">
             <button type="button" id="saveFile" class="btn btn-primary">{{ trans('public.save') }}</button>

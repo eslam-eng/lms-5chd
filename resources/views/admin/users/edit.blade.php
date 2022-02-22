@@ -51,10 +51,6 @@
                                     <a class="nav-link" id="badges-tab" data-toggle="tab" href="#badges" role="tab" aria-controls="badges" aria-selected="true">{{ trans('admin/main.badges') }}</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" id="installment-tab" data-toggle="tab" href="#installment" role="tab" aria-controls="installments" aria-selected="true">{{ trans('admin/main.installment') }}</a>
-                                </li>
-
                                 @if(!empty($becomeInstructor))
                                     <li class="nav-item">
                                         <a class="nav-link @if(!empty($becomeInstructor)) active @endif" id="become_instructor-tab" data-toggle="tab" href="#become_instructor" role="tab" aria-controls="become_instructor" aria-selected="true">{{ trans('admin/main.become_instructor_info') }}</a>
@@ -66,126 +62,95 @@
 
                                 <div class="tab-pane mt-3 fade @if(empty($becomeInstructor)) active show @endif" id="general" role="tabpanel" aria-labelledby="general-tab">
                                     <div class="row">
-                                        <div class="col-12 col-md-12">
+                                        <div class="col-12 col-md-6">
                                             <form action="/admin/users/{{ $user->id .'/update' }}" method="Post">
                                                 {{ csrf_field() }}
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label>{{ trans('/admin/main.full_name') }}</label>
-                                                            <input type="text" name="full_name"
-                                                                   class="form-control  @error('full_name') is-invalid @enderror"
-                                                                   value="{{ !empty($user) ? $user->full_name : old('full_name') }}"
-                                                                   placeholder="{{ trans('admin/main.create_field_full_name_placeholder') }}"/>
-                                                            @error('full_name')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
 
-                                                        <div class="form-group">
-                                                            <label>{{ trans('/admin/main.role_name') }}</label>
-                                                            <select class="form-control @error('role_id') is-invalid @enderror" id="roleId" name="role_id">
-                                                                <option disabled {{ empty($user) ? 'selected' : '' }}>{{ trans('admin/main.select_role') }}</option>
-                                                                @foreach ($roles as $role)
-                                                                    <option value="{{ $role->id }}" {{ (!empty($user) and $user->role_id == $role->id) ? 'selected' :''}}>{{ $role->caption }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('role_id')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        @if($user->isUser() || $user->isTeacher())
-                                                            <div class="form-group">
-                                                                <label class="input-label">{{ trans('admin/main.organization') }}</label>
-                                                                <select name="organ_id" data-search-option="just_organization_role" class="form-control search-user-select2"
-                                                                        data-placeholder="{{ trans('admin/main.search') }} {{ trans('admin/main.organization') }}">
-
-                                                                    @if(!empty($user) and !empty($user->organization))
-                                                                        <option value="{{ $user->organization->id }}" selected>{{ $user->organization->full_name }}</option>
-                                                                    @endif
-                                                                </select>
-                                                            </div>
-                                                        @endif
-
-                                                        <div class="form-group">
-                                                            <label for="username">{{ trans('admin/main.email') }}:</label>
-                                                            <input name="email" type="text" id="username" value="{{ $user->email }}" class="form-control @error('email') is-invalid @enderror">
-                                                            @error('email')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="username">{{ trans('admin/main.mobile') }}:</label>
-                                                            <input name="mobile" type="text" value="{{ $user->mobile }}" class="form-control @error('mobile') is-invalid @enderror">
-                                                            @error('mobile')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>{{ trans('admin/main.password') }}</label>
-                                                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"/>
-                                                            @error('password')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label>{{ trans('admin/main.bio') }}</label>
-                                                            <textarea name="bio" rows="3" class="form-control @error('bio') is-invalid @enderror">{{ $user->bio }}</textarea>
-                                                            @error('bio')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-
-                                                        @if($user->role_id==1)
-                                                            <div class="form-group">
-                                                                <label>{{ trans('admin/main.school_level') }}</label>
-                                                                <select class="form-control @error('school_level') is-invalid @enderror" id="school_level" name="school_level">
-                                                                    <option disabled selected>{{ trans('admin/main.study_lang') }}</option>
-                                                                    <option {{$user->school_level==1?'selected':''}} value="1">Secondary</option>
-                                                                    <option {{$user->school_level==2?'selected':''}} value="2">Above secondary</option>
-                                                                    <option {{$user->school_level==3?'selected':''}} value="3">University</option>
-                                                                    <option {{$user->school_level==4?'selected':''}} value="4">Above university</option>
-                                                                </select>
-                                                                @error('school_level')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                        @endif
-
-                                                        <div class="form-group">
-                                                            <label>{{ trans('financial.address') }}</label>
-                                                            <input type="text" name="address"
-                                                                   class="form-control "
-                                                                   value="{{ !empty($user) ? $user->address : old('address') }}"
-                                                                   placeholder="{{ trans('financial.address') }}"/>
-                                                        </div>
-
+                                                <div class="form-group">
+                                                    <label>{{ trans('/admin/main.full_name') }}</label>
+                                                    <input type="text" name="full_name"
+                                                           class="form-control  @error('full_name') is-invalid @enderror"
+                                                           value="{{ !empty($user) ? $user->full_name : old('full_name') }}"
+                                                           placeholder="{{ trans('admin/main.create_field_full_name_placeholder') }}"/>
+                                                    @error('full_name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                     </div>
+                                                    @enderror
                                                 </div>
 
+                                                <div class="form-group">
+                                                    <label>{{ trans('/admin/main.role_name') }}</label>
+                                                    <select class="form-control @error('role_id') is-invalid @enderror" id="roleId" name="role_id">
+                                                        <option disabled {{ empty($user) ? 'selected' : '' }}>{{ trans('admin/main.select_role') }}</option>
+                                                        @foreach ($roles as $role)
+                                                            <option value="{{ $role->id }}" {{ (!empty($user) and $user->role_id == $role->id) ? 'selected' :''}}>{{ $role->caption }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('role_id')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
 
-                                               <div class="form-group">
-                                                   <label>{{ trans('site.about') }}</label>
-                                                   <textarea name="about" rows="6" class="form-control">{{ $user->about }}</textarea>
-                                               </div>
+                                                @if($user->isUser() || $user->isTeacher())
+                                                    <div class="form-group">
+                                                        <label class="input-label">{{ trans('admin/main.organization') }}</label>
+                                                        <select name="organ_id" data-search-option="just_organization_role" class="form-control search-user-select2"
+                                                                data-placeholder="{{ trans('admin/main.search') }} {{ trans('admin/main.organization') }}">
+
+                                                            @if(!empty($user) and !empty($user->organization))
+                                                                <option value="{{ $user->organization->id }}" selected>{{ $user->organization->full_name }}</option>
+                                                            @endif
+                                                        </select>
+                                                    </div>
+                                                @endif
+
+                                                <div class="form-group">
+                                                    <label for="username">{{ trans('admin/main.email') }}:</label>
+                                                    <input name="email" type="text" id="username" value="{{ $user->email }}" class="form-control @error('email') is-invalid @enderror">
+                                                    @error('email')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="username">{{ trans('admin/main.mobile') }}:</label>
+                                                    <input name="mobile" type="text" value="{{ $user->mobile }}" class="form-control @error('mobile') is-invalid @enderror">
+                                                    @error('mobile')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>{{ trans('admin/main.password') }}</label>
+                                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"/>
+                                                    @error('password')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>{{ trans('admin/main.bio') }}</label>
+                                                    <textarea name="bio" rows="3" class="form-control @error('bio') is-invalid @enderror">{{ $user->bio }}</textarea>
+                                                    @error('bio')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>{{ trans('site.about') }}</label>
+                                                    <textarea name="about" rows="6" class="form-control">{{ $user->about }}</textarea>
+                                                </div>
 
                                                 <div class="form-group">
                                                     <label>{{ trans('/admin/main.status') }}</label>
@@ -218,9 +183,9 @@
                                                             <label class="input-label">{{ trans('public.from') }}</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="dateInputGroupPrepend">
-                                                                    <i class="fa fa-calendar-alt"></i>
-                                                                </span>
+                                                                    <span class="input-group-text" id="dateInputGroupPrepend">
+                                                                        <i class="fa fa-calendar-alt"></i>
+                                                                    </span>
                                                                 </div>
                                                                 <input type="text" name="ban_start_at" class="form-control datepicker @error('ban_start_at') is-invalid @enderror" value="{{ !empty($user->ban_start_at) ? dateTimeFormat($user->ban_start_at,'Y/m/d') :'' }}"/>
                                                                 @error('ban_start_at')
@@ -236,9 +201,9 @@
                                                             <label class="input-label">{{ trans('public.to') }}</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend">
-                                                                <span class="input-group-text" id="dateInputGroupPrepend">
-                                                                    <i class="fa fa-calendar-alt"></i>
-                                                                </span>
+                                                                    <span class="input-group-text" id="dateInputGroupPrepend">
+                                                                        <i class="fa fa-calendar-alt"></i>
+                                                                    </span>
                                                                 </div>
                                                                 <input type="text" name="ban_end_at" class="form-control datepicker @error('ban_end_at') is-invalid @enderror" value="{{ !empty($user->ban_end_at) ? dateTimeFormat($user->ban_end_at,'Y/m/d') :'' }}"/>
                                                                 @error('ban_end_at')
@@ -252,13 +217,13 @@
                                                 </div>
 
                                                 <div class="form-group custom-switches-stacked">
-                                                        <label class="custom-switch pl-0">
-                                                            <input type="hidden" name="verified" value="0">
-                                                            <input type="checkbox" name="verified" id="verified" value="1" {{ (!empty($user) and $user->verified) ? 'checked="checked"' : '' }} class="custom-switch-input"/>
-                                                            <span class="custom-switch-indicator"></span>
-                                                            <label class="custom-switch-description mb-0 cursor-pointer" for="verified">{{ trans('admin/main.enable_blue_badge') }}</label>
-                                                        </label>
-                                                    </div>
+                                                    <label class="custom-switch pl-0">
+                                                        <input type="hidden" name="verified" value="0">
+                                                        <input type="checkbox" name="verified" id="verified" value="1" {{ (!empty($user) and $user->verified) ? 'checked="checked"' : '' }} class="custom-switch-input"/>
+                                                        <span class="custom-switch-indicator"></span>
+                                                        <label class="custom-switch-description mb-0 cursor-pointer" for="verified">{{ trans('admin/main.enable_blue_badge') }}</label>
+                                                    </label>
+                                                </div>
 
                                                 <div class=" mt-4">
                                                     <button class="btn btn-primary">{{ trans('admin/main.submit') }}</button>
@@ -362,6 +327,14 @@
                                                             </button>
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>{{ trans('financial.address') }}</label>
+                                                    <input type="text" name="address"
+                                                           class="form-control "
+                                                           value="{{ !empty($user) ? $user->address : old('address') }}"
+                                                           placeholder="{{ trans('financial.address') }}"/>
                                                 </div>
 
                                                 @if(!$user->isUser())
@@ -533,199 +506,6 @@
                                         </div>
                                     </div>
                                 </div>
-{{--------------------------------------------------installment ------------------------------------------------}}
-                                <div class="tab-pane mt-3" id="installment" role="tabpanel" aria-labelledby="installment-tab">
-                                    <div class="row">
-                                        <div class="col-12 col-md-10">
-                                            <form action="/admin/installment/store"
-                                                  method="Post">
-                                                {{ csrf_field() }}
-
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-8">
-                                                            <input type="hidden" value="{{$user->id}}" name="student_id">
-{{--                                                            <label class="input-label d-block">{{ trans('admin/main.select_student') }}</label>--}}
-
-{{--                                                            <select name="student_id" id="student_id" class="form-control select2 @error('student_id')  is-invalid @enderror">--}}
-{{--                                                                <option disabled selected>{{ trans('admin/main.select_student') }}</option>--}}
-{{--                                                                @foreach($students as $student)--}}
-{{--                                                                    <option value="{{ $student->id }}">{{$student->full_name."/".$student->mobile}}</option>--}}
-{{--                                                                @endforeach--}}
-{{--                                                            </select>--}}
-
-{{--                                                            @error('student_id')--}}
-{{--                                                            <div class="invalid-feedback">--}}
-{{--                                                                {{ $message }}--}}
-{{--                                                            </div>--}}
-{{--                                                            @enderror--}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label class="input-label d-block">{{ trans('admin/main.select_webinar') }}</label>
-
-                                                            <select name="webinar_id" id="webinar_id" class="form-control select2 @error('webinar_id')  is-invalid @enderror">
-                                                                <option disabled selected>{{ trans('admin/main.select_webinar') }}</option>
-                                                                @foreach($courses as $course)
-                                                                    <option value="{{ $course->id }}">{{$course->title."/".$course->slug}}</option>
-                                                                @endforeach
-                                                            </select>
-
-                                                            @error('webinar_id')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div id="webinarInstallmentTable"></div>
-                                                    @error('installment_id')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                    @enderror
-                                                </div>
-
-                                                {{--                                payment value--}}
-                                                <div class="form-group mt-15">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label class="input-label">{{ trans('admin/main.payment_value') }}</label>
-                                                            <input type="number" min="1" id="payment_value" name="payment_value" value="{{  old('payment_value') }}" class="form-control @error('payment_value')  is-invalid @enderror"/>
-                                                            @error('payment_value')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="input-label d-block">{{ trans('admin/main.payment_type') }}</label>
-                                                            <select name="payment_type" class="custom-select @error('payment_type')  is-invalid @enderror">
-                                                                <option value="1" selected>{{ trans('admin/main.payment_type1') }}</option>
-                                                                <option value="2">{{ trans('admin/main.payment_type2') }}</option>
-                                                            </select>
-
-                                                            @error('payment_type')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="form-group mt-15">
-                                                    <div class="row">
-                                                        {{--                                        <div class="col-md-6 bg-info">--}}
-                                                        {{--                                            <label class="input-label">{{ trans('admin/main.webinar_price') }}</label>--}}
-                                                        {{--                                            <input readonly class="form-control" id="show_course_price">--}}
-                                                        {{--                                        </div>--}}
-                                                        <div class="col-md-6">
-                                                            <label class="input-label">{{ trans('admin/main.discount_value') }}</label>
-                                                            <input type="number" min="1" id="discount_value" name="discount_value" value="{{  old('discount_value') }}" class="form-control @error('discount_value')  is-invalid @enderror"/>
-                                                            @error('discount_value')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-md-6 bg-warning">
-                                                            <label class="input-label">{{ trans('admin/main.webinar_remain') }}</label>
-                                                            <p class="form-control" id="priceremain">0</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group mt-15">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label class="input-label">{{ trans('admin/main.installment_notes') }}</label>
-                                                            <input type="test" min="1" id="notes" name="note" value="{{  old('note') }}" class="form-control @error('note')  is-invalid @enderror"/>
-                                                            @error('note')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-                                                {{--is installments --}}
-                                                {{--                                <div class="form-group">--}}
-                                                {{--                                    <div class="custom-control custom-checkbox">--}}
-                                                {{--                                        <input id="isInstallment" type="checkbox" name="is_installment"--}}
-                                                {{--                                               class="custom-control-input" checked>--}}
-                                                {{--                                        <label class="custom-control-label"--}}
-                                                {{--                                               for="hasSubCategory">{{ trans('admin/main.installment') }}</label>--}}
-                                                {{--                                    </div>--}}
-                                                {{--                                </div>--}}
-                                                {{--                                <section>--}}
-                                                {{--                                    <h2 class="section-title after-line">{{ trans('admin/main.installment_info') }}</h2>--}}
-                                                {{--                                    <br>--}}
-                                                {{--                                    <div class="row">--}}
-                                                {{--                                        <div class="col-md-6">--}}
-                                                {{--                                            <div class="form-group mt-15 ">--}}
-                                                {{--                                                <label class="input-label d-block">{{ trans('admin/main.installment_type') }}</label>--}}
-
-                                                {{--                                                <select name="installment_interval_type" class="custom-select @error('installment_interval_type')  is-invalid @enderror">--}}
-                                                {{--                                                    <option value="day">{{ trans('admin/main.day') }}</option>--}}
-                                                {{--                                                    <option value="month" selected>{{ trans('admin/main.month') }}</option>--}}
-                                                {{--                                                    <option value="year">{{ trans('admin/main.year') }}</option>--}}
-                                                {{--                                                </select>--}}
-
-                                                {{--                                                @error('installment_interval_type')--}}
-                                                {{--                                                <div class="invalid-feedback">--}}
-                                                {{--                                                    {{ $message }}--}}
-                                                {{--                                                </div>--}}
-                                                {{--                                                @enderror--}}
-                                                {{--                                            </div>--}}
-                                                {{--                                        </div>--}}
-                                                {{--                                    </div>--}}
-                                                {{--                                    <div class="row">--}}
-                                                {{--                                        <div class="col-md-6">--}}
-                                                {{--                                            <div class="form-group mt-15">--}}
-                                                {{--                                                <label class="input-label">{{ trans('admin/main.installment_interval_num') }}</label>--}}
-                                                {{--                                                <input type="number" min="1" name="installment_interval_num" value="{{  old('installment_interval_num') }}" class="form-control @error('installment_interval_num')  is-invalid @enderror"/>--}}
-                                                {{--                                                @error('installment_interval_num')--}}
-                                                {{--                                                <div class="invalid-feedback">--}}
-                                                {{--                                                    {{ $message }}--}}
-                                                {{--                                                </div>--}}
-                                                {{--                                                @enderror--}}
-                                                {{--                                            </div>--}}
-                                                {{--                                        </div>--}}
-                                                {{--                                    </div>--}}
-
-                                                {{--                                    <div class="row">--}}
-                                                {{--                                        <div class="col-md-6">--}}
-                                                {{--                                            <div class="form-group mt-15">--}}
-                                                {{--                                                <label class="input-label">{{ trans('admin/main.installment_num') }}</label>--}}
-                                                {{--                                                <input type="number" min="1" name="installment_num" value="{{  old('installment_num') }}" class="form-control @error('installment_num')  is-invalid @enderror"/>--}}
-                                                {{--                                                @error('installment_num')--}}
-                                                {{--                                                <div class="invalid-feedback">--}}
-                                                {{--                                                    {{ $message }}--}}
-                                                {{--                                                </div>--}}
-                                                {{--                                                @enderror--}}
-                                                {{--                                            </div>--}}
-                                                {{--                                        </div>--}}
-                                                {{--                                    </div>--}}
-
-                                                {{--                                </section>--}}
-
-                                                <div class="text-right mt-4">
-                                                    <button class="btn btn-primary">{{ trans('admin/main.submit') }}</button>
-                                                </div>
-                                            </form>                                        </div>
-                                    </div>
-                                </div>
 
                                 @if(!empty($becomeInstructor))
                                     <div class="tab-pane mt-3 fade active show" id="become_instructor" role="tabpanel" aria-labelledby="become_instructor-tab">
@@ -779,102 +559,6 @@
                 } else {
                     $('#banSection').addClass('d-none');
                 }
-            });
-
-
-            var coursePrice = 0 ;
-            var remainPrice =0;
-
-            $("#webinar_id").change(function (){
-                var course_id = $("#webinar_id").val();
-                $('#webinarInstallmentTable').empty();
-                var Table = '<table id="installmentPlans" class="table table-bordered table-striped">' +
-                    '<thead>' +
-                    '<tr>' +
-                    '<th></th>' +
-                    '<th>title</th>' +
-                    '<th>price</th>' +
-                    '<th>duration</th>' +
-                    '<th>istallment num</th></tr></thead><tbody>';
-                setTimeout(function () {
-                    $.ajax({
-                        url: "{{url('admin/installment/course/plans')}}",
-                        data:{
-                            'course_id':course_id
-                        },
-                        type: 'post',
-                        success: function (data) {
-                            if (data.status){
-                                $.each(data.courses,function (key,value) {
-                                    Table+='<tr><td><input type="radio" class="installmentPlanId" data-price="'+value.price+'" name="installment_plan_id" value="'+value.id+'"></td><td>'+value.title+'</td><td class="bg-info font-weight-bold text-white">'+value.price+'</td><td>'+value.installment_interval_number+'/'+value.installment_type+'</td><td>'+value.installment_num+'</td></tr>'
-                                });
-                                $("#webinarInstallmentTable").html(Table+'</tbody></table>')
-                            }else
-                                $.toast({
-                                    heading: 'error',
-                                    text: data.message,
-                                    bgColor: 'f63c3c',
-                                    textColor: 'white',
-                                    hideAfter: 10000,
-                                    position: 'bottom-right',
-                                    icon: 'error'
-                                });
-                        },
-                        error: function (data) {
-                            alert('there is an error');
-                        }
-                    });
-                }, 300);
-            });
-
-            $(document).on('change', '.installmentPlanId',function() {
-                if ($(this).is(":checked")) {
-                    coursePrice = $(this).data('price');
-                }
-            });
-            $("#payment_value").keyup(function () {
-                if ($('input[name=installment_plan_id]:checked').length > 0)
-                {
-                    let payment_value = $("#payment_value").val();
-                    if(payment_value>coursePrice)
-                    {
-                        $("#payment_value").val(coursePrice)
-                        var remainPrice = 0;
-                    }else
-                    {
-                        remainPrice = coursePrice - payment_value;
-                    }
-                    $("#priceremain").html(remainPrice);
-                }else {
-                    $.toast({
-                        heading: 'error',
-                        text: 'please select Installment Plan',
-                        bgColor: 'f63c3c',
-                        textColor: 'white',
-                        hideAfter: 10000,
-                        position: 'bottom-right',
-                        icon: 'error'
-                    });
-                }
-            });
-            $("#discount_value").keyup(function () {
-                if ($('input[name=installment_plan_id]:checked').length > 0){
-                    var discount_value = parseInt($("#discount_value").val());
-                    var payment_value = parseInt($("#payment_value").val());
-                    $("#priceremain").html(coursePrice-(discount_value+payment_value));
-                }else
-                {
-                    $.toast({
-                        heading: 'error',
-                        text: 'please select Installment Plan',
-                        bgColor: 'f63c3c',
-                        textColor: 'white',
-                        hideAfter: 10000,
-                        position: 'bottom-right',
-                        icon: 'error'
-                    });
-                }
-
             });
 
         })

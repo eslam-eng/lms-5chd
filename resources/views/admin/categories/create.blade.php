@@ -29,23 +29,12 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <label>{{ trans('admin/main.title_en') }}</label>
+                                    <label>{{ trans('/admin/main.title') }}</label>
                                     <input type="text" name="title"
                                            class="form-control  @error('title') is-invalid @enderror"
-                                           value="{{ !empty($category) ? $category->title : old('title') }}"/>
+                                           value="{{ !empty($category) ? $category->title : old('title') }}"
+                                           placeholder="{{ trans('admin/main.choose_title') }}"/>
                                     @error('title')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label>{{ trans('admin/main.title_ar') }}</label>
-                                    <input type="text" name="title_ar"
-                                           class="form-control  @error('title') is-invalid @enderror"
-                                           value="{{ !empty($category) ? $category->title_ar : old('title_ar') }}"/>
-                                    @error('title_ar')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -78,8 +67,7 @@
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <strong class="d-block">{{ trans('admin/main.add_sub_categories') }}</strong>
 
-                                        <button type="button" class="btn btn-success add-btn"><i class="fa fa-plus"></i>
-                                            {{trans('admin/main.add')}}</button>
+                                        <button type="button" class="btn btn-success add-btn"><i class="fa fa-plus"></i> Add</button>
                                     </div>
 
                                     <ul class="draggable-lists list-group">

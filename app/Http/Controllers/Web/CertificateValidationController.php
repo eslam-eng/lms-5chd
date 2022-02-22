@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Certificate;
-use App\Models\StudentCertificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -44,21 +43,13 @@ class CertificateValidationController extends Controller
 
         $certificateId = $data['certificate_id'];
 
-        $certificate = StudentCertificate::with(['student'=>function($query){
-            $query->select("id",'full_name','mobile');
-        }])->with(['course'=>function($query){
-            $query->select('id','title','slug','duration');
-        }])->where('certificate_id', $certificateId)->first();
+        $certificate = Certificate::where('id', $certificateId)->first();
 
         if (!empty($certificate)) {
             $result = [
                 'student' => $certificate->student->full_name,
-                'student_mobile' => $certificate->student->mobile,
-                'webinar_title' => $certificate->course->title,
-                'course_duration' => $certificate->course->duration,
-                'date' =>$certificate->created_at->format('j F Y'),
-                'certificate_attachment' =>$certificate->attachment,
-
+                'webinar_title' => $certificate->quiz->webinar->title,
+                'date' => dateTimeFormat($certificate->created_at, 'j F Y'),
             ];
 
             return response()->json([

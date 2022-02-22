@@ -7,23 +7,13 @@
                 <input type="hidden" name="page" value="personalization">
 
                 <div class="form-group">
-                    <label>{{ trans('admin/main.title_en') }}</label>
-                    <input type="text" required name="value[title]" value="{{ (!empty($itemValue) and !empty($itemValue['title'])) ? $itemValue['title'] : old('title') }}" class="form-control "/>
+                    <label>{{ trans('admin/main.title') }}</label>
+                    <input type="text" name="value[title]" value="{{ (!empty($itemValue) and !empty($itemValue['title'])) ? $itemValue['title'] : old('title') }}" class="form-control "/>
                 </div>
 
                 <div class="form-group">
-                    <label>{{ trans('admin/main.title_ar') }}</label>
-                    <input type="text" required name="value[title_ar]" value="{{ (!empty($itemValue) and !empty($itemValue['title_ar'])) ? $itemValue['title_ar'] : old('title_ar') }}" class="form-control "/>
-                </div>
-
-                <div class="form-group">
-                    <label>{{ trans('public.description_en') }}</label>
-                    <textarea type="text" required name="value[description]" rows="5" class="form-control ">{{ (!empty($itemValue) and !empty($itemValue['description'])) ? $itemValue['description'] : old('description') }}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>{{ trans('public.description_ar') }}</label>
-                    <textarea type="text" required name="value[description_ar]" rows="5" class="form-control ">{{ (!empty($itemValue) and !empty($itemValue['description_ar'])) ? $itemValue['description_ar'] : old('description_ar') }}</textarea>
+                    <label>{{ trans('public.description') }}</label>
+                    <textarea type="text" name="value[description]" rows="5" class="form-control ">{{ (!empty($itemValue) and !empty($itemValue['description'])) ? $itemValue['description'] : old('description') }}</textarea>
                 </div>
 
                 <div class="form-group">

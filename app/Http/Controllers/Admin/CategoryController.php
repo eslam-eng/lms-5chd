@@ -42,13 +42,11 @@ class CategoryController extends Controller
 
         $this->validate($request, [
             'title' => 'required|min:3|max:128',
-            'title_ar' => 'required|min:3|max:128',
             'icon' => 'required',
         ]);
 
         $category = Category::create([
             'title' => $request->input('title'),
-            'title_ar' => $request->input('title_ar'),
             'icon' => $request->input('icon'),
         ]);
 
@@ -84,14 +82,12 @@ class CategoryController extends Controller
 
         $this->validate($request, [
             'title' => 'required|min:3|max:128',
-            'title_ar' => 'required|min:3|max:128',
             'icon' => 'required',
         ]);
 
         $category = Category::findOrFail($id);
         $category->update([
             'title' => $request->input('title'),
-            'title_ar' => $request->input('title_ar'),
             'icon' => $request->input('icon'),
         ]);
 

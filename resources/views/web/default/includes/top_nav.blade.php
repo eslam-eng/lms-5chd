@@ -6,16 +6,12 @@
     }
 
     $localLanguage = [];
-    $arr = [];
+
     foreach($userLanguages as $key => $userLanguage) {
         $localLanguage[localeToCountryCode($key)] = $userLanguage;
     }
 
-
 @endphp
-@push('styles_top')
-    <link href="/assets/default/vendors/flagstrap/css/flags.css" rel="stylesheet">
-@endpush
 
 <div class="top-navbar d-flex border-bottom">
     <div class="container d-flex justify-content-between flex-column flex-lg-row">
@@ -40,31 +36,17 @@
             </div>
 
             <div class="d-flex align-items-center justify-content-between justify-content-md-center">
-                <form action="{{url('/locale')}}" id="form-language" method="post" class="mx-md-20">
+                <form action="/locale" method="post" class="mr-15 mx-md-20">
                     {{ csrf_field() }}
 
-                    <input type="hidden" id="selectedLang" name="locale">
+                    <input type="hidden" name="locale">
 
-                    <div class="dropdown show">
-                        <a class="btn btn-transparent btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ getLanguages(mb_strtoupper(app()->getLocale())) }}
-                            <i class="fa fa-arrow-circle-down"></i>
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            @foreach($localLanguage as $key=>$lang)
-                                <a class="dropdown-item lang" data-lang="{{$key}}">{{$lang}}</a>
-                            @endforeach
-
-                        </div>
+                    <div class="language-select">
+                        <div id="localItems"
+                             data-selected-country="{{ localeToCountryCode(mb_strtoupper(app()->getLocale())) }}"
+                             data-countries='{{ json_encode($localLanguage) }}'
+                        ></div>
                     </div>
-
-                    {{--                    <div class="language-select">--}}
-                    {{--                        <div id="localItems"--}}
-                    {{--                             data-selected-country="{{ localeToCountryCode(mb_strtoupper(app()->getLocale())) }}"--}}
-                    {{--                             data-countries='{{ json_encode($localLanguage) }}'>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
                 </form>
 
 
@@ -121,7 +103,7 @@
             @else
                 <div class="d-flex align-items-center ml-md-50">
                     <a href="/login" class="py-5 px-10 mr-10 text-dark-blue font-14">{{ trans('auth.login') }}</a>
-                <!--<a href="/register" class="py-5 px-10 text-dark-blue font-14">{{ trans('auth.register') }}</a>-->
+                    <a href="/register" class="py-5 px-10 text-dark-blue font-14">{{ trans('auth.register') }}</a>
                 </div>
             @endif
         </div>
@@ -130,37 +112,29 @@
 
 
 @push('scripts_bottom')
-    {{--    <script src="/assets/default/vendors/flagstrap/js/jquery.flagstrap.min.js"></script>--}}
+    <link href="/assets/default/vendors/flagstrap/css/flags.css" rel="stylesheet">
+    <script src="/assets/default/vendors/flagstrap/js/jquery.flagstrap.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            $(document).on('click','.lang',function (ele) {
-                ele.preventDefault();
-                var lang = $(this).data('lang');
-                if (lang && lang !== '') {
-                    $("#selectedLang").val(lang);
-                    $("#form-language").submit();
-                }
+            $('#localItems').flagStrap({
+                inputName: "country",
+                buttonSize: "btn-sm",
+                buttonType: "btn-default",
+                scrollable: true,
+                labelMargin: "5px",
+                scrollableHeight: "350px",
+            });
 
+            $('.language-select').find("select").change(function () {
+                var $form = $(this).closest('form');
+                var val = $(this).val();
+
+                if (val && val !== '') {
+                    $form.find('input[name="locale"]').val(val);
+                    $form.submit();
+                }
             })
-            // $('#localItems').flagStrap({
-            //     inputName: "country",
-            //     buttonSize: "btn-sm",
-            //     buttonType: "btn-default",
-            //     scrollable: true,
-            //     labelMargin: "5px",
-            //     scrollableHeight: "350px",
-            // });
-            //
-            // $('.language-select').find("select").change(function () {
-            //     var $form = $(this).closest('form');
-            //     var val = $(this).val();
-            //
-            //     if (val && val !== '') {
-            //         $form.find('input[name="locale"]').val(val);
-            //         $form.submit();
-            //     }
-            // })
         })
     </script>
 @endpush

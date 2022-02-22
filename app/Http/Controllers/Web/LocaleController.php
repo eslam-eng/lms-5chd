@@ -26,7 +26,6 @@ class LocaleController extends Controller
                 $user->update([
                     'language' => $locale
                 ]);
-                app()->setLocale(strtolower($locale));
             } else {
                 Cookie::queue('user_locale', $locale, 30 * 24 * 60);
             }

@@ -26,19 +26,9 @@
                                         <input type="hidden" name="navbar_link" value="{{ !empty($navbarLinkKey) ? $navbarLinkKey : 'newLink' }}">
 
                                         <div class="form-group">
-                                            <label>{{ trans('admin/main.title_en') }}</label>
+                                            <label>{{ trans('admin/main.title') }}</label>
                                             <input type="text" name="value[title]" value="{{ (!empty($navbar_link)) ? $navbar_link->title : old('value.title') }}" class="form-control  @error('value.title') is-invalid @enderror"/>
                                             @error('value.title')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>{{ trans('admin/main.title_ar') }}</label>
-                                            <input type="text" name="value[title_ar]" value="{{ (!empty($navbar_link)&&isset($navbar_link->title_ar)) ?$navbar_link->title_ar: old('value.title_ar') }}" class="form-control  @error('value.title_ar') is-invalid @enderror"/>
-                                            @error('value.title_ar')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -73,8 +63,7 @@
                             <div class="table-responsive mt-4">
                                 <table class="table table-striped font-14">
                                     <tr>
-                                        <th>{{ trans('admin/main.title_en') }}</th>
-                                        <th>{{ trans('admin/main.title_ar') }}</th>
+                                        <th>{{ trans('admin/main.title') }}</th>
                                         <th>{{ trans('admin/main.link') }}</th>
                                         <th>{{ trans('admin/main.order') }}</th>
                                         <th>{{ trans('admin/main.actions') }}</th>
@@ -84,7 +73,6 @@
                                         @foreach($value as $key => $val)
                                             <tr>
                                                 <td>{{ $val['title'] }}</td>
-                                                <td>{{ $val['title_ar']??'' }}</td>
                                                 <td>{{ $val['link'] }}</td>
                                                 <td>{{ $val['order'] }}</td>
                                                 <td>

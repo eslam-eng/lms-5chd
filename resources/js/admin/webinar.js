@@ -1,5 +1,6 @@
 (function ($) {
     "use strict";
+
     // form serialize to Object
     $.fn.serializeObject = function () {
         var o = {};
@@ -477,49 +478,6 @@
                         Object.keys(ticket).forEach(key => {
                             $('#addTicketModal').find('[name="' + key + '"]').val(ticket[key]);
                         })
-                    }
-                });
-            }
-        });
-    });
-
-    /*
-        edit price pale
-     */
-
-    $('body').on('click', '.edit-installment_plan', function (e) {
-        e.preventDefault();
-        const $this = $(this);
-        const installment_id = $this.attr('data-installment-id');
-        const webinar_id = $this.attr('data-webinar-id');
-
-        loadingSwl();
-
-        const edit_data = {
-            item_id: webinar_id
-        };
-
-        $.post('/admin/installment-plan/' + installment_id + '/edit', edit_data, function (result) {
-            if (result && result.ticket) {
-                const installment = result.ticket;
-
-                let edit_installment_modal = '<div id="addInstallmentModal">';
-                edit_installment_modal += $('#installmentTicketModal').html();
-                edit_installment_modal += '</div>';
-                edit_installment_modal = edit_installment_modal.replaceAll('/admin/installment-plan/store', '/admin/installment-plan/' + installment_id + '/update');
-
-                Swal.fire({
-                    html: edit_installment_modal,
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    customClass: {
-                        content: 'p-0 text-left',
-                    },
-                    width: '48rem',
-                    onOpen: () => {
-                        Object.keys(installment).forEach(key => {
-                            $('#addInstallmentModal').find('[name="' + key + '"]').val(installment[key]);
-                        });
                     }
                 });
             }

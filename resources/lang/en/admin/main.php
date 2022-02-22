@@ -1232,8 +1232,4 @@ return [
     "additional_pages_title"=>"Additional Pages",
     "discount_codes_title"=>"Discount Codes",
 
-    'secondary'=>"Secondary",
-    'above_secondary'=>'Above Secondary',
-    'university'=>"University",
-    'above_university'=>"Above University"
 ];

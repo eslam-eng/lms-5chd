@@ -1,17 +1,3 @@
-@php
-    $userLanguages = !empty($generalSettings['site_language']) ? [$generalSettings['site_language'] => getLanguages($generalSettings['site_language'])] : [];
-
-    if (!empty($generalSettings['user_languages']) and is_array($generalSettings['user_languages'])) {
-        $userLanguages = getLanguages($generalSettings['user_languages']);
-    }
-
-    $localLanguage = [];
-    $arr = [];
-    foreach($userLanguages as $key => $userLanguage) {
-        $localLanguage[localeToCountryCode($key)] = $userLanguage;
-    }
-@endphp
-
 <button type="button" class="sidebar-close">
     <i class="fa fa-times"></i>
 </button>
@@ -63,23 +49,6 @@
             </li>
         @endcan
 
-            <li class="dropdown">
-                <form action="{{url('/locale')}}" id="form-language" method="post" class="mx-md-20">
-                    {{ csrf_field() }}
-
-                    <input type="hidden" id="selectedLang" name="locale">
-                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        <div class="d-sm-none d-lg-inline-block"><i class="pr-2 pl-2 fa fa-language"></i>{{ getLanguages(mb_strtoupper(app()->getLocale())) }}</div>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        @foreach($localLanguage as $key=>$lang)
-                            <a class="dropdown-item lang" style="cursor: pointer;" data-lang="{{$key}}">{{$lang}}</a>
-                        @endforeach
-
-                    </div>
-                </form>
-            </li>
-
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="/assets/admin/img/avatar/avatar-1.png" class="rounded-circle mr-1">
                 <div class="d-sm-none d-lg-inline-block">{{ $authUser->full_name }}</div>
@@ -102,18 +71,3 @@
         </li>
     </ul>
 </nav>
-@push('scripts_bottom')
-    <script>
-        $(document).ready(function () {
-            $(document).on('click','.lang',function (ele) {
-                ele.preventDefault();
-                var lang = $(this).data('lang');
-                if (lang && lang !== '') {
-                    $("#selectedLang").val(lang);
-                    $("#form-language").submit();
-                }
-
-            })
-        })
-    </script>
-@endpush

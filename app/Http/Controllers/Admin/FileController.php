@@ -29,7 +29,7 @@ class FileController extends Controller
             'webinar_id' => 'required',
             'title' => 'required|max:64',
             'accessibility' => 'required|' . Rule::in(File::$accessibility),
-            'file_path' => 'nullable',
+            'file_path' => 'required',
             'file_type' => 'required_if:storage,online',
             'volume' => 'required_if:storage,online',
             'description' => 'nullable',
@@ -50,7 +50,7 @@ class FileController extends Controller
 
                 $volumeMatches = [''];
                 $fileInfos = null;
-                if ($data['storage'] == 'local' and !empty($data['file_path'])) {
+                if ($data['storage'] == 'local') {
                     $fileInfos = $this->fileInfo($data['file_path']);
                 } else {
                     preg_match('!\d+!', $data['volume'], $volumeMatches);
@@ -61,8 +61,8 @@ class FileController extends Controller
                     'webinar_id' => $data['webinar_id'],
                     'title' => $data['title'],
                     'file' => $data['file_path'],
-                    'volume' => formatSizeUnits(!empty($fileInfos) ? $fileInfos['size'] :null),
-                    'file_type' => !empty($fileInfos) ? $fileInfos['extension'] : null,
+                    'volume' => formatSizeUnits(!empty($fileInfos) ? $fileInfos['size'] : ($volumeMatches[0] * 1048576)),
+                    'file_type' => !empty($fileInfos) ? $fileInfos['extension'] : $data['file_type'],
                     'accessibility' => $data['accessibility'],
                     'storage' => $data['storage'],
                     'downloadable' => !empty($data['downloadable']) ? true : false,
@@ -115,7 +115,7 @@ class FileController extends Controller
             'webinar_id' => 'required',
             'title' => 'required|max:64',
             'accessibility' => 'required|' . Rule::in(File::$accessibility),
-            'file_path' => 'nullable',
+            'file_path' => 'required',
             'file_type' => 'required_if:storage,online',
             'volume' => 'required_if:storage,online',
             'description' => 'nullable',
@@ -130,7 +130,7 @@ class FileController extends Controller
 
         $volumeMatches = ['0'];
         $fileInfos = null;
-        if ($data['storage'] == 'local' and !empty($data['file_path'])) {
+        if ($data['storage'] == 'local') {
             $fileInfos = $this->fileInfo($data['file_path']);
         } else {
             preg_match('!\d+!', $data['volume'], $volumeMatches);
@@ -142,7 +142,7 @@ class FileController extends Controller
             $file->update([
                 'title' => $data['title'],
                 'file' => $data['file_path'],
-                'volume' => formatSizeUnits(!empty($fileInfos) ? $fileInfos['size'] : null),
+                'volume' => formatSizeUnits(!empty($fileInfos) ? $fileInfos['size'] : ($volumeMatches[0] * 1048576)),
                 'file_type' => !empty($fileInfos) ? $fileInfos['extension'] : $data['file_type'],
                 'accessibility' => $data['accessibility'],
                 'storage' => $data['storage'],
