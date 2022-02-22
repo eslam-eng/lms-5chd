@@ -4,6 +4,15 @@
     }
     $local = app()->getLocale();
 @endphp
+<style>
+    #web-nav-category
+    {
+        height: 450px !important;
+        overflow: auto !important;
+        min-width: 296px !important;
+
+    }
+</style>
 
 <div id="navbarVacuum"></div>
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
@@ -36,7 +45,7 @@
                                         <i data-feather="grid" width="20" height="20" class="mr-10 d-none d-lg-block"></i>
                                         {{ trans('categories.categories') }}
 
-                                        <ul class="cat-dropdown-menu web-nav-category">
+                                        <ul class="cat-dropdown-menu" id="web-nav-category">
                                             @foreach($categories as $category)
                                                 <li>
                                                     <a href="{{ (!empty($category->subCategories) and count($category->subCategories)) ? '#!' : $category->getUrl() }}">
