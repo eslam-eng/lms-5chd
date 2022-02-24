@@ -460,6 +460,7 @@ class UserController extends Controller
             'role_id' => 'required|exists:roles,id',
             'password' => 'required|string|min:6',
             'status' => 'required',
+            'instructor_type' => 'required_if:role_id,4',
         ]);
 
         if (!empty($data['role_id'])) {
@@ -473,6 +474,7 @@ class UserController extends Controller
                     $username => $data[$username],
                     'password' => User::generatePassword($data['password']),
                     'status' => $data['status'],
+                    'instructor_type' => $data['instructor_type']??null,
                     'verified' => true,
                     'created_at' => time(),
                 ]);
@@ -571,6 +573,7 @@ class UserController extends Controller
             'status' => 'required|' . Rule::in(User::$statuses),
             'ban_start_at' => 'required_if:ban,on',
             'ban_end_at' => 'required_if:ban,on',
+            'instructor_type' => 'required_if:role_id,4',
         ]);
 
         $data = $request->all();
@@ -608,6 +611,8 @@ class UserController extends Controller
         $user->bio = !empty($data['bio']) ? $data['bio'] : null;
         $user->about = !empty($data['about']) ? $data['about'] : null;
         $user->status = !empty($data['status']) ? $data['status'] : null;
+        $user->instructor_type = !empty($data['instructor_type']) ? $data['instructor_type'] : null;
+
 
 
         if (!empty($data['password'])) {

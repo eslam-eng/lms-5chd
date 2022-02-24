@@ -137,6 +137,23 @@
                                                     @enderror
                                                 </div>
 
+                                                <div class="form-group" id="instructor_type">
+                                                    <label>{{ trans('admin/main.type') }}</label>
+                                                    <select class="form-control @error('instructor_type') is-invalid @enderror" name="instructor_type">
+                                                        <option disabled selected>{{ trans('admin/main.select_role') }}</option>
+                                                        <option value="1" {{ !empty($user) && $user->instructor_type==1 ? 'selected':'' }}>{{trans('admin/main.group_of_administrations')}}</option>
+                                                        <option value="2" {{ !empty($user) && $user->instructor_type==2 ? 'selected':'' }}>{{trans('admin/main.group_of_trusts')}}</option>
+                                                        <option value="3" {{ !empty($user) && $user->instructor_type==3 ? 'selected':'' }}>{{trans('admin/main.group_of_experts')}}</option>
+                                                        <option value="4" {{ !empty($user) && $user->instructor_type==4 ? 'selected':'' }}>{{trans('admin/main.group_of_members')}}</option>
+                                                    </select>
+                                                    @error('instructor_type')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+
+
                                                 <div class="form-group">
                                                     <label>{{ trans('admin/main.bio') }}</label>
                                                     <textarea name="bio" rows="3" class="form-control @error('bio') is-invalid @enderror">{{ $user->bio }}</textarea>
