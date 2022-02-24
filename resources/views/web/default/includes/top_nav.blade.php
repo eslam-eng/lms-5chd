@@ -35,7 +35,7 @@
                 @endif
             </div>
 
-            <div class="d-flex align-items-center justify-content-between justify-content-md-center" style="padding-left: 19px;">
+            <div class="d-flex align-items-center justify-content-between justify-content-md-center" style="padding-right: 20px;">
 {{--                <form action="/locale" method="post" class="mr-15 mx-md-20">--}}
 {{--                    {{ csrf_field() }}--}}
 
