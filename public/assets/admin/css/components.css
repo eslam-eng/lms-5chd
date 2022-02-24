@@ -1255,7 +1255,7 @@ tr:first-child > td > .fc-day-grid-event {
 }
 
 .toast.toast-success {
-    background-color: #47c363;
+    background-color: #0e76bc;
 }
 
 .toast.toast-info {
@@ -1982,7 +1982,7 @@ tr:first-child > td > .fc-day-grid-event {
     line-height: 20px;
     border-radius: 50%;
     text-align: center;
-    background-color: #47c363;
+    background-color: #0e76bc;
     color: #fff;
     margin-right: 10px;
 }
@@ -2142,7 +2142,7 @@ tr:first-child > td > .fc-day-grid-event {
 }
 
 .avatar .avatar-presence.online {
-    background: #47c363;
+    background: #0e76bc;
 }
 
 .avatar .avatar-presence.busy {
@@ -2214,12 +2214,12 @@ tr:first-child > td > .fc-day-grid-event {
 }
 
 .wizard-steps .wizard-step.wizard-step-success {
-    background-color: #47c363;
+    background-color: #0e76bc;
     color: #fff;
 }
 
 .wizard-steps .wizard-step.wizard-step-success:before {
-    background-color: #47c363;
+    background-color: #0e76bc;
     color: #fff;
 }
 

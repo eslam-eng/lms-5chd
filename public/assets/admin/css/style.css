@@ -89,7 +89,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 }
 
 .bg-success {
-    background-color: #47c363 !important;
+    background-color: #0e76bc !important;
 }
 
 .bg-info {
@@ -121,7 +121,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 }
 
 .text-success, .text-success-all *, .text-success-all *:before, .text-success-all *:after {
-    color: #47c363 !important;
+    color: #0e76bc !important;
 }
 
 .text-info, .text-info-all *, .text-info-all *:before, .text-info-all *:after {
@@ -671,7 +671,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .list-group-item-success {
-    background-color: #47c363;
+    background-color: #0e76bc;
     color: #fff;
 }
 
@@ -753,7 +753,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .alert.alert-success {
-    background-color: #47c363;
+    background-color: #0e76bc;
 }
 
 .alert.alert-info {
@@ -974,7 +974,7 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .card.card-success {
-    border-top: 2px solid #47c363;
+    border-top: 2px solid #0e76bc;
 }
 
 .card.card-danger {
@@ -1517,7 +1517,7 @@ table tr:hover .table-links {
 }
 
 .badge.badge-success {
-    background-color: #47c363;
+    background-color: #0e76bc;
 }
 
 .badge.badge-info {
@@ -1723,9 +1723,9 @@ h6 .badge {
 }
 
 .btn-success, .btn-success.disabled {
-    box-shadow: 0 2px 6px #81d694;
-    background-color: #47c363;
-    border-color: #47c363;
+    box-shadow: 0 2px 6px #0e87bc;
+    background-color: #0e76bc;
+    border-color: #0e76bc;
     color: #fff;
 }
 
@@ -1735,7 +1735,7 @@ h6 .badge {
 }
 
 .btn-outline-success:hover, .btn-outline-success:focus, .btn-outline-success:active, .btn-outline-success.disabled:hover, .btn-outline-success.disabled:focus, .btn-outline-success.disabled:active {
-    background-color: #47c363 !important;
+    background-color: #0e76bc !important;
     color: #fff !important;
 }
 
@@ -2724,7 +2724,7 @@ ul.nav-tabs li.nav-item a.nav-link.active i {
     /* Colors */
     --primary: #0e76bc;
     --secondary: #34395e;
-    --success: #47c363;
+    --success: #0e76bc;
     --info: #3abaf4;
     --warning: #ffa426;
     --danger: #fc544b;
@@ -2974,7 +2974,7 @@ pre {
 }
 
 .shadow-success {
-    box-shadow: 0 2px 6px #81d694;
+    box-shadow: 0 2px 6px #0e87bc;
 }
 
 .shadow-warning {
@@ -3000,7 +3000,7 @@ pre {
 .is-online {
     width: 10px;
     height: 10px;
-    background-color: #47c363;
+    background-color: #0e76bc;
     border-radius: 50%;
     display: inline-block;
 }
