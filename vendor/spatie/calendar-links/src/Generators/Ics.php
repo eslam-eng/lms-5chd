@@ -37,7 +37,7 @@ class Ics implements Generator
 
         if ($link->allDay) {
             $url[] = 'DTSTART:'.$link->from->format($dateTimeFormat);
-            $url[] = 'DURATION:P'.(max(1, $link->from->diff($link->to)->days)).'D';
+            $url[] = 'DURATION:P1D';
         } else {
             $url[] = 'DTSTART;TZID='.$link->from->format($dateTimeFormat);
             $url[] = 'DTEND;TZID='.$link->to->format($dateTimeFormat);
@@ -48,10 +48,6 @@ class Ics implements Generator
         }
         if ($link->address) {
             $url[] = 'LOCATION:'.$this->escapeString($link->address);
-        }
-
-        if (isset($this->options['URL'])) {
-            $url[] = 'URL;VALUE=URI:'.$this->options['URL'];
         }
 
         $url[] = 'END:VEVENT';

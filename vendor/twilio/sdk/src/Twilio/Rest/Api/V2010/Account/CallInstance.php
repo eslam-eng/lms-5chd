@@ -18,7 +18,6 @@ use Twilio\Rest\Api\V2010\Account\Call\FeedbackList;
 use Twilio\Rest\Api\V2010\Account\Call\NotificationList;
 use Twilio\Rest\Api\V2010\Account\Call\PaymentList;
 use Twilio\Rest\Api\V2010\Account\Call\RecordingList;
-use Twilio\Rest\Api\V2010\Account\Call\SiprecList;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -57,7 +56,6 @@ class CallInstance extends InstanceResource {
     protected $_feedback;
     protected $_events;
     protected $_payments;
-    protected $_siprec;
 
     /**
      * Initialize the CallInstance
@@ -186,13 +184,6 @@ class CallInstance extends InstanceResource {
      */
     protected function getPayments(): PaymentList {
         return $this->proxy()->payments;
-    }
-
-    /**
-     * Access the siprec
-     */
-    protected function getSiprec(): SiprecList {
-        return $this->proxy()->siprec;
     }
 
     /**

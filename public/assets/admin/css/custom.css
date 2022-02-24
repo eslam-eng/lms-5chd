@@ -52,7 +52,7 @@
 }
 
 .table-actions.dropdown .dropdown-menu button:hover, .table-actions.dropdown .dropdown-menu a:hover {
-    color: #43d477;
+    color: #0e76bc;
 }
 
 .table-actions.dropdown .dropdown-menu.menu-lg {
@@ -191,7 +191,7 @@
 }
 
 .no-result.default-no-result .no-result-logo {
-    background-image: linear-gradient(to bottom, #dbffe8, #43d477);
+    background-image: linear-gradient(to bottom, #dbffe8, #0e76bc);
 }
 
 @media (max-width: 767px) {
@@ -254,7 +254,7 @@
 
 .table-actions.dropdown .dropdown-menu button:hover,
 .table-actions.dropdown .dropdown-menu a:hover {
-    color: #43d477;
+    color: #0e76bc;
 }
 
 .table-actions.dropdown .dropdown-menu.menu-lg {

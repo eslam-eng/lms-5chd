@@ -5,8 +5,6 @@ namespace Midtrans;
 /**
  * Send request to Snap API
  * Better don't use this class directly, use Snap
- * @deprecated this class already deprecated. We will deleted on the next major release. We have been centralized the
- * requestor via ApiRequestor.php
  */
 
 class SnapApiRequestor

@@ -6,9 +6,6 @@ return [
     'nav-upload'        => 'Încarcă',
     'nav-thumbnails'    => 'Miniatură',
     'nav-list'          => 'Listă',
-    'nav-sort'          => 'Sortează',
-    'nav-sort-alphabetic'=> 'După Alfabet',
-    'nav-sort-time'     => 'După timp',
 
     'menu-rename'       => 'Redenumește',
     'menu-delete'       => 'Șterge',
@@ -16,8 +13,6 @@ return [
     'menu-download'     => 'Descarcă',
     'menu-resize'       => 'Redimensionează',
     'menu-crop'         => 'Taie',
-    'menu-move'         => 'Mută',
-    'menu-multiple'     => 'Selectare multiplă',
 
     'title-page'        => 'Manager fișiere',
     'title-panel'       => 'Laravel FileManager',
@@ -39,7 +34,6 @@ return [
     'message-name'      => 'Nume folder:',
     'message-rename'    => 'Redenumește în:',
     'message-extension_not_found' => 'Te rog instalează extensia gd sau imagick ca să poți tăia, redimensiona sau genera miniaturi ale imaginilor.',
-    'message-drop'      => 'Sau trageți fișierele aici pentru încărcare',
 
     'error-rename'      => 'Nume fișier este deja folosit!',
     'error-file-name'   => 'Numele fișierului nu poate fi gol!',
@@ -51,7 +45,7 @@ return [
     'error-folder-exist'=> 'Există deja un folder cu acest nume!',
     'error-folder-alnum'=> 'Sunt permise doar nume alfanumerice pentru foldere!',
     'error-folder-not-found'=> 'Folderul nu a fost gasit! (:folder)',
-    'error-mime'        => 'MimeType necunoscut: ',
+    'error-mime'        => 'Unexpected MimeType: ',
     'error-size'        => 'Dimensiune peste limită:',
     'error-instance'    => 'Fișierul încărcat trebuie să fie o instanță a UploadedFile',
     'error-invalid'     => 'Cerere invalidă de upload',
@@ -62,12 +56,8 @@ return [
     'btn-uploading'     => 'Încarcare...',
     'btn-close'         => 'Închide',
     'btn-crop'          => 'Taie',
-    'btn-copy-crop'     => 'Copiază și Taie',
-    'btn-crop-free'     => 'Tăiere liberă',
     'btn-cancel'        => 'Anulează',
-    'btn-confirm'       => 'Confirmă',
     'btn-resize'        => 'Redimensionează',
-    'btn-open'          => 'Deschide folder',
 
     'resize-ratio'      => 'Rație:',
     'resize-scaled'     => 'Imagine scalată:',

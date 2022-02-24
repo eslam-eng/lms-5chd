@@ -114,13 +114,13 @@
             transition: all 0.3s ease;
 
             &:hover {
-                background-color: #43d477;
+                background-color: #0e76bc;
                 transition: all 0.3s ease;
             }
 
             &.active {
                 background-color: transparent;
-                background-image: linear-gradient(to bottom, #9effc1, #43d477);
+                background-image: linear-gradient(to bottom, #9effc1, #0e76bc);
             }
         }
     }

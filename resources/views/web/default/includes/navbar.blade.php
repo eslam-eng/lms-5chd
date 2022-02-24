@@ -2,17 +2,7 @@
     if (empty($authUser) and auth()->check()) {
         $authUser = auth()->user();
     }
-    $local = app()->getLocale();
 @endphp
-<style>
-    #web-nav-category
-    {
-        height: 450px !important;
-        overflow: auto !important;
-        min-width: 296px !important;
-
-    }
-</style>
 
 <div id="navbarVacuum"></div>
 <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
@@ -45,13 +35,13 @@
                                         <i data-feather="grid" width="20" height="20" class="mr-10 d-none d-lg-block"></i>
                                         {{ trans('categories.categories') }}
 
-                                        <ul class="cat-dropdown-menu" id="web-nav-category">
+                                        <ul class="cat-dropdown-menu">
                                             @foreach($categories as $category)
                                                 <li>
                                                     <a href="{{ (!empty($category->subCategories) and count($category->subCategories)) ? '#!' : $category->getUrl() }}">
                                                         <div class="d-flex align-items-center">
                                                             <img src="{{ $category->icon }}" class="cat-dropdown-menu-icon mr-10" alt="{{ $category->title }} icon">
-                                                            {{$local=='en'? $category->title:$category->title_ar }}
+                                                            {{ $category->title }}
                                                         </div>
 
                                                         @if(!empty($category->subCategories) and count($category->subCategories))
@@ -79,7 +69,7 @@
                     @if(!empty($navbarPages) and count($navbarPages))
                         @foreach($navbarPages as $navbarPage)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ $navbarPage['link'] }}">{{$local=='en'?$navbarPage['title']:$navbarPage['title_ar']}}</a>
+                                <a class="nav-link" href="{{ $navbarPage['link'] }}">{{ $navbarPage['title'] }}</a>
                             </li>
                         @endforeach
                     @endif
@@ -89,6 +79,10 @@
             <div class="nav-icons-or-start-live navbar-order">
 
                 <a href="{{ empty($authUser) ? '/login' : ($authUser->isAdmin() ? '/admin/webinars/create' : (($authUser->isUser()) ? '/become_instructor' : '/panel/webinars/new')) }}" class="d-none d-lg-flex btn btn-sm btn-primary nav-start-a-live-btn">
+                    {{ (empty($authUser) or !$authUser->isUser()) ? trans('navbar.start_a_live_class') : ($authUser->isUser() ? trans('site.become_instructor') : '') }}
+                </a>
+
+                <a href="{{ empty($authUser) ? '/login' : (($authUser->isUser()) ? '/become_instructor' : '/panel/webinars/new') }}" class="d-flex d-lg-none text-primary nav-start-a-live-btn font-14">
                     {{ (empty($authUser) or !$authUser->isUser()) ? trans('navbar.start_a_live_class') : ($authUser->isUser() ? trans('site.become_instructor') : '') }}
                 </a>
 

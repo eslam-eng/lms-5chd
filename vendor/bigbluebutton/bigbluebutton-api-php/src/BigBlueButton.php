@@ -35,6 +35,7 @@ use BigBlueButton\Responses\ApiVersionResponse;
 use BigBlueButton\Responses\CreateMeetingResponse;
 use BigBlueButton\Responses\DeleteRecordingsResponse;
 use BigBlueButton\Responses\EndMeetingResponse;
+use BigBlueButton\Responses\GetDefaultConfigXMLResponse;
 use BigBlueButton\Responses\GetMeetingInfoResponse;
 use BigBlueButton\Responses\GetMeetingsResponse;
 use BigBlueButton\Responses\GetRecordingsResponse;
@@ -44,6 +45,7 @@ use BigBlueButton\Responses\HooksListResponse;
 use BigBlueButton\Responses\IsMeetingRunningResponse;
 use BigBlueButton\Responses\JoinMeetingResponse;
 use BigBlueButton\Responses\PublishRecordingsResponse;
+use BigBlueButton\Responses\SetConfigXMLResponse;
 use BigBlueButton\Responses\UpdateRecordingsResponse;
 use BigBlueButton\Util\UrlBuilder;
 use SimpleXMLElement;
@@ -58,19 +60,12 @@ class BigBlueButton
     protected $bbbServerBaseUrl;
     protected $urlBuilder;
     protected $jSessionId;
-    protected $timeOut = 10;
 
-    /**
-     * BigBlueButton constructor.
-     * @param null $baseUrl
-     * @param null $secret
-     */
-    public function __construct($baseUrl = null, $secret = null)
+    public function __construct()
     {
         // Keeping backward compatibility with older deployed versions
-        // BBB_SECRET is the new variable name and have higher priority against the old named BBB_SECURITY_SALT
-        $this->securitySecret   = $secret ?: getenv('BBB_SECRET') ?: getenv('BBB_SECURITY_SALT');
-        $this->bbbServerBaseUrl = $baseUrl ?: getenv('BBB_SERVER_BASE_URL');
+        $this->securitySecret   = (getenv('BBB_SECURITY_SALT') === false) ? getenv('BBB_SECRET') : $this->securitySecret = getenv('BBB_SECURITY_SALT');
+        $this->bbbServerBaseUrl = getenv('BBB_SERVER_BASE_URL');
         $this->urlBuilder       = new UrlBuilder($this->securitySecret, $this->bbbServerBaseUrl);
     }
 
@@ -89,6 +84,8 @@ class BigBlueButton
     /* __________________ BBB ADMINISTRATION METHODS _________________ */
     /* The methods in the following section support the following categories of the BBB API:
     -- create
+    -- getDefaultConfigXML
+    -- setConfigXML
     -- join
     -- end
     */
@@ -112,6 +109,47 @@ class BigBlueButton
         $xml = $this->processXmlResponse($this->getCreateMeetingUrl($createMeetingParams), $createMeetingParams->getPresentationsAsXML());
 
         return new CreateMeetingResponse($xml);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultConfigXMLUrl()
+    {
+        return $this->urlBuilder->buildUrl(ApiMethod::GET_DEFAULT_CONFIG_XML);
+    }
+
+    /**
+     * @return GetDefaultConfigXMLResponse
+     * @throws \RuntimeException
+     */
+    public function getDefaultConfigXML()
+    {
+        $xml = $this->processXmlResponse($this->getDefaultConfigXMLUrl());
+
+        return new GetDefaultConfigXMLResponse($xml);
+    }
+
+    /**
+     * @return string
+     */
+    public function setConfigXMLUrl()
+    {
+        return $this->urlBuilder->buildUrl(ApiMethod::SET_CONFIG_XML, '', false);
+    }
+
+    /**
+     * @param  $setConfigXMLParams
+     * @return SetConfigXMLResponse
+     * @throws \RuntimeException
+     */
+    public function setConfigXML($setConfigXMLParams)
+    {
+        $setConfigXMLPayload = $this->urlBuilder->buildQs(ApiMethod::SET_CONFIG_XML, $setConfigXMLParams->getHTTPQuery());
+
+        $xml = $this->processXmlResponse($this->setConfigXMLUrl(), $setConfigXMLPayload, 'application/x-www-form-urlencoded');
+
+        return new SetConfigXMLResponse($xml);
     }
 
     /**
@@ -447,7 +485,6 @@ class BigBlueButton
                 throw new BadResponseException('Bad response, HTTP code: ' . $httpcode);
             }
             curl_close($ch);
-            unset($ch);
 
             $cookies = file_get_contents($cookiefilepath);
             if (strpos($cookies, 'JSESSIONID') !== false) {
@@ -459,29 +496,5 @@ class BigBlueButton
         } else {
             throw new \RuntimeException('Post XML data set but curl PHP module is not installed or not enabled.');
         }
-    }
-
-    /**
-     * Set Curl Timeout (Optional), Default 10 Seconds
-     * @param  int    $TimeOutInSeconds
-     * @return static
-     */
-    public function setTimeOut($TimeOutInSeconds)
-    {
-        $this->timeOut = $TimeOutInSeconds;
-
-        return $this;
-    }
-
-    /**
-     * Public accessor for buildUrl
-     * @param   string $method
-     * @param   string $params
-     * @param   bool   $append
-     * @return  string
-     */
-    public function buildUrl($method = '', $params = '', $append = TRUE)
-    {
-        return $this->urlBuilder->buildUrl($method, $params, $append);
     }
 }

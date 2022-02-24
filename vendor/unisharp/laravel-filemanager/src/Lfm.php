@@ -46,22 +46,7 @@ class Lfm
      */
     public function getNameFromPath($path)
     {
-        return $this->utf8Pathinfo($path, 'basename');
-    }
-
-    public function utf8Pathinfo($path, $part_name)
-    {
-        // XXX: all locale work-around for issue: utf8 file name got emptified
-        // if there's no '/', we're probably dealing with just a filename
-        // so just put an 'a' in front of it
-        if (strpos($path, '/') === false) {
-            $path_parts = pathinfo('a' . $path);
-        } else {
-            $path = str_replace('/', '/a', $path);
-            $path_parts = pathinfo($path);
-        }
-
-        return substr($path_parts[$part_name], 1);
+        return pathinfo($path, PATHINFO_BASENAME);
     }
 
     public function allowFolderType($type)

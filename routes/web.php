@@ -46,11 +46,6 @@ Route::group(['namespace' => 'Web', 'middleware' => ['impersonate', 'share']], f
 
     Route::get('/', 'HomeController@index');
 
-    Route::group(['prefix' => 'interview'], function () {
-        Route::get('/{id}/questions','InterviewAnswerController@interviewQuestions');
-        Route::post('/answers','InterviewAnswerController@interviewInswers')->name('interview.answers');
-    });
-
     Route::group(['prefix' => 'course'], function () {
         Route::get('/{slug}', 'WebinarController@course');
         Route::get('/{slug}/file/{file_id}/download', 'WebinarController@downloadFile');
@@ -153,10 +148,6 @@ Route::group(['namespace' => 'Web', 'middleware' => ['impersonate', 'share']], f
     Route::group(['prefix' => 'contact'], function () {
         Route::get('/', 'ContactController@index');
         Route::post('/store', 'ContactController@store');
-    });
-
-    Route::group(['prefix' => 'about'], function () {
-        Route::get('/','AboutController@index');
     });
 
     Route::group(['prefix' => 'instructors'], function () {

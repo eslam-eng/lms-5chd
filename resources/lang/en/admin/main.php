@@ -690,7 +690,6 @@ return [
     'footer_second_column' => 'Second Column',
     'footer_third_column' => 'Third Column',
     'footer_forth_column' => 'Forth Column',
-    'content' => 'Content',
     'item_title' => 'Item Title',
     'item_link' => 'Item URL',
 

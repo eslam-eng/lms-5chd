@@ -14,7 +14,7 @@ class AddCountInDiscountUsersTable extends Migration
     public function up()
     {
         Schema::table('discount_users', function (Blueprint $table) {
-//            $table->integer('count')->after('user_id')->default(0);
+            $table->integer('count')->after('user_id')->default(0);
         });
     }
 

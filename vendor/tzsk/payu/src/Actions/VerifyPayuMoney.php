@@ -3,7 +3,7 @@
 namespace Tzsk\Payu\Actions;
 
 use Illuminate\Support\Facades\Http;
-use Tzsk\Payu\Exceptions\InvalidValueException;
+use Illuminate\Validation\ValidationException;
 use Tzsk\Payu\Gateway\Gateway;
 use Tzsk\Payu\Gateway\PayuMoney;
 use Tzsk\Payu\Models\PayuTransaction;
@@ -44,7 +44,9 @@ class VerifyPayuMoney implements Actionable
     protected function url(): string
     {
         $part = data_get($this->partMap, $this->gateway->mode);
-        throw_unless($part, InvalidValueException::fromMessage(__('Invalid mode supplied for PayuBiz'), 'mode'));
+        throw_unless($part, ValidationException::withMessages([
+            'mode' => __('Invalid mode supplied for PayuBiz'),
+        ]));
 
         return sprintf('https://www.payumoney.com/%spayment/op/getPaymentResponse?%s', $part, $this->getQuery());
     }

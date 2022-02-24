@@ -77,7 +77,7 @@
         $.toast({
             heading: '{{ session()->get('toast')['title'] ?? '' }}',
             text: '{{ session()->get('toast')['msg'] ?? '' }}',
-            bgColor: '@if(session()->get('toast')['status'] == 'success') #43d477 @else #f63c3c @endif',
+            bgColor: '@if(session()->get('toast')['status'] == 'success') #0e76bc @else #f63c3c @endif',
             textColor: 'white',
             hideAfter: 10000,
             position: 'bottom-right',

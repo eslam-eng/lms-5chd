@@ -9,10 +9,8 @@ class MidtransCoreApiTest extends \PHPUnit_Framework_TestCase
     {
         Config::$appendNotifUrl = "https://example.com";
         Config::$overrideNotifUrl = "https://example.com";
-        Config::$paymentIdempotencyKey = "123456";
-        Config::$serverKey = "dummy";
-        MT_Tests::$stubHttp = true;
-        MT_Tests::$stubHttpResponse = '{
+        VT_Tests::$stubHttp = true;
+        VT_Tests::$stubHttpResponse = '{
             "status_code": 200,
             "redirect_url": "http://host.com/pay"
         }';
@@ -29,11 +27,11 @@ class MidtransCoreApiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($charge->status_code, "200");
 
         $this->assertEquals(
-            MT_Tests::$lastHttpRequest["url"],
+            VT_Tests::$lastHttpRequest["url"],
             "https://api.sandbox.midtrans.com/v2/charge"
         );
 
-        $fields = MT_Tests::lastReqOptions();
+        $fields = VT_Tests::lastReqOptions();
         $this->assertEquals($fields["POST"], 1);
         $this->assertEquals(
             $fields["POSTFIELDS"],
@@ -41,7 +39,6 @@ class MidtransCoreApiTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertTrue(in_array('X-Append-Notification: https://example.com', $fields["HTTPHEADER"]));
         $this->assertTrue(in_array('X-Override-Notification: https://example.com', $fields["HTTPHEADER"]));
-        $this->assertTrue(in_array('Idempotency-Key: 123456', $fields["HTTPHEADER"]));
     }
 
     public function testRealConnectWithInvalidKey()
@@ -57,14 +54,24 @@ class MidtransCoreApiTest extends \PHPUnit_Framework_TestCase
         try {
             $paymentUrl = CoreApi::charge($params);
         } catch (\Exception $error) {
-            $this->assertContains("Midtrans API is returning API error. HTTP status code: 401", $error->getMessage());
+            $errorHappen = true;
+            $this->assertContains(
+                $error->getMessage(),
+                array(
+                    "Midtrans Error (401): Transaction cannot be authorized with the current client/server key.",
+                    "Midtrans Error (411): Token id is missing, invalid, or timed out",
+                    "Midtrans Error (401): Operation is not allowed due to unauthorized payload."
+                )
+            );
         }
+
+        $this->assertTrue($errorHappen);
     }
 
     public function testCapture()
     {
-        MT_Tests::$stubHttp = true;
-        MT_Tests::$stubHttpResponse = '{
+        VT_Tests::$stubHttp = true;
+        VT_Tests::$stubHttpResponse = '{
             "status_code": "200",
             "status_message": "Success, Credit Card capture transaction is successful",
             "transaction_id": "1ac1a089d-a587-40f1-a936-a7770667d6dd",
@@ -83,15 +90,18 @@ class MidtransCoreApiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($capture->status_code, "200");
 
-        $this->assertEquals("https://api.sandbox.midtrans.com/v2/capture", MT_Tests::$lastHttpRequest["url"]);
+        $this->assertEquals(
+            VT_Tests::$lastHttpRequest["url"],
+            "https://api.sandbox.midtrans.com/v2/capture"
+        );
 
-        $fields = MT_Tests::lastReqOptions();
-        $this->assertEquals(1, $fields["POST"]);
-        $this->assertEquals('{"transaction_id":"A27550"}', $fields["POSTFIELDS"]);
+        $fields = VT_Tests::lastReqOptions();
+        $this->assertEquals($fields["POST"], 1);
+        $this->assertEquals($fields["POSTFIELDS"], '{"transaction_id":"A27550"}');
     }
 
     public function tearDown()
     {
-        MT_Tests::reset();
+        VT_Tests::reset();
     }
 }

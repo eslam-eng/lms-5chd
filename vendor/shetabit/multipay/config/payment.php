@@ -23,21 +23,16 @@ return [
     |
     */
     'drivers' => [
-        'local' => [
-            'callbackUrl' => '/callback',
-            'title' => 'درگاه پرداخت تست',
-            'description' => 'این درگاه *صرفا* برای تست صحت روند پرداخت و لغو پرداخت میباشد',
-            'orderLabel' => 'شماره سفارش',
-            'amountLabel' => 'مبلغ قابل پرداخت',
-            'payButton' => 'پرداخت موفق',
-            'cancelButton' => 'پرداخت ناموفق',
-        ],
         'asanpardakht' => [
+            'apiPurchaseUrl' => 'https://ipgsoap.asanpardakht.ir/paygate/merchantservices.asmx?wsdl',
             'apiPaymentUrl' => 'https://asan.shaparak.ir',
-            'apiRestPaymentUrl' => 'https://ipgrest.asanpardakht.ir/v1/',
+            'apiVerificationUrl' => 'https://ipgsoap.asanpardakht.ir/paygate/merchantservices.asmx?wsdl',
+            'apiUtilsUrl' => 'https://ipgsoap.asanpardakht.ir/paygate/internalutils.asmx?wsdl',
+            'key' => '',
+            'iv' => '',
             'username' => '',
             'password' => '',
-            'merchantConfigID' => '',
+            'merchantId' => '',
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using asanpardakht',
         ],
@@ -50,28 +45,6 @@ return [
             'password' => '',
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using behpardakht',
-        ],
-        'digipay' => [
-            'apiOauthUrl' => 'https://api.mydigipay.com/digipay/api/oauth/token',
-            'apiPurchaseUrl' => 'https://api.mydigipay.com/digipay/api/businesses/ticket?type=0',
-            'apiPaymentUrl' => 'https://api.mydigipay.com/digipay/api/purchases/ipg/pay/',
-            'apiVerificationUrl' => 'https://api.mydigipay.com/digipay/api/purchases/verify/',
-            'username' => 'username',
-            'password' => 'password',
-            'client_id' => '',
-            'client_secret' => '',
-            'callbackUrl' => 'http://yoursite.com/path/to',
-        ],
-        'etebarino' => [
-            'apiPurchaseUrl' => 'https://api.etebarino.com/public/merchant/request-payment',
-            'apiPaymentUrl' => 'https://panel.etebarino.com/gateway/public/ipg',
-            'apiVerificationUrl' => 'https://api.etebarino.com/public/merchant/verify-payment',
-            'merchantId' => '',
-            'terminalId' => '',
-            'username' => '',
-            'password' => '',
-            'callbackUrl' => 'http://yoursite.com/path/to',
-            'description' => 'payment using etebarino',
         ],
         'idpay' => [
             'apiPurchaseUrl' => 'https://api.idpay.ir/v1.1/payment',
@@ -122,7 +95,7 @@ return [
         'payir' => [
             'apiPurchaseUrl' => 'https://pay.ir/pg/send',
             'apiPaymentUrl' => 'https://pay.ir/pg/',
-            'apiVerificationUrl' => 'https://pay.ir/pg/verify',
+            'apiVerificationUrl' => 'https://pay.ir/pg/verify/',
             'merchantId' => 'test', // set it to `test` for test environments
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using payir',
@@ -153,11 +126,10 @@ return [
             'description' => 'payment using payping',
         ],
         'paystar' => [
-            'apiPurchaseUrl' => 'https://core.paystar.ir/api/pardakht/create/',
-            'apiPaymentUrl' => 'https://core.paystar.ir/api/pardakht/payment/',
-            'apiVerificationUrl' => 'https://core.paystar.ir/api/pardakht/verify/',
-            'gatewayId' => '', // your gateway id
-            'signKey' => '', // sign key of your gateway
+            'apiPurchaseUrl' => 'https://paystar.ir/api/create/',
+            'apiPaymentUrl' => 'https://paystar.ir/paying/',
+            'apiVerificationUrl' => 'https://paystar.ir/api/verify/',
+            'merchantId' => '',
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using paystar',
         ],
@@ -195,14 +167,6 @@ return [
             'callbackUrl' => '',
             'description' => 'payment using sepehr(saderat)',
         ],
-        'walleta' => [
-            'apiPurchaseUrl' => 'https://cpg.walleta.ir/payment/request.json',
-            'apiPaymentUrl' => 'https://cpg.walleta.ir/ticket/',
-            'apiVerificationUrl' => 'https://cpg.walleta.ir/payment/verify.json',
-            'merchantId' => '',
-            'callbackUrl' => 'http://yoursite.com/path/to',
-            'description' => 'payment using walleta',
-        ],
         'yekpay' => [
             'apiPurchaseUrl' => 'https://gate.yekpay.com/api/payment/server?wsdl',
             'apiPaymentUrl' => 'https://gate.yekpay.com/api/payment/start/',
@@ -215,9 +179,9 @@ return [
         ],
         'zarinpal' => [
             /* normal api */
-            'apiPurchaseUrl' => 'https://api.zarinpal.com/pg/v4/payment/request.json',
+            'apiPurchaseUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
             'apiPaymentUrl' => 'https://www.zarinpal.com/pg/StartPay/',
-            'apiVerificationUrl' => 'https://api.zarinpal.com/pg/v4/payment/verify.json',
+            'apiVerificationUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
 
             /* sandbox api */
             'sandboxApiPurchaseUrl' => 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
@@ -246,16 +210,6 @@ return [
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using zibal',
         ],
-        'sepordeh' => [
-            'apiPurchaseUrl' => 'https://sepordeh.com/merchant/invoices/add',
-            'apiPaymentUrl' => 'https://sepordeh.com/merchant/invoices/pay/id:',
-            'apiDirectPaymentUrl' => 'https://sepordeh.com/merchant/invoices/pay/automatic:true/id:',
-            'apiVerificationUrl' => 'https://sepordeh.com/merchant/invoices/verify',
-            'mode' => 'normal', // can be normal, direct
-            'merchantId' => '',
-            'callbackUrl' => 'http://yoursite.com/path/to',
-            'description' => 'payment using sepordeh',
-        ],
     ],
 
     /*
@@ -271,11 +225,8 @@ return [
     |
     */
     'map' => [
-        'local' => \Shetabit\Multipay\Drivers\Local\Local::class,
         'asanpardakht' => \Shetabit\Multipay\Drivers\Asanpardakht\Asanpardakht::class,
         'behpardakht' => \Shetabit\Multipay\Drivers\Behpardakht\Behpardakht::class,
-        'digipay' => \Shetabit\Multipay\Drivers\Digipay\Digipay::class,
-        'etebarino' => \Shetabit\Multipay\Drivers\Etebarino\Etebarino::class,
         'idpay' => \Shetabit\Multipay\Drivers\Idpay\Idpay::class,
         'irankish' => \Shetabit\Multipay\Drivers\Irankish\Irankish::class,
         'nextpay' => \Shetabit\Multipay\Drivers\Nextpay\Nextpay::class,
@@ -289,10 +240,8 @@ return [
         'sadad' => \Shetabit\Multipay\Drivers\Sadad\Sadad::class,
         'saman' => \Shetabit\Multipay\Drivers\Saman\Saman::class,
         'sepehr' => \Shetabit\Multipay\Drivers\Sepehr\Sepehr::class,
-        'walleta' => \Shetabit\Multipay\Drivers\Walleta\Walleta::class,
         'yekpay' => \Shetabit\Multipay\Drivers\Yekpay\Yekpay::class,
         'zarinpal' => \Shetabit\Multipay\Drivers\Zarinpal\Zarinpal::class,
         'zibal' => \Shetabit\Multipay\Drivers\Zibal\Zibal::class,
-        'sepordeh' => \Shetabit\Multipay\Drivers\Sepordeh\Sepordeh::class
     ]
 ];

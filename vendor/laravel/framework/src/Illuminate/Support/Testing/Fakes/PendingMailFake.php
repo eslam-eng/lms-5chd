@@ -34,7 +34,6 @@ class PendingMailFake extends PendingMail
      *
      * @param  \Illuminate\Contracts\Mail\Mailable  $mailable
      * @return mixed
-     *
      * @deprecated Use send() instead.
      */
     public function sendNow(Mailable $mailable)

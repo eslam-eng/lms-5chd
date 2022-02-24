@@ -15,7 +15,6 @@ class CreatePaymentRequest extends Request
     private $paymentChannel;
     private $basketId;
     private $paymentGroup;
-    private $reward;
     private $paymentCard;
     private $buyer;
     private $shippingAddress;
@@ -90,16 +89,6 @@ class CreatePaymentRequest extends Request
     public function setPaymentGroup($paymentGroup)
     {
         $this->paymentGroup = $paymentGroup;
-    }
-
-    public function getReward()
-    {
-        return $this->reward;
-    }
-
-    public function setReward($reward)
-    {
-        $this->reward = $reward;
     }
 
     public function getPaymentCard()
@@ -211,7 +200,6 @@ class CreatePaymentRequest extends Request
             ->add("paymentChannel", $this->getPaymentChannel())
             ->add("basketId", $this->getBasketId())
             ->add("paymentGroup", $this->getPaymentGroup())
-            ->add("reward", $this->getReward())
             ->add("paymentCard", $this->getPaymentCard())
             ->add("buyer", $this->getBuyer())
             ->add("shippingAddress", $this->getShippingAddress())

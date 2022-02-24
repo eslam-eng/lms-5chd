@@ -26,6 +26,9 @@ class AnnotationFileLoader extends FileLoader
 {
     protected $loader;
 
+    /**
+     * @throws \RuntimeException
+     */
     public function __construct(FileLocatorInterface $locator, AnnotationClassLoader $loader)
     {
         if (!\function_exists('token_get_all')) {
@@ -43,7 +46,7 @@ class AnnotationFileLoader extends FileLoader
      * @param string      $file A PHP file path
      * @param string|null $type The resource type
      *
-     * @return RouteCollection|null
+     * @return RouteCollection|null A RouteCollection instance
      *
      * @throws \InvalidArgumentException When the file does not exist or its routes cannot be parsed
      */
@@ -78,7 +81,7 @@ class AnnotationFileLoader extends FileLoader
     /**
      * Returns the full class name for the first class in the file.
      *
-     * @return string|false
+     * @return string|false Full class name if found, false otherwise
      */
     protected function findClass(string $file)
     {

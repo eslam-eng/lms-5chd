@@ -86,7 +86,7 @@
         }
 
         #bodyCell {
-            border-top: 5px solid #43d477;
+            border-top: 5px solid #0e76bc;
         }
 
         #templateContainer {
@@ -190,7 +190,7 @@
 
         .headerContent a:link, .headerContent a:visited,
         .headerContent a .yshortcuts {
-            color: #43d477;
+            color: #0e76bc;
             font-weight: normal;
         }
 
@@ -222,7 +222,7 @@
 
         .bodyContent a:link, .bodyContent a:visited,
         .bodyContent a .yshortcuts {
-            color: #43d477;
+            color: #0e76bc;
             font-weight: normal;
             text-decoration: none;
         }
@@ -388,7 +388,7 @@
             text-align: center;
             -webkit-transition: background 200ms ease 0s;
             transition: background 200ms ease 0s;
-            background: #43d477;
+            background: #0e76bc;
             color: #ffffff !important;
             font-size: 1rem;
             margin-top: 40px;
@@ -400,7 +400,7 @@
 
         .code {
             text-align: center;
-            color: #43d477;
+            color: #0e76bc;
             font-size: 32px;
             font-weight: bold;
         }

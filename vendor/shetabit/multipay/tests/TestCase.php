@@ -2,35 +2,29 @@
 
 namespace Shetabit\Multipay\Tests;
 
-use PHPUnit\Framework\TestCase as BaseTestCase;
-use Shetabit\Multipay\Tests\Drivers\BarDriver;
+use Orchestra\Testbench\TestCase as BaseTestCase;
+use Shetabit\Multipay\Tests\Mocks\Drivers\BarDriver;
 
 class TestCase extends BaseTestCase
 {
-    private $config = [];
-
-    protected function setUp() : void
+    protected function getPackageProviders($app)
     {
-        $this->environmentSetUp();
+        return ['Shetabit\Multipay\Provider\PaymentServiceProvider'];
     }
 
-    protected function config() : array
+    protected function getPackageAliases($app)
     {
-        return $this->config;
-    }
-
-    private function environmentSetUp()
-    {
-        $this->config = $this->loadConfig();
-
-        $this->config['map']['bar'] = BarDriver::class;
-        $this->config['drivers']['bar'] = [
-            'callback' => '/callback'
+        return [
+            'Payment' => 'Shetabit\Multipay\Payment',
         ];
     }
 
-    private function loadConfig() : array
+    protected function getEnvironmentSetUp($app)
     {
-        return require(__DIR__.'/../config/payment.php');
+        $settings = require __DIR__.'/../src/Config/payment.php';
+        $settings['drivers']['bar'] = ['key' => 'foo'];
+        $settings['map']['bar'] = BarDriver::class;
+
+        $app['config']->set('payment', $settings);
     }
 }

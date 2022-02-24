@@ -27,22 +27,21 @@ class MidtransNotificationTest extends \PHPUnit_Framework_TestCase
         $tmpfname = tempnam(sys_get_temp_dir(), "midtrans_test");
         file_put_contents($tmpfname, TEST_CAPTURE_JSON);
 
-        MT_Tests::$stubHttp = true;
-        MT_Tests::$stubHttpResponse = TEST_CAPTURE_JSON;
+        VT_Tests::$stubHttp = true;
+        VT_Tests::$stubHttpResponse = TEST_CAPTURE_JSON;
 
-        Config::$serverKey = 'dummy';
         $notif = new Notification($tmpfname);
 
-        $this->assertEquals("capture", $notif->transaction_status);
-        $this->assertEquals("credit_card", $notif->payment_type);
-        $this->assertEquals("2014040745", $notif->order_id);
-        $this->assertEquals("2700", $notif->gross_amount);
+        $this->assertEquals($notif->transaction_status, "capture");
+        $this->assertEquals($notif->payment_type, "credit_card");
+        $this->assertEquals($notif->order_id, "2014040745");
+        $this->assertEquals($notif->gross_amount, "2700");
 
         unlink($tmpfname);
     }
 
     public function tearDown()
     {
-        MT_Tests::reset();
+        VT_Tests::reset();
     }
 }

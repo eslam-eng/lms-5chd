@@ -13,7 +13,6 @@ use Twilio\Deserialize;
 use Twilio\Exceptions\TwilioException;
 use Twilio\InstanceResource;
 use Twilio\Options;
-use Twilio\Rest\Supersim\V1\Sim\BillingPeriodList;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -29,11 +28,8 @@ use Twilio\Version;
  * @property \DateTime $dateCreated
  * @property \DateTime $dateUpdated
  * @property string $url
- * @property array $links
  */
 class SimInstance extends InstanceResource {
-    protected $_billingPeriods;
-
     /**
      * Initialize the SimInstance
      *
@@ -55,7 +51,6 @@ class SimInstance extends InstanceResource {
             'dateCreated' => Deserialize::dateTime(Values::array_get($payload, 'date_created')),
             'dateUpdated' => Deserialize::dateTime(Values::array_get($payload, 'date_updated')),
             'url' => Values::array_get($payload, 'url'),
-            'links' => Values::array_get($payload, 'links'),
         ];
 
         $this->solution = ['sid' => $sid ?: $this->properties['sid'], ];
@@ -94,13 +89,6 @@ class SimInstance extends InstanceResource {
      */
     public function update(array $options = []): SimInstance {
         return $this->proxy()->update($options);
-    }
-
-    /**
-     * Access the billingPeriods
-     */
-    protected function getBillingPeriods(): BillingPeriodList {
-        return $this->proxy()->billingPeriods;
     }
 
     /**

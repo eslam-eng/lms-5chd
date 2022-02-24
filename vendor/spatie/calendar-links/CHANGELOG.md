@@ -4,15 +4,6 @@ All notable changes to `calendar-links` will be documented in this file
 
 ## Unreleased
 
-## 1.6.0 - 2021-04-22
-### Changed
-- Drop support for PHP 7.2 and PHP 7.3
-
-## 1.5.0 - 2021-04-22
-### Changed
-- ICS: support URLs as option (@gulios)
-- ICS: support all day events spanning multiple days (@mrshowerman)
-
 ## 1.4.4 - 2021-04-13
 ### Fixed
  - Yahoo link doesn’t work (yahoo changed param names) (@mukeshsah08).

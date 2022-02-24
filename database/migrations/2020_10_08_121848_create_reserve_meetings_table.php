@@ -24,7 +24,7 @@ class CreateReserveMeetingsTable extends Migration
             $table->integer('paid_amount')->unsigned();
             $table->string('link')->nullable();
             $table->string('password',64)->nullable();
-            $table->enum('status', ['pending','open','finished','canceled']);
+            $table->enum('status', ['open', 'finished']);
             $table->integer('created_at');
 
             $table->foreign('meeting_id')->references('id')->on('meetings')->onDelete('cascade');

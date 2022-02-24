@@ -46,13 +46,6 @@ class Config
      */
     public static $overrideNotifUrl;
     /**
-     *  Set Payment IdempotencyKey
-     *  for details (http://api-docs.midtrans.com/#idempotent-requests)
-     *
-     * @static
-     */
-    public static $paymentIdempotencyKey;
-    /**
      * Enable request params sanitizer (validate and modify charge request params).
      * See Midtrans_Sanitizer for more details
      * 
@@ -66,8 +59,8 @@ class Config
      */
     public static $curlOptions = array();
 
-    const SANDBOX_BASE_URL = 'https://api.sandbox.midtrans.com';
-    const PRODUCTION_BASE_URL = 'https://api.midtrans.com';
+    const SANDBOX_BASE_URL = 'https://api.sandbox.midtrans.com/v2';
+    const PRODUCTION_BASE_URL = 'https://api.midtrans.com/v2';
     const SNAP_SANDBOX_BASE_URL = 'https://app.sandbox.midtrans.com/snap/v1';
     const SNAP_PRODUCTION_BASE_URL = 'https://app.midtrans.com/snap/v1';
 

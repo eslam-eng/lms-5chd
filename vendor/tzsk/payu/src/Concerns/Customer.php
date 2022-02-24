@@ -5,7 +5,6 @@ namespace Tzsk\Payu\Concerns;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Tzsk\Payu\Contracts\HasFormParams;
-use Tzsk\Payu\Exceptions\InvalidValueException;
 
 class Customer implements HasFormParams
 {
@@ -112,26 +111,22 @@ class Customer implements HasFormParams
     }
 
     /**
-     * @throws InvalidValueException
+     * @throws ValidationException
      */
     public function validate(): array
     {
-        try {
-            return Validator::make($this->toArray(), [
-                'firstname' => 'required|string',
-                'lastname' => 'nullable|string',
-                'email' => 'required|email',
-                'phone' => 'nullable|string',
-                'address1' => 'nullable|string',
-                'address2' => 'nullable|string',
-                'city' => 'nullable|string',
-                'state' => 'nullable|string',
-                'country' => 'nullable|string',
-                'zipcode' => 'nullable|string',
-            ])->validate();
-        } catch (ValidationException $e) {
-            throw InvalidValueException::fromValidationException($e);
-        }
+        return Validator::make($this->toArray(), [
+            'firstname' => 'required|string',
+            'lastname' => 'nullable|string',
+            'email' => 'required|email',
+            'phone' => 'nullable|string',
+            'address1' => 'nullable|string',
+            'address2' => 'nullable|string',
+            'city' => 'nullable|string',
+            'state' => 'nullable|string',
+            'country' => 'nullable|string',
+            'zipcode' => 'nullable|string',
+        ])->validate();
     }
 
     public function fields(): array

@@ -233,7 +233,7 @@
             $.toast({
                 heading: deleteAlertSuccess,
                 text: successDeleteTime,
-                bgColor: '#43d477',
+                bgColor: '#0e76bc',
                 textColor: 'white',
                 hideAfter: 5000,
                 position: 'bottom-right',

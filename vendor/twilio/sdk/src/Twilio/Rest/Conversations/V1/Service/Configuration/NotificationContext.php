@@ -55,8 +55,6 @@ class NotificationContext extends InstanceContext {
             'RemovedFromConversation.Enabled' => Serialize::booleanToString($options['removedFromConversationEnabled']),
             'RemovedFromConversation.Template' => $options['removedFromConversationTemplate'],
             'RemovedFromConversation.Sound' => $options['removedFromConversationSound'],
-            'NewMessage.WithMedia.Enabled' => Serialize::booleanToString($options['newMessageWithMediaEnabled']),
-            'NewMessage.WithMedia.Template' => $options['newMessageWithMediaTemplate'],
         ]);
 
         $payload = $this->version->update('POST', $this->uri, [], $data);

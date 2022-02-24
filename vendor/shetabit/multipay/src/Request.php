@@ -26,12 +26,6 @@ class Request
     protected $getData = [];
 
     /**
-     * Overwritten methods
-     * @var array
-     */
-    protected static $overwrittenMethods = [];
-
-    /**
      * Request constructor.
      */
     public function __construct()
@@ -50,10 +44,6 @@ class Request
      */
     public static function input(string $name)
     {
-        if (isset(static::$overwrittenMethods['input'])) {
-            return (static::$overwrittenMethods['input'])($name);
-        }
-
         return (new static)->requestData[$name] ?? null;
     }
 
@@ -66,10 +56,6 @@ class Request
      */
     public static function post(string $name)
     {
-        if (isset(static::$overwrittenMethods['post'])) {
-            return (static::$overwrittenMethods['post'])($name);
-        }
-
         return (new static)->postData[$name] ?? null;
     }
 
@@ -82,19 +68,6 @@ class Request
      */
     public static function get(string $name)
     {
-        if (isset(static::$overwrittenMethods['get'])) {
-            return (static::$overwrittenMethods['get'])($name);
-        }
-
         return (new static)->getData[$name] ?? null;
-    }
-
-    /**
-     * @param string $method
-     * @param $callback
-     */
-    public static function overwrite($method, $callback)
-    {
-        static::$overwrittenMethods[$method] = $callback;
     }
 }

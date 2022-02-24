@@ -13,7 +13,6 @@ use Twilio\Deserialize;
 use Twilio\Exceptions\TwilioException;
 use Twilio\InstanceResource;
 use Twilio\Options;
-use Twilio\Rest\Verify\V2\Service\Entity\Challenge\NotificationList;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -36,11 +35,8 @@ use Twilio\Version;
  * @property array $hiddenDetails
  * @property string $factorType
  * @property string $url
- * @property array $links
  */
 class ChallengeInstance extends InstanceResource {
-    protected $_notifications;
-
     /**
      * Initialize the ChallengeInstance
      *
@@ -71,7 +67,6 @@ class ChallengeInstance extends InstanceResource {
             'hiddenDetails' => Values::array_get($payload, 'hidden_details'),
             'factorType' => Values::array_get($payload, 'factor_type'),
             'url' => Values::array_get($payload, 'url'),
-            'links' => Values::array_get($payload, 'links'),
         ];
 
         $this->solution = [
@@ -119,13 +114,6 @@ class ChallengeInstance extends InstanceResource {
      */
     public function update(array $options = []): ChallengeInstance {
         return $this->proxy()->update($options);
-    }
-
-    /**
-     * Access the notifications
-     */
-    protected function getNotifications(): NotificationList {
-        return $this->proxy()->notifications;
     }
 
     /**

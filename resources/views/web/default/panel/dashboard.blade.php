@@ -242,7 +242,7 @@
                         label: '',
                         data: @json($monthlyChart['data']),
                         backgroundColor: 'transparent',
-                        borderColor: '#43d477',
+                        borderColor: '#0e76bc',
                         borderWidth: 2
                     }]
                 },

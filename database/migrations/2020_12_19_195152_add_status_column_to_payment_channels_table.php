@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 class AddStatusColumnToPaymentChannelsTable extends Migration
 {
     /**
@@ -13,7 +14,7 @@ class AddStatusColumnToPaymentChannelsTable extends Migration
     public function up()
     {
         Schema::table('payment_channels', function (Blueprint $table) {
-            $table->dropColumn('disabled_at');
+            DB::statement("ALTER TABLE `webinar`.`payment_channels` DROP COLUMN `disabled_at`");
             $table->enum('status', ['active', 'inactive'])->after('class_name');
         });
     }

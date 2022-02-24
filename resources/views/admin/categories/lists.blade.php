@@ -25,8 +25,7 @@
                                 <table class="table table-striped font-14">
                                     <tr>
                                         <th>{{ trans('admin/main.icon') }}</th>
-                                        <th class="text-left">{{ trans('admin/main.title_en') }}</th>
-                                        <th class="text-left">{{ trans('admin/main.title_ar') }}</th>
+                                        <th class="text-left">{{ trans('admin/main.title') }}</th>
                                         <th>{{ trans('panel.classes') }}</th>
                                         <th>{{ trans('home.teachers') }}</th>
                                         <th>{{ trans('admin/main.action') }}</th>
@@ -38,7 +37,6 @@
                                                 <img src="{{ $category->icon }}" width="30" alt="">
                                             </td>
                                             <td class="text-left">{{ $category->title }}</td>
-                                            <td class="text-left">{{ $category->title_ar }}</td>
                                             <td>{{ count($category->getCategoryCourses()) }}</td>
                                             <td>{{ count($category->getCategoryInstructorsIdsHasMeeting()) }}</td>
                                             <td>

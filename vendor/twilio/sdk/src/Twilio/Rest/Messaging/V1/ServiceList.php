@@ -61,8 +61,6 @@ class ServiceList extends ListResource {
             'AreaCodeGeomatch' => Serialize::booleanToString($options['areaCodeGeomatch']),
             'ValidityPeriod' => $options['validityPeriod'],
             'SynchronousValidation' => Serialize::booleanToString($options['synchronousValidation']),
-            'Usecase' => $options['usecase'],
-            'UseInboundWebhookOnNumber' => Serialize::booleanToString($options['useInboundWebhookOnNumber']),
         ]);
 
         $payload = $this->version->create('POST', $this->uri, [], $data);

@@ -294,7 +294,7 @@ class Captcha
         }
 
         if ($api) {
-            Cache::put($this->get_cache_key($generator['key']), $generator['value'], $this->expire);
+            Cache::put('captcha_record_' . $generator['key'], $generator['value'], $this->expire);
         }
 
         return $api ? [
@@ -483,16 +483,6 @@ class Captcha
 
         return $check;
     }
-    
-    /**
-     * Returns the md5 short version of the key for cache
-     *
-     * @param string $key
-     * @return string
-     */
-    protected function get_cache_key($key) {
-        return 'captcha_' . md5($key);
-    }    
 
     /**
      * Captcha check
@@ -504,7 +494,7 @@ class Captcha
      */
     public function check_api($value, $key, $config = 'default'): bool
     {
-        if (!Cache::pull($this->get_cache_key($key))) {
+        if (!Cache::pull('captcha_record_' . $key)) {
             return false;
         }
 

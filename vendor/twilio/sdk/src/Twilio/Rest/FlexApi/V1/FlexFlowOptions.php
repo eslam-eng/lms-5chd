@@ -25,8 +25,7 @@ abstract class FlexFlowOptions {
     /**
      * @param string $contactIdentity The channel contact's Identity
      * @param bool $enabled Whether the new Flex Flow is enabled
-     * @param string $integrationType The software that will handle inbound
-     *                                messages.
+     * @param string $integrationType The integration type
      * @param string $integrationFlowSid The SID of the Studio Flow
      * @param string $integrationUrl The External Webhook URL
      * @param string $integrationWorkspaceSid The Workspace SID for a new Task
@@ -54,8 +53,7 @@ abstract class FlexFlowOptions {
      * @param string $channelType The channel type
      * @param string $contactIdentity The channel contact's Identity
      * @param bool $enabled Whether the new Flex Flow is enabled
-     * @param string $integrationType The software that will handle inbound
-     *                                messages.
+     * @param string $integrationType The integration type
      * @param string $integrationFlowSid The SID of the Studio Flow
      * @param string $integrationUrl The External Webhook URL
      * @param string $integrationWorkspaceSid The Workspace SID for a new Task
@@ -114,8 +112,7 @@ class CreateFlexFlowOptions extends Options {
     /**
      * @param string $contactIdentity The channel contact's Identity
      * @param bool $enabled Whether the new Flex Flow is enabled
-     * @param string $integrationType The software that will handle inbound
-     *                                messages.
+     * @param string $integrationType The integration type
      * @param string $integrationFlowSid The SID of the Studio Flow
      * @param string $integrationUrl The External Webhook URL
      * @param string $integrationWorkspaceSid The Workspace SID for a new Task
@@ -172,10 +169,9 @@ class CreateFlexFlowOptions extends Options {
     }
 
     /**
-     * The software that will handle inbound messages. [Integration Type](https://www.twilio.com/docs/flex/developer/messaging/manage-flows#integration-types) can be: `studio`, `external`, or `task`.
+     * The integration type. Can be: `studio`, `external`, or `task`.
      *
-     * @param string $integrationType The software that will handle inbound
-     *                                messages.
+     * @param string $integrationType The integration type
      * @return $this Fluent Builder
      */
     public function setIntegrationType(string $integrationType): self {
@@ -228,7 +224,7 @@ class CreateFlexFlowOptions extends Options {
     }
 
     /**
-     * The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+     * The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
      *
      * @param string $integrationChannel The Task Channel for a new Task
      * @return $this Fluent Builder
@@ -297,7 +293,7 @@ class CreateFlexFlowOptions extends Options {
     }
 
     /**
-     * The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when `integrationType` is `external`, not applicable otherwise.
+     * The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
      *
      * @param int $integrationRetryCount The number of times to retry the webhook
      *                                   if the first attempt fails
@@ -326,8 +322,7 @@ class UpdateFlexFlowOptions extends Options {
      * @param string $channelType The channel type
      * @param string $contactIdentity The channel contact's Identity
      * @param bool $enabled Whether the new Flex Flow is enabled
-     * @param string $integrationType The software that will handle inbound
-     *                                messages.
+     * @param string $integrationType The integration type
      * @param string $integrationFlowSid The SID of the Studio Flow
      * @param string $integrationUrl The External Webhook URL
      * @param string $integrationWorkspaceSid The Workspace SID for a new Task
@@ -420,10 +415,9 @@ class UpdateFlexFlowOptions extends Options {
     }
 
     /**
-     * The software that will handle inbound messages. [Integration Type](https://www.twilio.com/docs/flex/developer/messaging/manage-flows#integration-types) can be: `studio`, `external`, or `task`.
+     * The integration type. Can be: `studio`, `external`, or `task`.
      *
-     * @param string $integrationType The software that will handle inbound
-     *                                messages.
+     * @param string $integrationType The integration type
      * @return $this Fluent Builder
      */
     public function setIntegrationType(string $integrationType): self {
@@ -476,7 +470,7 @@ class UpdateFlexFlowOptions extends Options {
     }
 
     /**
-     * The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+     * The Task Channel for the TaskRouter Task that will be created. Applicable and required when integrationType is `task`. Set to `sms` for SMS, and to `chat` otherwise. The default value is `default`
      *
      * @param string $integrationChannel The Task Channel for a new Task
      * @return $this Fluent Builder
@@ -545,7 +539,7 @@ class UpdateFlexFlowOptions extends Options {
     }
 
     /**
-     * The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (inclusive), default is 3. Optional when `integrationType` is `external`, not applicable otherwise.
+     * The number of times to retry the webhook if the first attempt fails. Can be an integer between 0 and 3 (included), default is 0. Optional when integrationType is `external`, not applicable otherwise.
      *
      * @param int $integrationRetryCount The number of times to retry the webhook
      *                                   if the first attempt fails

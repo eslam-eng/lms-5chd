@@ -17,7 +17,7 @@
 
 namespace Google\Auth\Middleware;
 
-use GuzzleHttp\Psr7\Query;
+use GuzzleHttp\Psr7;
 use Psr\Http\Message\RequestInterface;
 
 /**
@@ -81,9 +81,9 @@ class SimpleMiddleware
                 return $handler($request, $options);
             }
 
-            $query = Query::parse($request->getUri()->getQuery());
+            $query = Psr7\parse_query($request->getUri()->getQuery());
             $params = array_merge($query, $this->config);
-            $uri = $request->getUri()->withQuery(Query::build($params));
+            $uri = $request->getUri()->withQuery(Psr7\build_query($params));
             $request = $request->withUri($uri);
 
             return $handler($request, $options);

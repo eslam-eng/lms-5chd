@@ -12,7 +12,7 @@ function makeClassesStatisticsChart(badge, labels, datasets) {
                 data: datasets,
                 borderWidth: 0,
                 borderColor: '#6777ef',
-                backgroundColor: ['#43d477', '#1f3b64', '#ffab00'],
+                backgroundColor: ['#0e76bc', '#1f3b64', '#ffab00'],
                 pointBackgroundColor: '#fff',
                 pointBorderColor: '#6777ef',
                 pointRadius: 4,

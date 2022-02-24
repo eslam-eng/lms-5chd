@@ -2,7 +2,6 @@
 
 namespace Shetabit\Multipay;
 
-use Exception;
 use JsonSerializable;
 use Illuminate\Support\Facades\Response;
 
@@ -181,20 +180,11 @@ class RedirectionForm implements JsonSerializable
      *
      * @param $options
      *
-     * @throws Exception
-     * @return string
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function toJson($options = JSON_UNESCAPED_UNICODE)
+    public function toJson($options = JSON_UNESCAPED_UNICODE) : \Illuminate\Http\JsonResponse
     {
-        $this->sendJsonHeader();
-
-        $json = json_encode($this, $options);
-
-        if (json_last_error() != JSON_ERROR_NONE) {
-            throw new Exception(json_last_error_msg());
-        }
-
-        return $json;
+        return Response::json($this)->setEncodingOptions($options);
     }
 
     /**
@@ -229,15 +219,5 @@ class RedirectionForm implements JsonSerializable
     public function __toString()
     {
         return $this->toString();
-    }
-
-    /**
-     * Send application/json header
-     *
-     * @return void
-     */
-    private function sendJsonHeader()
-    {
-        header('Content-Type: application/json');
     }
 }

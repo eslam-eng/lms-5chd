@@ -159,7 +159,7 @@ class Sadad extends Driver
 
         $body = json_decode($response->getBody()->getContents());
 
-        if ($body->ResCode != 0) {
+        if ($body->ResCode == -1) {
             throw new InvalidPaymentException($message);
         }
 
@@ -169,15 +169,7 @@ class Sadad extends Driver
          * شماره مرجع : $body->RetrievalRefNo
          */
 
-        $receipt = $this->createReceipt($body->SystemTraceNo);
-        $receipt->detail([
-            'orderId' => $body->OrderId,
-            'traceNo' => $body->SystemTraceNo,
-            'referenceNo' => $body->RetrivalRefNo,
-            'description' => $body->Description,
-        ]);
-
-        return $receipt;
+        return $this->createReceipt($body->SystemTraceNo);
     }
 
     /**

@@ -10,12 +10,12 @@ use Maatwebsite\Excel\Exporter;
 trait Exportable
 {
     /**
-     * @param  string  $fileName
-     * @param  string|null  $writerType
-     * @param  array  $headers
-     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @param string      $fileName
+     * @param string|null $writerType
+     * @param array       $headers
      *
      * @throws NoFilenameGivenException
+     * @return \Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function download(string $fileName = null, string $writerType = null, array $headers = null)
     {
@@ -31,13 +31,13 @@ trait Exportable
     }
 
     /**
-     * @param  string  $filePath
-     * @param  string|null  $disk
-     * @param  string|null  $writerType
-     * @param  mixed  $diskOptions
-     * @return bool|PendingDispatch
+     * @param string      $filePath
+     * @param string|null $disk
+     * @param string|null $writerType
+     * @param mixed       $diskOptions
      *
      * @throws NoFilePathGivenException
+     * @return bool|PendingDispatch
      */
     public function store(string $filePath = null, string $disk = null, string $writerType = null, $diskOptions = [])
     {
@@ -52,18 +52,18 @@ trait Exportable
             $filePath,
             $disk ?? $this->disk ?? null,
             $writerType ?? $this->writerType ?? null,
-            $diskOptions ?: $this->diskOptions ?? []
+            $diskOptions ?? $this->diskOptions ?? []
         );
     }
 
     /**
-     * @param  string|null  $filePath
-     * @param  string|null  $disk
-     * @param  string|null  $writerType
-     * @param  mixed  $diskOptions
-     * @return PendingDispatch
+     * @param string|null $filePath
+     * @param string|null $disk
+     * @param string|null $writerType
+     * @param mixed       $diskOptions
      *
      * @throws NoFilePathGivenException
+     * @return PendingDispatch
      */
     public function queue(string $filePath = null, string $disk = null, string $writerType = null, $diskOptions = [])
     {
@@ -78,12 +78,13 @@ trait Exportable
             $filePath,
             $disk ?? $this->disk ?? null,
             $writerType ?? $this->writerType ?? null,
-            $diskOptions ?: $this->diskOptions ?? []
+            $diskOptions ?? $this->diskOptions ?? []
         );
     }
 
     /**
-     * @param  string|null  $writerType
+     * @param string|null $writerType
+     *
      * @return string
      */
     public function raw($writerType = null)
@@ -96,10 +97,10 @@ trait Exportable
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
      *
      * @throws NoFilenameGivenException
+     * @return \Illuminate\Http\Response
      */
     public function toResponse($request)
     {

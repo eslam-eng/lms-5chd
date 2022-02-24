@@ -3,7 +3,7 @@
 namespace Tzsk\Payu\Actions;
 
 use Illuminate\Support\Facades\Http;
-use Tzsk\Payu\Exceptions\InvalidValueException;
+use Illuminate\Validation\ValidationException;
 use Tzsk\Payu\Gateway\Gateway;
 use Tzsk\Payu\Gateway\PayuBiz;
 use Tzsk\Payu\Models\PayuTransaction;
@@ -43,7 +43,9 @@ class VerifyPayuBiz implements Actionable
     protected function url(): string
     {
         $subdomain = data_get($this->domainMap, $this->gateway->mode);
-        throw_unless($subdomain, InvalidValueException::fromMessage(__('Invalid mode supplied for PayuBiz'), 'mode'));
+        throw_unless($subdomain, ValidationException::withMessages([
+            'mode' => __('Invalid mode supplied for PayuBiz'),
+        ]));
 
         return sprintf('https://%s.payu.in/merchant/postservice?form=2', $subdomain);
     }

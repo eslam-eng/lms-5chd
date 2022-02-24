@@ -683,7 +683,7 @@ return [
 
 // Settings-footer
 
-    "footer"=>"تذييل",
+    "footer"=>"الهوامش",
     "footer_first_column"=>"العمود الأول",
     "footer_second_column"=>"العمود الثاني",
     "footer_third_column"=>"العمود الثالث",
@@ -1098,7 +1098,7 @@ return [
     "active_quizzes"=>"اختبارات نشطة",
     "total_reviews"=>"إجمالي المراجعات",
     "published_reviews"=>"التقييمات المنشورة",
-    "rates_average"=>"متوسط ​​تقييم",
+    "rates_average"=>"متوسط تقييم",
     "classes_without_review"=>"فصول بدون مراجعة",
     "total_conversations"=>"إجمالي المحادثات",
     "open_conversations"=>"محادثات مفتوحة",

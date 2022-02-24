@@ -344,7 +344,7 @@
     direction: ltr;
     position: absolute !important;
     border-radius: 30px;
-    background-image: linear-gradient(to bottom, #9effc1, #43d477);
+    background-image: linear-gradient(to bottom, #9effc1, #0e76bc);
 
     @media (max-width: $screen-xs-max) {
         border-radius: 10px;
@@ -495,7 +495,7 @@
             right: 0;
             border-radius: 0 0 10px 10px;
             height: 11px;
-            background: linear-gradient(to left, #9effc1, #43d477);
+            background: linear-gradient(to left, #9effc1, #0e76bc);
         }
 
         .testimonials-user-avatar {

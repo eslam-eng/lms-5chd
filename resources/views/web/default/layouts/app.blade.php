@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 @php
-    app()->setLocale('ar');
     $rtlLanguages = !empty($generalSettings['rtl_languages']) ? $generalSettings['rtl_languages'] : [];
-    $isRtl = ((in_array(mb_strtoupper(app()->getLocale()), $rtlLanguages)) or (!empty($generalSettings['rtl_layout']) and $generalSettings['rtl_layout'] == 1));
 
+    $isRtl = ((in_array(mb_strtoupper(app()->getLocale()), $rtlLanguages)) or (!empty($generalSettings['rtl_layout']) and $generalSettings['rtl_layout'] == 1));
 @endphp
 
 <head>
@@ -70,7 +69,7 @@
         $.toast({
             heading: '{{ session()->get('toast')['title'] ?? '' }}',
             text: '{{ session()->get('toast')['msg'] ?? '' }}',
-            bgColor: '@if(session()->get('toast')['status'] == 'success') #43d477 @else #f63c3c @endif',
+            bgColor: '@if(session()->get('toast')['status'] == 'success') #0e76bc @else #f63c3c @endif',
             textColor: 'white',
             hideAfter: 10000,
             position: 'bottom-right',
@@ -86,14 +85,6 @@
 
 <script>
     {!! !empty(getCustomCssAndJs('js')) ? getCustomCssAndJs('js') : '' !!}
-    $(document).on('click','.lang',function (ele) {
-        ele.preventDefault();
-        var lang = $(this).data('lang');
-        if (lang && lang !== '') {
-            $("#selectedLang").val(lang);
-            $("#form-language").submit();
-        }
-    })
 </script>
 </body>
 </html>

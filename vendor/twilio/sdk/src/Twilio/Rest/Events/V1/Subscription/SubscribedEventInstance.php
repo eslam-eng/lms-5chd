@@ -20,7 +20,7 @@ use Twilio\Version;
  *
  * @property string $accountSid
  * @property string $type
- * @property int $schemaVersion
+ * @property int $version
  * @property string $subscriptionSid
  * @property string $url
  */
@@ -40,7 +40,7 @@ class SubscribedEventInstance extends InstanceResource {
         $this->properties = [
             'accountSid' => Values::array_get($payload, 'account_sid'),
             'type' => Values::array_get($payload, 'type'),
-            'schemaVersion' => Values::array_get($payload, 'schema_version'),
+            'version' => Values::array_get($payload, 'version'),
             'subscriptionSid' => Values::array_get($payload, 'subscription_sid'),
             'url' => Values::array_get($payload, 'url'),
         ];

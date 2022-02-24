@@ -28,33 +28,18 @@
                                   method="Post">
                                 {{ csrf_field() }}
 
-                                <div class="form-group mt-15 ">
-                                    <label class="input-label d-block">{{ trans('admin/main.select_lang') }}</label>
-
-                                    <select name="category_type" class="custom-select @error('category_type')  is-invalid @enderror">
-                                        <option value="en" @if((!empty($category) and $category->category_type=='en') or old('category_type') == 'en') selected @endif>English</option>
-                                        <option value="ar" @if((!empty($category) and $category->category_type=='ar') or old('category_type') =='ar') selected @endif>العربيه</option>
-                                    </select>
-
-                                    @error('category_type')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-
                                 <div class="form-group">
-                                    <label>{{ trans('admin/main.title_en') }}</label>
+                                    <label>{{ trans('/admin/main.title') }}</label>
                                     <input type="text" name="title"
                                            class="form-control  @error('title') is-invalid @enderror"
-                                           value="{{ !empty($category) ? $category->title : old('title') }}"/>
+                                           value="{{ !empty($category) ? $category->title : old('title') }}"
+                                           placeholder="{{ trans('admin/main.choose_title') }}"/>
                                     @error('title')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
-
 
                                 <div class="form-group">
                                     <label class="input-label">{{ trans('admin/main.icon') }}</label>
@@ -82,8 +67,7 @@
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <strong class="d-block">{{ trans('admin/main.add_sub_categories') }}</strong>
 
-                                        <button type="button" class="btn btn-success add-btn"><i class="fa fa-plus"></i>
-                                            {{trans('admin/main.add')}}</button>
+                                        <button type="button" class="btn btn-success add-btn"><i class="fa fa-plus"></i> Add</button>
                                     </div>
 
                                     <ul class="draggable-lists list-group">

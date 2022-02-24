@@ -11,7 +11,6 @@ namespace Twilio\Rest\Verify\V2\Service;
 
 use Twilio\Exceptions\TwilioException;
 use Twilio\ListResource;
-use Twilio\Options;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -39,18 +38,11 @@ class AccessTokenList extends ListResource {
      *
      * @param string $identity Unique external identifier of the Entity
      * @param string $factorType The Type of this Factor
-     * @param array|Options $options Optional Arguments
      * @return AccessTokenInstance Created AccessTokenInstance
      * @throws TwilioException When an HTTP error occurs.
      */
-    public function create(string $identity, string $factorType, array $options = []): AccessTokenInstance {
-        $options = new Values($options);
-
-        $data = Values::of([
-            'Identity' => $identity,
-            'FactorType' => $factorType,
-            'FactorFriendlyName' => $options['factorFriendlyName'],
-        ]);
+    public function create(string $identity, string $factorType): AccessTokenInstance {
+        $data = Values::of(['Identity' => $identity, 'FactorType' => $factorType, ]);
 
         $payload = $this->version->create('POST', $this->uri, [], $data);
 

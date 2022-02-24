@@ -50,16 +50,16 @@
         @endforeach
     </div>
 
-{{--    <div class="mt-15">--}}
-{{--        @if(!empty($instructor->meeting) and !$instructor->meeting->disabled and !empty($instructor->meeting->amount))--}}
-{{--            @if(!empty($instructor->meeting->discount))--}}
-{{--                <span class="font-20 text-primary font-weight-bold">{{ $currency }}{{ ($instructor->meeting->amount - (($instructor->meeting->amount * $instructor->meeting->discount) / 100)) }}</span>--}}
-{{--                <span class="font-14 text-gray text-decoration-line-through ml-10">{{ $currency }}{{ $instructor->meeting->amount }}</span>--}}
-{{--            @else--}}
-{{--                <span class="font-20 text-primary font-weight-500">{{ $currency }}{{ $instructor->meeting->amount }}</span>--}}
-{{--            @endif--}}
-{{--        @endif--}}
-{{--    </div>--}}
+    <div class="mt-15">
+        @if(!empty($instructor->meeting) and !$instructor->meeting->disabled and !empty($instructor->meeting->amount))
+            @if(!empty($instructor->meeting->discount))
+                <span class="font-20 text-primary font-weight-bold">{{ $currency }}{{ ($instructor->meeting->amount - (($instructor->meeting->amount * $instructor->meeting->discount) / 100)) }}</span>
+                <span class="font-14 text-gray text-decoration-line-through ml-10">{{ $currency }}{{ $instructor->meeting->amount }}</span>
+            @else
+                <span class="font-20 text-primary font-weight-500">{{ $currency }}{{ $instructor->meeting->amount }}</span>
+            @endif
+        @endif
+    </div>
 
     <div class="mt-20 d-flex flex-row align-items-center justify-content-center w-100">
         <a href="{{ $instructor->getProfileUrl() }}{{ ($canReserve) ? '?tab=appointments' : '' }}" class="btn btn-primary btn-block">

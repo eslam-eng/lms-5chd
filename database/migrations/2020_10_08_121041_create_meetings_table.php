@@ -18,7 +18,6 @@ class CreateMeetingsTable extends Migration
 
             $table->increments('id');
             $table->integer('creator_id')->unsigned();
-            $table->integer('teacher_id')->unsigned();
             $table->integer('amount')->unsigned()->nullable();
             $table->integer('discount')->nullable();
             $table->boolean('disabled')->default(0);

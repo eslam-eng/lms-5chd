@@ -87,7 +87,6 @@ class ParticipantList extends ListResource {
             'CallerId' => $options['callerId'],
             'CallReason' => $options['callReason'],
             'RecordingTrack' => $options['recordingTrack'],
-            'TimeLimit' => $options['timeLimit'],
         ]);
 
         $payload = $this->version->create('POST', $this->uri, [], $data);

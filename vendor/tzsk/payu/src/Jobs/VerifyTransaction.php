@@ -11,10 +11,7 @@ use Tzsk\Payu\Models\PayuTransaction;
 
 class VerifyTransaction implements ShouldQueue
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public PayuTransaction $transaction;
 

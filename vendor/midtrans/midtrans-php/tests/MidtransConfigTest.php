@@ -14,7 +14,10 @@ class MidtransConfigTest extends \PHPUnit_Framework_TestCase
         );
 
         Config::$isProduction = true;
-        $this->assertEquals(Config::PRODUCTION_BASE_URL, Config::getBaseUrl());
+        $this->assertEquals(
+            Config::getBaseUrl(),
+            Config::PRODUCTION_BASE_URL
+        );
     }
 
     public function tearDown()

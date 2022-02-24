@@ -36,13 +36,6 @@ class Paystar extends Driver
     protected $settings;
 
     /**
-     * payment token
-     *
-     * @var $token
-     */
-    protected $token;
-
-    /**
      * Paystar constructor.
      * Construct the class with the relevant settings.
      *
@@ -67,24 +60,15 @@ class Paystar extends Driver
     public function purchase()
     {
         $details = $this->invoice->getDetails();
-        $order_id = $this->invoice->getUuid();
-        $amount = $this->invoice->getAmount();
-        $callback = $this->settings->callbackUrl;
 
-        $data = [
-            'amount' => $amount,
-            'order_id' => $order_id,
-            'mail' => $details['email'] ?? null,
+        $data = array(
+            'amount' => $this->invoice->getAmount(),
+            'email' => $details['email'] ?? null,
             'phone' => $details['mobile'] ?? $details['phone'] ?? null,
-            'description' => $details['description'] ?? $this->settings->description,
-            'callback' => $callback,
-            'sign' =>
-                hash_hmac(
-                    'SHA512',
-                    $amount . '#' . $order_id . '#' . $callback,
-                    $this->settings->signKey
-                ),
-        ];
+            'pin' => $this->settings->merchantId,
+            'desc' => $details['description'] ?? $this->settings->description,
+            'callback' => $this->settings->callbackUrl,
+        );
 
         $response = $this
             ->client
@@ -92,24 +76,19 @@ class Paystar extends Driver
                 'POST',
                 $this->settings->apiPurchaseUrl,
                 [
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                        'Accept' => 'application/json',
-                        'Authorization' => 'Bearer ' . $this->settings->gatewayId,
-                    ],
-                    'body' => json_encode($data),
+                    "form_params" => $data,
+                    "http_errors" => false,
                 ]
             );
 
-        $body = json_decode($response->getBody()->getContents());
+        $body = $response->getBody()->getContents();
 
-        if ($body->status !== 1) {
+        if (is_numeric($body)) {
             // some error has happened
-            throw new PurchaseFailedException($this->translateStatus($body->status));
+            throw new PurchaseFailedException($this->translateStatus($body));
         }
 
-        $this->invoice->transactionId($body->data->ref_num);
-        $this->token = $body->data->token;
+        $this->invoice->transactionId($body);
 
         // return the transaction's id
         return $this->invoice->getTransactionId();
@@ -122,13 +101,10 @@ class Paystar extends Driver
      */
     public function pay() : RedirectionForm
     {
-        return $this->redirectWithForm(
-            $this->settings->apiPaymentUrl,
-            [
-                'token' => $this->token,
-            ],
-            'POST'
-        );
+        $apiUrl = $this->settings->apiPaymentUrl;
+        $payUrl = $apiUrl.$this->invoice->getTransactionId();
+
+        return $this->redirectWithForm($payUrl, [], 'GET');
     }
 
     /**
@@ -141,43 +117,29 @@ class Paystar extends Driver
      */
     public function verify() : ReceiptInterface
     {
-        $amount = $this->invoice->getAmount();
-        $refNum = Request::post('ref_num');
-        $cardNumber = Request::post('card_number');
-        $trackingCode = Request::post('tracking_code');
+        $transId = $this->invoice->getTransactionId() ?? Request::input('transid');
 
         $data = [
-            'amount' => $amount,
-            'ref_num' => $refNum,
-            'tracking_code' => $trackingCode,
-            'sign' =>
-                hash_hmac(
-                    'SHA512',
-                    $amount . '#' . $refNum . '#' . $cardNumber . '#' . $trackingCode,
-                    $this->settings->signKey
-                ),
+            'amount' => $this->invoice->getAmount(),
+            'pin' => $this->settings->merchantId,
+            'transid' => $transId,
         ];
 
         $response = $this->client->request(
             'POST',
             $this->settings->apiVerificationUrl,
             [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . $this->settings->gatewayId,
-                ],
-                'body' => json_encode($data),
+                'form_params' => $data,
+                "http_errors" => false,
             ]
         );
+        $body = $response->getBody()->getContents();
 
-        $body = json_decode($response->getBody()->getContents());
-
-        if ($body->status !== 1) {
-            throw new InvalidPaymentException($this->translateStatus($body->status));
+        if ($body != 1) {
+            throw new InvalidPaymentException($this->translateStatus($body));
         }
 
-        return $this->createReceipt($refNum);
+        return $this->createReceipt($transId);
     }
 
     /**
@@ -205,28 +167,22 @@ class Paystar extends Driver
     {
         $status = (string) $status;
 
-        $translations = [
-            '1' => 'موفق',
-            '-4' => 'برخی از فيلدهای ضروری ارسال نشده است',
-            '-5' => 'شناسه ترمينال معتبر نيست',
-            '-6' => 'مبلغ کمتر از حداقل است',
-            '-7' => 'مبلغ کمتر از حداقل است',
-            '-8' => 'مبلغ بيشتر از حداکثر است',
-            '-9' => 'شناسه سفارش نميتواند خالی باشد',
-            '-10' => 'طول شناسه سفارش کوتاه است',
-            '-11' => 'طول شناسه سفارش بلند است',
-            '-12' => 'تراکنش ناموفق',
-            '-13' => 'تراکنش شناسایی نشد',
-            '-14' => 'ترمينال فعال نيست',
-            '-15' => 'شماره کارت معتبر نيست',
-            '-16' => 'تراکنش قبال وریفای شده است',
-            '-17' => 'توکن تکراری است',
-            '-23' => 'آدرس برگشت معتبر نيست',
-            '-24' => 'فروشگاه فعال نيست',
-            '-25' => 'تراکنش بيشتر از سقف محدودیت می باشد',
-            '-98' => 'امضا نامعتبر است',
-            '-99' => 'خطای سامانه',
-        ];
+        $translations = array(
+            "−1" => "مبلغ پرداخت نمیتواند خالی باشد.",
+            "−2" => "کد پین درگاه(کد مرچند) نمیتواند خالی باشد.",
+            "−3" => "لینک برگشتی (callback) نمیتواند خالی باشد.",
+            "−4" => "مبلغ پرداخت باید عددی باشد.",
+            "−5" => "مبلغ پرداخت باید بزرگتر از ۱۰۰ باشد.",
+            "−6" => "کد پین درگاه (مرچند) اشتباه است.",
+            "−7" => "آیپی سرور با آیپی درگاه مطابقت ندارد",
+            "−8" => "کد تراکنش (transid) نمیتواند خالی باشد.",
+            "−9" => "تراکنش مورد نظر وجود ندارد.",
+            "−10" => "کدپین درگاه با درگاه تراکنش مطابقت ندارد.",
+            "−11" => "مبلغ با مبلغ تراکنش مطابقت ندارد.",
+            "-12" => "بانک انتخابی اشتباه است.",
+            "-13" => "درگاه غیرفعال است.",
+            "-14" => "آیپی مشتری ارسال نشده است.",
+        );
 
         $unknownError = 'خطای ناشناخته رخ داده است.';
 

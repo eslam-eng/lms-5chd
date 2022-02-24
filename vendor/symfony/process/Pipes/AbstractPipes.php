@@ -133,7 +133,7 @@ abstract class AbstractPipes implements PipesInterface
             }
 
             if ($input) {
-                while (true) {
+                for (;;) {
                     $data = fread($input, self::CHUNK_SIZE);
                     if (!isset($data[0])) {
                         break;
@@ -171,7 +171,7 @@ abstract class AbstractPipes implements PipesInterface
     /**
      * @internal
      */
-    public function handleError(int $type, string $msg)
+    public function handleError($type, $msg)
     {
         $this->lastError = $msg;
     }

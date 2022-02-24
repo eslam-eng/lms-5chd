@@ -2,7 +2,8 @@
 
 namespace Tzsk\Payu\Gateway;
 
-use Tzsk\Payu\Exceptions\InvalidValueException;
+use Illuminate\Validation\ValidationException;
+use Throwable;
 
 class Factory
 {
@@ -14,15 +15,15 @@ class Factory
     /**
      * @param string $key
      * @return Gateway
-     * @throws InvalidValueException
+     * @throws Throwable
      */
     public static function make(string $key): Gateway
     {
         $factory = new self();
         $gateway = data_get($factory->gateways(), $key);
 
-        throw_unless($gateway, InvalidValueException::fromMessage(__(sprintf('Gateway [%s] does not exist', $key)), $key));
-        throw_unless($gateway instanceof Gateway, InvalidValueException::fromMessage(__(sprintf('Invalid gateway [%s]', $key)), $key));
+        throw_unless($gateway, ValidationException::withMessages([$key => __('Gateway does not exist')]));
+        throw_unless($gateway instanceof Gateway, ValidationException::withMessages([$key => 'Invalid gateway']));
 
         return $gateway;
     }

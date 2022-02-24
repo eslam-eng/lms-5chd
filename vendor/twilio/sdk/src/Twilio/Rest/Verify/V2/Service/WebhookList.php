@@ -56,7 +56,6 @@ class WebhookList extends ListResource {
             'EventTypes' => Serialize::map($eventTypes, function($e) { return $e; }),
             'WebhookUrl' => $webhookUrl,
             'Status' => $options['status'],
-            'Version' => $options['version'],
         ]);
 
         $payload = $this->version->create('POST', $this->uri, [], $data);

@@ -29,11 +29,10 @@ final class ConfigurationGenerator
          beStrictAboutCoversAnnotation="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
-         convertDeprecationsToExceptions="true"
          verbose="true">
     <testsuites>
         <testsuite name="default">
-            <directory>{tests_directory}</directory>
+            <directory suffix="Test.php">{tests_directory}</directory>
         </testsuite>
     </testsuites>
 

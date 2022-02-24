@@ -17,8 +17,8 @@ class TemporaryFileFactory
     private $temporaryDisk;
 
     /**
-     * @param  string|null  $temporaryPath
-     * @param  string|null  $temporaryDisk
+     * @param string|null $temporaryPath
+     * @param string|null $temporaryDisk
      */
     public function __construct(string $temporaryPath = null, string $temporaryDisk = null)
     {
@@ -27,7 +27,8 @@ class TemporaryFileFactory
     }
 
     /**
-     * @param  string|null  $fileExtension
+     * @param string|null $fileExtension
+     *
      * @return TemporaryFile
      */
     public function make(string $fileExtension = null): TemporaryFile
@@ -40,8 +41,10 @@ class TemporaryFileFactory
     }
 
     /**
-     * @param  string|null  $fileName
-     * @param  string|null  $fileExtension
+     * @param string|null $fileName
+     *
+     * @param string|null $fileExtension
+     *
      * @return LocalTemporaryFile
      */
     public function makeLocal(string $fileName = null, string $fileExtension = null): LocalTemporaryFile
@@ -56,7 +59,8 @@ class TemporaryFileFactory
     }
 
     /**
-     * @param  string|null  $fileExtension
+     * @param string|null $fileExtension
+     *
      * @return RemoteTemporaryFile
      */
     private function makeRemote(string $fileExtension = null): RemoteTemporaryFile
@@ -71,7 +75,8 @@ class TemporaryFileFactory
     }
 
     /**
-     * @param  string|null  $fileExtension
+     * @param string|null $fileExtension
+     *
      * @return string
      */
     private function generateFilename(string $fileExtension = null): string

@@ -22,7 +22,7 @@ class CreateDiscountsTable extends Migration
             $table->integer('percent')->unsigned()->nullable();
             $table->integer('amount')->unsigned()->nullable();
             $table->integer('count')->default(1);
-            $table->tinyInteger('created_at')->default(0)->unsigned();
+            $table->integer('created_at')->unsigned();
             $table->integer('expired_at')->unsigned();
 
             $table->foreign('creator_id')->references('id')->on('users')->onDelete('cascade');

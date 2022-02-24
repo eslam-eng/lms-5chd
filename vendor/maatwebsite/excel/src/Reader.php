@@ -11,7 +11,6 @@ use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithFormatData;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Events\BeforeImport;
@@ -64,8 +63,8 @@ class Reader
     protected $reader;
 
     /**
-     * @param  TemporaryFileFactory  $temporaryFileFactory
-     * @param  TransactionHandler  $transaction
+     * @param TemporaryFileFactory $temporaryFileFactory
+     * @param TransactionHandler   $transaction
      */
     public function __construct(TemporaryFileFactory $temporaryFileFactory, TransactionHandler $transaction)
     {
@@ -86,12 +85,12 @@ class Reader
     }
 
     /**
-     * @param  object  $import
-     * @param  string|UploadedFile  $filePath
-     * @param  string|null  $readerType
-     * @param  string|null  $disk
-     * @return \Illuminate\Foundation\Bus\PendingDispatch|$this
+     * @param object              $import
+     * @param string|UploadedFile $filePath
+     * @param string|null         $readerType
+     * @param string|null         $disk
      *
+     * @return \Illuminate\Foundation\Bus\PendingDispatch|$this
      * @throws NoTypeDetectedException
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @throws Exception
@@ -131,7 +130,6 @@ class Reader
             $this->afterImport($import);
         } catch (Throwable $e) {
             $this->raise(new ImportFailed($e));
-            $this->garbageCollect();
             throw $e;
         }
 
@@ -139,12 +137,12 @@ class Reader
     }
 
     /**
-     * @param  object  $import
-     * @param  string|UploadedFile  $filePath
-     * @param  string  $readerType
-     * @param  string|null  $disk
-     * @return array
+     * @param object              $import
+     * @param string|UploadedFile $filePath
+     * @param string              $readerType
+     * @param string|null         $disk
      *
+     * @return array
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws NoTypeDetectedException
@@ -160,9 +158,8 @@ class Reader
         $sheetsToDisconnect = [];
         foreach ($this->sheetImports as $index => $sheetImport) {
             $calculatesFormulas = $sheetImport instanceof WithCalculatedFormulas;
-            $formatData         = $sheetImport instanceof WithFormatData;
             if ($sheet = $this->getSheet($import, $sheetImport, $index)) {
-                $sheets[$index] = $sheet->toArray($sheetImport, $sheet->getStartRow($sheetImport), null, $calculatesFormulas, $formatData);
+                $sheets[$index] = $sheet->toArray($sheetImport, $sheet->getStartRow($sheetImport), null, $calculatesFormulas);
 
                 // when using WithCalculatedFormulas we need to keep the sheet until all sheets are imported
                 if (!($sheetImport instanceof HasReferencesToOtherSheets)) {
@@ -183,12 +180,12 @@ class Reader
     }
 
     /**
-     * @param  object  $import
-     * @param  string|UploadedFile  $filePath
-     * @param  string  $readerType
-     * @param  string|null  $disk
-     * @return Collection
+     * @param object              $import
+     * @param string|UploadedFile $filePath
+     * @param string              $readerType
+     * @param string|null         $disk
      *
+     * @return Collection
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws NoTypeDetectedException
@@ -203,9 +200,8 @@ class Reader
         $sheetsToDisconnect = [];
         foreach ($this->sheetImports as $index => $sheetImport) {
             $calculatesFormulas = $sheetImport instanceof WithCalculatedFormulas;
-            $formatData         = $sheetImport instanceof WithFormatData;
             if ($sheet = $this->getSheet($import, $sheetImport, $index)) {
-                $sheets->put($index, $sheet->toCollection($sheetImport, $sheet->getStartRow($sheetImport), null, $calculatesFormulas, $formatData));
+                $sheets->put($index, $sheet->toCollection($sheetImport, $sheet->getStartRow($sheetImport), null, $calculatesFormulas));
 
                 // when using WithCalculatedFormulas we need to keep the sheet until all sheets are imported
                 if (!($sheetImport instanceof HasReferencesToOtherSheets)) {
@@ -246,7 +242,7 @@ class Reader
     }
 
     /**
-     * @param  object  $import
+     * @param object $import
      */
     public function loadSpreadsheet($import)
     {
@@ -271,7 +267,7 @@ class Reader
     }
 
     /**
-     * @param  object  $import
+     * @param object $import
      */
     public function beforeImport($import)
     {
@@ -279,7 +275,7 @@ class Reader
     }
 
     /**
-     * @param  object  $import
+     * @param object $import
      */
     public function afterImport($import)
     {
@@ -297,7 +293,8 @@ class Reader
     }
 
     /**
-     * @param  object  $import
+     * @param object $import
+     *
      * @return array
      */
     public function getWorksheets($import): array
@@ -357,8 +354,8 @@ class Reader
      * @param $import
      * @param $sheetImport
      * @param $index
-     * @return Sheet|null
      *
+     * @return Sheet|null
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      * @throws SheetNotFoundException
      */
@@ -384,7 +381,8 @@ class Reader
     }
 
     /**
-     * @param  object  $import
+     * @param object $import
+     *
      * @return array
      */
     private function buildSheetImports($import): array
@@ -407,12 +405,12 @@ class Reader
     }
 
     /**
-     * @param  object  $import
-     * @param  string|UploadedFile  $filePath
-     * @param  string|null  $readerType
-     * @param  string  $disk
-     * @return IReader
+     * @param object              $import
+     * @param string|UploadedFile $filePath
+     * @param string|null         $readerType
+     * @param string              $disk
      *
+     * @return IReader
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      * @throws NoTypeDetectedException
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception

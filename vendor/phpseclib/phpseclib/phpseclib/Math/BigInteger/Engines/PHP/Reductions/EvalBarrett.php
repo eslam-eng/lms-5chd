@@ -60,6 +60,11 @@ abstract class EvalBarrett extends Base
      */
     protected static function generateCustomReduction(PHP $m, $class)
     {
+        if (isset($n->reduce)) {
+            self::$custom_reduction = $n->reduce;
+            return $n->reduce;
+        }
+
         $m_length = count($m->value);
 
         if ($m_length < 5) {

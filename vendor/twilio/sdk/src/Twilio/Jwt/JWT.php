@@ -38,8 +38,7 @@ class JWT {
             if (empty($header->alg)) {
                 throw new \DomainException('Empty algorithm');
             }
-
-            if (!hash_equals($sig, self::sign("$headb64.$payloadb64", $key, $header->alg))) {
+            if ($sig !== self::sign("$headb64.$payloadb64", $key, $header->alg)) {
                 throw new \UnexpectedValueException('Signature verification failed');
             }
         }

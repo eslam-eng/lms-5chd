@@ -29,10 +29,6 @@
 [به منظور کمک مالی کلیک کنید](https://zarinp.al/@mahdikhanzadi) :sunglasses: :bowtie:
 
 
-در صورتی که نیاز به آموزش دارید میتونید یه نگاهی به لینک زیر بندازید
-
-- [آموزش ویدیویی پرداخت و خرید در لاراول](https://ditty.ir/videos/laravel-online-payment-installation/nM4Y5)
-
 # لیست محتوا
 
 - [درایور های موجود](#درایورهای-موجود)
@@ -55,7 +51,6 @@
 
 - [اسان پرداخت](https://asanpardakht.ir/) :heavy_check_mark:
 - [به‌پرداخت (mellat)](http://www.behpardakht.com/) :heavy_check_mark:
-- [دیجی پی](https://www.mydigipay.com/) :heavy_check_mark:
 - [ایدی پی](https://idpay.ir/) :heavy_check_mark:
 - [ایرانکیش](http://irankish.com/) :heavy_check_mark:
 - [نکست پی](https://nextpay.ir/) :heavy_check_mark:
@@ -72,7 +67,6 @@
 - [یک پی](https://yekpay.com/) :heavy_check_mark:
 - [زرین پال](https://www.zarinpal.com/) :heavy_check_mark:
 - [زیبال](https://www.zibal.ir/) :heavy_check_mark:
-- [سپرده](https://sepordeh.com/) :heavy_check_mark:
 
 - درایورهای دیگر ساخته خواهند شد یا اینکه بسازید و درخواست `merge` بدید.
 

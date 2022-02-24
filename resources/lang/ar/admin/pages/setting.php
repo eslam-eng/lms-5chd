@@ -1,11 +1,13 @@
+<?php
 
+return [
 
     'setting_and_profile' => "الإعداد والملف الشخصي",
     'setting' => 'جلسة',
     'settings' =>  'إعدادات',
 
     // seo
-    'settings_seo_metas' =>  إعدادات Seo metas,
+    'settings_seo_metas' =>  "إعدادات Seo metas",
     'seo_metas' =>  "ميتاس سيو",
     'seo_metas_home' =>  'الصفحة الرئيسية',
     'seo_metas_search' => "صفحة البحث",
@@ -56,7 +58,7 @@
     'preloading' =>  "التحميل المسبق",
 
     'main_financial' =>  'مالي',
-    'courses_commission' =>  لجنة الدورات,
+    'courses_commission' =>" عمولة الدورات",
     'tax' =>  'ضريبة',
     'minimum_payout_amount' =>  "الحد الأدنى لمبلغ الدفع",
 
@@ -86,7 +88,7 @@
     'verification_background' =>  "خلفية التحقق",
     'search_background' =>  "خلفية البحث",
     'categories_background' =>  "خلفية الفئات",
-    'become_instructor_background' =>  "كن المعلم" الخلفية,
+    'become_instructor_background' =>  "خلفيه المعلم",
     'certificate_validation_background' =>  "خلفية التحقق من صحة الشهادة",
     'blog_background' =>  "خلفية المدونة",
     'instructors_background' =>  "خلفية المدربين",
@@ -95,11 +97,11 @@
     'user_avatar_background' =>  "الصورة الرمزية الافتراضية للمستخدم",
     'user_cover_background' =>  "الغلاف الافتراضي للمستخدم",
 
-    'custom_css_js' => '"css & js مخصصة",
+    'custom_css_js' => "css & js مخصصة",
     'css' =>  "Css",
     'js' =>  "js",
 
-    'account_types' => "أنواع الحسابات",
+    'account_types'=>"أنواع الحسابات",
     'add_account_types' =>  "إضافة أنواع الحسابات",
 
     'site_bank_accounts' => "حسابات بنك الموقع",
@@ -110,7 +112,7 @@
 
     'notifications' => 'إشعارات',
     'notification_admin' =>  'مشرف',
-    'notification_user' =>  'اشعارات المستخدم'',
+    'notification_user' =>  'اشعارات المستخدم',
     'notification_course' =>  'اشعارات الكورسات',
     'notification_financial' =>  'مالي',
     'notification_sale_purchase' =>  "بيع / شراء",
@@ -194,5 +196,5 @@
 
     'settings_navbar_links' => "إعدادات روابط Navbar",
     'navbar_links' =>  "روابط Navbar",
-    'top_navbar' =>  "Top Navbar",
+    'top_navbar' =>  "شريط المهام الرئيسي",
 ];

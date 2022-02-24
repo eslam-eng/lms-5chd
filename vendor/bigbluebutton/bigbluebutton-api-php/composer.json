@@ -8,11 +8,11 @@
     "api"
   ],
   "homepage": "http://bigbluebutton.org/",
-  "license": "LGPL-3.0-or-later",
+  "license": "GPL-3.0",
   "authors": [
     {
       "name": "Ghazi Triki",
-      "email": "ghazi.triki@riadvice.tn",
+      "email": "ghazi.nocturne@gmail.com",
       "role": "Developer"
     }
   ],
@@ -23,22 +23,20 @@
     }
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=5.4",
     "ext-curl": "*",
     "ext-simplexml": "*",
     "ext-mbstring": "*"
   },
   "require-dev": {
+    "php": ">=7.0",
     "ext-mbstring": "*",
-    "composer/composer": "^1.10.24",
-    "phpunit/phpunit": "^8.5",
-    "fakerphp/faker": "^1.17",
-    "friendsofphp/php-cs-fixer": "^2.19",
-    "squizlabs/php_codesniffer": "^3.6",
-    "php-coveralls/php-coveralls": "^2.5.2"
-  },
-  "options": {
-    "symlink": false
+    "composer/composer": "1.7.*@dev",
+    "phpunit/phpunit": "6.*",
+    "fzaninotto/faker": "~1.8.0",
+    "friendsofphp/php-cs-fixer": "2.*",
+    "squizlabs/php_codesniffer": "3.*",
+    "php-coveralls/php-coveralls": "2.1.*"
   },
   "autoload": {
     "psr-4": {

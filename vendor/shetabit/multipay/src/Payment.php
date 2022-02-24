@@ -110,7 +110,7 @@ class Payment
      */
     public function callbackUrl($url = null)
     {
-        $this->config('callbackUrl', $url);
+        $this->callbackUrl = $url;
 
         return $this;
     }

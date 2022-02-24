@@ -11,7 +11,6 @@ class Bigbluebutton extends BigBlueButtonParent
     /**
      * Bigbluebutton constructor.
      * Allows to set url and secret as parameter, otherwise use values in env.
-     *
      * @param $bbbServerBaseUrl API Base Url
      * @param $securitySecret API Server secret
      */

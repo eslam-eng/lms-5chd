@@ -514,6 +514,8 @@ class BCMath extends Engine
      */
     protected function normalize(BCMath $result)
     {
+        unset($result->reduce);
+
         $result->precision = $this->precision;
         $result->bitmask = $this->bitmask;
 

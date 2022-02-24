@@ -19,9 +19,8 @@ namespace Google\Auth;
 
 use Google\Auth\HttpHandler\HttpClientCache;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
-use GuzzleHttp\Psr7\Query;
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Utils;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -429,6 +428,7 @@ class OAuth2 implements FetchAuthTokenInterface
 
         $assertion = [
             'iss' => $this->getIssuer(),
+            'aud' => $this->getAudience(),
             'exp' => ($now + $this->getExpiry()),
             'iat' => ($now - $opts['skew']),
         ];
@@ -437,18 +437,9 @@ class OAuth2 implements FetchAuthTokenInterface
                 throw new \DomainException($k . ' should not be null');
             }
         }
-        if (!(is_null($this->getAudience()))) {
-            $assertion['aud'] = $this->getAudience();
-        }
-
         if (!(is_null($this->getScope()))) {
             $assertion['scope'] = $this->getScope();
         }
-
-        if (empty($assertion['scope']) && empty($assertion['aud'])) {
-            throw new \DomainException('one of scope or aud should not be null');
-        }
-
         if (!(is_null($this->getSub()))) {
             $assertion['sub'] = $this->getSub();
         }
@@ -516,7 +507,7 @@ class OAuth2 implements FetchAuthTokenInterface
             'POST',
             $uri,
             $headers,
-            Query::build($params)
+            Psr7\build_query($params)
         );
     }
 
@@ -691,10 +682,10 @@ class OAuth2 implements FetchAuthTokenInterface
 
         // Construct the uri object; return it if it is valid.
         $result = clone $this->authorizationUri;
-        $existingParams = Query::parse($result->getQuery());
+        $existingParams = Psr7\parse_query($result->getQuery());
 
         $result = $result->withQuery(
-            Query::build(array_merge($existingParams, $params))
+            Psr7\build_query(array_merge($existingParams, $params))
         );
 
         if ($result->getScheme() != 'https') {
@@ -1370,7 +1361,7 @@ class OAuth2 implements FetchAuthTokenInterface
             return;
         }
 
-        return Utils::uriFor($uri);
+        return Psr7\uri_for($uri);
     }
 
     /**

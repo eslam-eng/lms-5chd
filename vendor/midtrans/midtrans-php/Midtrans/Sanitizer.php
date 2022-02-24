@@ -50,25 +50,22 @@ class Sanitizer
 
     private static function fieldCustomerDetails(&$field)
     {
-        if (isset($field['first_name'])) {
-            $first_name = new self;
-            $field['first_name'] = $first_name->maxLength(255)->apply($field['first_name']);
-        }
-
+        $first_name = new self;
+        $field['first_name'] = $first_name
+            ->maxLength(20)
+            ->apply($field['first_name']);
         if (isset($field['last_name'])) {
             $last_name = new self;
-            $field['last_name'] = $last_name->maxLength(255)->apply($field['last_name']);
+            $field['last_name'] = $last_name
+                ->maxLength(20)
+                ->apply($field['last_name']);
         }
+        $email = new self;
+        $field['email'] = $email
+            ->maxLength(45)
+            ->apply($field['email']);
 
-        if (isset($field['email'])) {
-            $email = new self;
-            $field['email'] = $email->maxLength(255)->apply($field['email']);
-        }
-
-        if (isset($field['phone'])) {
-            $phone = new self;
-            $field['phone'] = $phone->maxLength(255)->apply($field['phone']);
-        }
+        static::fieldPhone($field['phone']);
 
         if (!empty($field['billing_address']) || !empty($field['shipping_address'])) {
             $keys = array('billing_address', 'shipping_address');
@@ -86,11 +83,11 @@ class Sanitizer
     private static function fieldBillingAddress(&$field)
     {
         $fields = array(
-            'first_name'   => 255,
-            'last_name'    => 255,
-            'address'      => 255,
-            'city'         => 255,
-            'country_code' => 3
+            'first_name'   => 20,
+            'last_name'    => 20,
+            'address'      => 200,
+            'city'         => 20,
+            'country_code' => 10
         );
 
         foreach ($fields as $key => $value) {
@@ -121,7 +118,7 @@ class Sanitizer
 
     private static function fieldPhone(&$field)
     {
-        $plus = substr($field, 0, 1) === '+';
+        $plus = substr($field, 0, 1) === '+' ? true : false;
         $self = new self;
         $field = $self
             ->whitelist('\\d\\-\\(\\) ')

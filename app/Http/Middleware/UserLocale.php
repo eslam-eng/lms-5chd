@@ -21,9 +21,6 @@ class UserLocale
         if (auth()->check()) {
             $user = auth()->user();
             $locale = !empty($user->language) ? $user->language : 'EN';
-            if (request()->segment(1)=='admin')
-                $locale = mb_strtolower($locale);
-           app()->setLocale($locale);
         } else {
             $checkCookie = Cookie::get('user_locale');
 
@@ -33,7 +30,6 @@ class UserLocale
         }
 
         $generalSettings = getGeneralSettings();
-
         $userLanguages = $generalSettings['user_languages'];
 
         if (!in_array($locale, $userLanguages)) {

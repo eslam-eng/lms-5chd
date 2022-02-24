@@ -89,16 +89,11 @@ class TaskContext extends InstanceContext {
     /**
      * Delete the TaskInstance
      *
-     * @param array|Options $options Optional Arguments
      * @return bool True if delete succeeds, false otherwise
      * @throws TwilioException When an HTTP error occurs.
      */
-    public function delete(array $options = []): bool {
-        $options = new Values($options);
-
-        $headers = Values::of(['If-Match' => $options['ifMatch'], ]);
-
-        return $this->version->delete('DELETE', $this->uri, [], [], $headers);
+    public function delete(): bool {
+        return $this->version->delete('DELETE', $this->uri);
     }
 
     /**

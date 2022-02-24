@@ -96,7 +96,6 @@ class TrunkContext extends InstanceContext {
             'TransferMode' => $options['transferMode'],
             'Secure' => Serialize::booleanToString($options['secure']),
             'CnamLookupEnabled' => Serialize::booleanToString($options['cnamLookupEnabled']),
-            'TransferCallerId' => $options['transferCallerId'],
         ]);
 
         $payload = $this->version->update('POST', $this->uri, [], $data);

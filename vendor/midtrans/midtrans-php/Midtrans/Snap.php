@@ -2,8 +2,6 @@
 
 namespace Midtrans;
 
-use Exception;
-
 /**
  * Create Snap payment page and return snap token
  */
@@ -37,33 +35,6 @@ class Snap
     }
 
     /**
-     * Create Snap URL payment
-     *
-     * Example:
-     *
-     * ```php
-     *
-     *   namespace Midtrans;
-     *
-     *   $params = array(
-     *     'transaction_details' => array(
-     *       'order_id' => rand(),
-     *       'gross_amount' => 10000,
-     *     )
-     *   );
-     *   $paymentUrl = Snap::getSnapUrl($params);
-     * ```
-     *
-     * @param  array $params Payment options
-     * @return string Snap redirect url.
-     * @throws Exception curl error or midtrans error
-     */
-    public static function getSnapUrl($params)
-    {
-        return (Snap::createTransaction($params)->redirect_url);
-    }
-
-    /**
      * Create Snap payment page, with this version returning full API response
      *
      * Example:
@@ -85,10 +56,10 @@ class Snap
     public static function createTransaction($params)
     {
         $payloads = array(
-            'credit_card' => array(
-                // 'enabled_payments' => array('credit_card'),
-                'secure' => Config::$is3ds
-            )
+        'credit_card' => array(
+            // 'enabled_payments' => array('credit_card'),
+            'secure' => Config::$is3ds
+        )
         );
 
         if (isset($params['item_details'])) {
@@ -103,12 +74,20 @@ class Snap
             Sanitizer::jsonRequest($params);
         }
 
+        if (Config::$appendNotifUrl)
+            Config::$curlOptions[CURLOPT_HTTPHEADER][] = 'X-Append-Notification: ' . Config::$appendNotifUrl;
+
+        if (Config::$overrideNotifUrl)
+            Config::$curlOptions[CURLOPT_HTTPHEADER][] = 'X-Override-Notification: ' . Config::$overrideNotifUrl;
+
         $params = array_replace_recursive($payloads, $params);
 
-        return ApiRequestor::post(
+        $result = SnapApiRequestor::post(
             Config::getSnapBaseUrl() . '/transactions',
             Config::$serverKey,
             $params
         );
-    }
+
+        return $result;
+    }  
 }

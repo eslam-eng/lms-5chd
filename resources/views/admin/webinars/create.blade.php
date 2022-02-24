@@ -48,27 +48,12 @@
                                         <div class="col-12 col-md-5">
 
                                             <div class="form-group mt-15 ">
-                                                <label class="input-label d-block">{{ trans('admin/main.select_lang') }}</label>
-
-                                                <select name="course_type" class="custom-select @error('course_type')  is-invalid @enderror">
-                                                    <option value="en" @if((!empty($webinar) and $webinar->course_type=='en') or old('course_type') == 'en') selected @endif>English</option>
-                                                    <option value="ar" @if((!empty($webinar) and $webinar->course_type=='ar') or old('course_type') =='ar') selected @endif>العربيه</option>
-                                                </select>
-
-                                                @error('course_type')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-
-                                            <div class="form-group mt-15 ">
                                                 <label class="input-label d-block">{{ trans('panel.course_type') }}</label>
 
                                                 <select name="type" class="custom-select @error('type')  is-invalid @enderror">
                                                     <option value="webinar" @if((!empty($webinar) and $webinar->isWebinar()) or old('type') == \App\Models\Webinar::$webinar) selected @endif>{{ trans('webinars.webinar') }}</option>
-                                                    {{--                                                    <option value="course" @if((!empty($webinar) and $webinar->isCourse()) or old('type') == \App\Models\Webinar::$course) selected @endif>{{ trans('product.video_course') }}</option>--}}
-                                                    {{--                                                    <option>{{ trans('product.text_course') }} (Paid plugin)</option>--}}
+                                                    <option value="course" @if((!empty($webinar) and $webinar->isCourse()) or old('type') == \App\Models\Webinar::$course) selected @endif>{{ trans('product.video_course') }}</option>
+                                                    <option>{{ trans('product.text_course') }} (Paid plugin)</option>
                                                 </select>
 
                                                 @error('type')
@@ -228,7 +213,7 @@
 
                                             <div class="row mt-15">
                                                 @if(empty($webinar) or (!empty($webinar) and $webinar->isWebinar()))
-                                                    <div class="col-12 col-md-6 js-start_date">
+                                                    <div class="col-12 col-md-6 js-start_date {{ (!empty(old('type')) and old('type') != \App\Models\Webinar::$webinar) ? 'd-none' : '' }}">
                                                         <div class="form-group">
                                                             <label class="input-label">{{ trans('public.start_date') }}</label>
                                                             <div class="input-group">
@@ -246,29 +231,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 col-md-6 js-start_date">
-                                                        <div class="form-group">
-                                                            <label class="input-label">{{ trans('public.end_date') }}</label>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text" id="dateInputGroupPrepend">
-                                                                        <i class="fa fa-calendar-alt "></i>
-                                                                    </span>
-                                                                </div>
-                                                                <input type="text" name="end_date" value="{{ (!empty($webinar) and $webinar->end_date) ? dateTimeFormat($webinar->end_date,'Y-m-d') : old('end_date') }}" class="form-control @error('end_date')  is-invalid @enderror datepicker" aria-describedby="dateInputGroupPrepend"/>
-                                                                @error('end_date')
-                                                                <div class="invalid-feedback">
-                                                                    {{ $message }}
-                                                                </div>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 @endif
 
                                                 <div class="col-12 col-md-6">
                                                     <div class="form-group">
-                                                        <label class="input-label">{{ trans('public.duration') }} ({{ trans('public.hours') }})</label>
+                                                        <label class="input-label">{{ trans('public.duration') }} ({{ trans('public.minutes') }})</label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text" id="timeInputGroupPrepend">
@@ -277,7 +244,7 @@
                                                             </div>
 
 
-                                                            <input type="text" name="duration" value="{{ !empty($webinar) ? $webinar->duration/60 : old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"/>
+                                                            <input type="text" name="duration" value="{{ !empty($webinar) ? $webinar->duration : old('duration') }}" class="form-control @error('duration')  is-invalid @enderror"/>
                                                             @error('duration')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -464,58 +431,7 @@
                                         </div>
                                     </section>
 
-                                    <section class="mt-30">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h2 class="section-title after-line">{{ trans('admin/main.installment_plans') }}</h2>
-                                            <button id="webinarAddInstallmentPlan" type="button" class="btn btn-primary btn-sm mt-3">{{ trans('admin/main.add_installment_plans') }}</button>
-                                        </div>
-
-                                        <div class="row mt-10">
-                                            <div class="col-12">
-
-                                                @if(!empty($installmentPlans) and !$installmentPlans->isEmpty())
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped text-center font-14">
-
-                                                            <tr>
-                                                                <th>{{ trans('public.title') }}</th>
-                                                                <th>{{ trans('public.price') }}</th>
-                                                                <th>{{ trans('admin/main.installment_interval_num') }}</th>
-                                                                <th>{{ trans('admin/main.installment_num') }}</th>
-                                                                <th>{{ trans('public.created_at') }}</th>
-                                                                <th></th>
-                                                            </tr>
-
-                                                            @foreach($installmentPlans as $installmentPlan)
-                                                                <tr>
-                                                                    <th scope="row">{{ $installmentPlan->title }}</th>
-                                                                    <td>{{ $installmentPlan->price }}</td>
-                                                                    <td>{{ $installmentPlan->installment_interval_number." / ".$installmentPlan->installment_type }}</td>
-                                                                    <td>{{ $installmentPlan->instalment_num }}</td>
-                                                                    <td>{{ $installmentPlan->created_at }}</td>
-                                                                    <td>
-                                                                        <button type="button" data-installment-id="{{ $installmentPlan->id }}" data-webinar-id="{{ !empty($webinar) ? $webinar->id : '' }}" class="edit-installment_plan btn-transparent text-primary mt-1" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.edit') }}">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        @include('admin.includes.delete_button',['url' => '/admin/installment-plan/'. $installmentPlan->id .'/delete', 'btnClass' => ' mt-1'])
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-
-                                                        </table>
-                                                    </div>
-                                                @else
-                                                    @include('admin.includes.no-result',[
-                                                        'file_name' => 'ticket.png',
-                                                        'title' => trans('public.installment_no_result'),
-                                                        'hint' => trans('public.installment_no_result'),
-                                                    ])
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    @if($webinar->isCourse())
+                                    @if($webinar->isWebinar())
                                         <section class="mt-30">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <h2 class="section-title after-line">{{ trans('public.sessions') }}</h2>
@@ -594,7 +510,7 @@
                                                                     <th>{{ $file->title }}</th>
                                                                     <td>{{ $file->storage }}</td>
                                                                     <td>{{ $file->volume }}</td>
-                                                                    <td>{{ $file->file_type??'-'}}</td>
+                                                                    <td>{{ $file->file_type }}</td>
                                                                     <td>{{ $file->accessibility }}</td>
 
                                                                     <td>
@@ -864,7 +780,6 @@
                             @include('admin.webinars.modals.prerequisites')
                             @include('admin.webinars.modals.quizzes')
                             @include('admin.webinars.modals.ticket')
-                            @include('admin.webinars.modals.installment')
                             @include('admin.webinars.modals.session')
                             @include('admin.webinars.modals.file')
                             @include('admin.webinars.modals.faq')
@@ -892,46 +807,4 @@
     <script src="/assets/default/vendors/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
     <script src="/assets/vendors/summernote/summernote-bs4.min.js"></script>
     <script src="/assets/admin/js/webinar.min.js"></script>
-    <script>
-        $('body').on('click', '.edit-installment_plan', function (e) {
-            e.preventDefault();
-            const $this = $(this);
-            const installment_id = $this.attr('data-installment-id');
-            const webinar_id = $this.attr('data-webinar-id');
-
-            loadingSwl();
-
-            const edit_data = {
-                item_id: webinar_id
-            };
-
-            $.post('/admin/installment-plan/' + installment_id + '/edit', edit_data, function (result) {
-
-                if (result && result.installment) {
-                    const installment = result.installment;
-
-                    let edit_installment_modal = '<div id="addInstallmentModal">';
-                    edit_installment_modal += $('#installmentTicketModal').html();
-                    edit_installment_modal += '</div>';
-                    edit_installment_modal = edit_installment_modal.replaceAll('/admin/installment-plan/store', '/admin/installment-plan/' + installment_id + '/update');
-
-                    Swal.fire({
-                        html: edit_installment_modal,
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        customClass: {
-                            content: 'p-0 text-left',
-                        },
-                        width: '48rem',
-                        onOpen: () => {
-                            Object.keys(installment).forEach(key => {
-                                $('#addInstallmentModal').find('[name="' + key + '"]').val(installment[key]);
-                            });
-                        }
-                    });
-                }
-            });
-        });
-    </script>
-
 @endpush

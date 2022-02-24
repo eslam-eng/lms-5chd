@@ -191,21 +191,24 @@
             </div>
 
             <div class="card-body">
-                    <table class="table table-responsive table-striped font-14">
+                <div class="table-responsive text-center">
+                    <table class="table table-striped font-14">
                         <tr>
+                            <th>ID</th>
                             <th>{{ trans('admin/main.name') }}</th>
                             <th>{{ trans('admin/main.classes') }}</th>
-{{--                            <th>{{ trans('admin/main.appointments') }}</th>--}}
+                            <th>{{ trans('admin/main.appointments') }}</th>
                             <th>{{ trans('admin/main.wallet_charge') }}</th>
                             <th>{{ trans('admin/main.user_group') }}</th>
                             <th>{{ trans('admin/main.register_date') }}</th>
                             <th>{{ trans('admin/main.status') }}</th>
-                            <th width="20%">{{ trans('admin/main.actions') }}</th>
+                            <th width="120">{{ trans('admin/main.actions') }}</th>
                         </tr>
 
                         @foreach($users as $user)
 
                             <tr>
+                                <td>{{ $user->id }}</td>
                                 <td class="text-left">
                                     <div class="d-flex align-items-center">
                                         <figure class="avatar mr-2">
@@ -225,12 +228,12 @@
                                     </div>
                                 </td>
 
-{{--                                <td>--}}
-{{--                                    <div class="media-body">--}}
-{{--                                        <div class="text-primary mt-0 mb-1 font-weight-bold">{{ $user->classesPurchasedsCount }}</div>--}}
-{{--                                        <div class="text-small font-600-bold">{{ $currency }}{{ $user->classesPurchasedsSum }}</div>--}}
-{{--                                    </div>--}}
-{{--                                </td>--}}
+                                <td>
+                                    <div class="media-body">
+                                        <div class="text-primary mt-0 mb-1 font-weight-bold">{{ $user->classesPurchasedsCount }}</div>
+                                        <div class="text-small font-600-bold">{{ $currency }}{{ $user->classesPurchasedsSum }}</div>
+                                    </div>
+                                </td>
 
                                 <td>
                                     <div class="media-body">
@@ -256,7 +259,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center mb-2">
+                                <td class="text-center mb-2" width="120">
                                     @can('admin_users_impersonate')
                                         <a href="/admin/users/{{ $user->id }}/impersonate" target="_blank" class="btn-transparent  text-primary" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.login') }}">
                                             <i class="fa fa-user-shield"></i>
@@ -272,21 +275,12 @@
                                     @can('admin_users_delete')
                                         @include('admin.includes.delete_button',['url' => '/admin/users/'.$user->id.'/delete' , 'btnClass' => ''])
                                     @endcan
-
-                                    <a href="/admin/users/{{ $user->id }}/interview" class="btn-transparent  text-primary" data-toggle="tooltip" data-placement="top" title="{{ trans('admin/main.interview_link') }}">
-                                        <i class="fa fa-link" aria-hidden="true"></i>
-                                    </a>
-
-                                    @if($user->interViewAnswer()->count())
-                                        <a href="/admin/interview-answer/{{$user->id}}" class="btn-transparent  text-primary" title="view student answer">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    @endif
-
                                 </td>
+
                             </tr>
                         @endforeach
                     </table>
+                </div>
             </div>
 
             <div class="card-footer text-center">

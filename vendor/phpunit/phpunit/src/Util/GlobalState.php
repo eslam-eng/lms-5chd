@@ -10,7 +10,6 @@
 namespace PHPUnit\Util;
 
 use function array_keys;
-use function array_shift;
 use function count;
 use function defined;
 use function get_defined_constants;
@@ -24,8 +23,6 @@ use function preg_match;
 use function serialize;
 use function sprintf;
 use function strpos;
-use function strtr;
-use function substr;
 use function var_export;
 use Closure;
 
@@ -70,15 +67,7 @@ final class GlobalState
             $prefix = 'phar://' . __PHPUNIT_PHAR__ . '/';
         }
 
-        // Do not process bootstrap script
-        array_shift($files);
-
-        // If bootstrap script was a Composer bin proxy, skip the second entry as well
-        if (substr(strtr($files[0], '\\', '/'), -24) === '/phpunit/phpunit/phpunit') {
-            array_shift($files);
-        }
-
-        for ($i = count($files) - 1; $i >= 0; $i--) {
+        for ($i = count($files) - 1; $i > 0; $i--) {
             $file = $files[$i];
 
             if (!empty($GLOBALS['__PHPUNIT_ISOLATION_BLACKLIST']) &&

@@ -1,17 +1,14 @@
 <?php
 
-namespace Midtrans\integration;
+namespace Midtrans;
 
-use Midtrans\Snap;
-use Midtrans\utility\MtChargeFixture;
+require_once 'VtIntegrationTest.php';
 
-require_once 'IntegrationTest.php';
-
-class SnapIntegrationTest extends IntegrationTest
+class SnapIntegrationTest extends VtIntegrationTest
 {
     public function testSnapToken()
     {
-        $charge_params = MtChargeFixture::build('vtweb');
+        $charge_params = VtChargeFixture::build('vtweb');
         $token_id = Snap::getSnapToken($charge_params);
 
         $this->assertTrue(isset($token_id));

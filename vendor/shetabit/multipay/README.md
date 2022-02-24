@@ -19,7 +19,7 @@ This is a PHP Package for Payment Gateway Integration. This package supports `PH
 
 For **Laravel** integration you can use [shetabit/payment](https://github.com/shetabit/payment) package.
 
-> This package works with multiple drivers, and you can create custom drivers if you can't find them in the [current drivers list](#list-of-available-drivers) (below list).
+> This packages works with multiple drivers, and you can create custom drivers if you can't find them in the [current drivers list](#list-of-available-drivers) (below list).
 
 - [داکیومنت فارسی][link-fa]
 - [English documents][link-en]
@@ -40,7 +40,6 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
       - [Useful methods](#useful-methods)
       - [Create custom drivers:](#create-custom-drivers)
       - [Events](#events)
-  - [Local driver (for development)](#local-driver)
   - [Change log](#change-log)
   - [Contributing](#contributing)
   - [Security](#security)
@@ -50,8 +49,6 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
 # List of available drivers
 - [asanpardakht](https://asanpardakht.ir/) :heavy_check_mark:
 - [behpardakht (mellat)](http://www.behpardakht.com/) :heavy_check_mark:
-- [digipay](https://www.mydigipay.com/) :heavy_check_mark:
-- [etebarino (Installment payment)](https://etebarino.com/) :heavy_check_mark:
 - [idpay](https://idpay.ir/) :heavy_check_mark:
 - [irankish](http://irankish.com/) :heavy_check_mark:
 - [nextpay](https://nextpay.ir/) :heavy_check_mark:
@@ -65,12 +62,9 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
 - [sadad (melli)](https://sadadpsp.ir/) :heavy_check_mark:
 - [saman](https://www.sep.ir) :heavy_check_mark:
 - [sepehr (saderat)](https://www.sepehrpay.com/) :heavy_check_mark:
-- [walleta (Installment payment)](https://walleta.ir/) :heavy_check_mark:
 - [yekpay](https://yekpay.com/) :heavy_check_mark:
 - [zarinpal](https://www.zarinpal.com/) :heavy_check_mark:
 - [zibal](https://www.zibal.ir/) :heavy_check_mark:
-- [local](#local-driver) :heavy_check_mark:
-- [sepordeh](https://sepordeh.com/) :heavy_check_mark:
 - Others are under way.
 
 **Help me to add the gateways below by creating `pull requests`**
@@ -86,7 +80,7 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
 - payoneer
 - paysimple
 
-> you can create your own custom drivers if it doesn't exist in the list, read the `Create custom drivers` section.
+> you can create your own custom drivers if it's not  exists in the list, read the `Create custom drivers` section.
 
 ## Install
 
@@ -98,9 +92,9 @@ $ composer require shetabit/multipay
 
 ## Configure
 
-a. Copy `config/payment.php` into somewhere in your project. (you can also find it in `vendor/shetabit/multipay/config/payment.php` path).
+a. Copy `config/payment.php` and put it somewhere in your project. (you can also find it in `vendor/shetabit/multipay/config/payment.php` path).
 
-b. In the config file you can set the `default driver` to be used for all your payments and you can also change the driver at runtime.
+b. In the config file you can set the `default driver` to use for all your payments. But you can also change the driver at runtime.
 
 Choose what gateway you would like to use in your application. Then make that as default driver so that you don't have to specify that everywhere. But, you can also use multiple gateways in a project.
 
@@ -570,86 +564,6 @@ Payment::removeVerifyListener($firstListener);
 // if we call remove listener without any arguments, it will remove all listeners
 Payment::removeVerifyListener(); // remove all verify listeners :D
 ```
-
-## Local driver
-`Local` driver can simulate payment flow of a real gateway for development purpose. 
-
-Payment can be initiated like any other driver
-
-```php
-$invoice = (new Invoice)->amount(10000);
-$payment->via('local')->purchase($invoice, function($driver, $transactionId) {
-    // a fake transaction ID is generated and returned.
-})->pay()->render();
-```
-<p align="center"><img src="resources/images/local-form.png?raw=true"></p>
-
-Calling `render()` method will render a `HTML` form with **Accept** and  **Cancel** buttons, which simulate corresponding action of real payment gateway. and redirects to the specified callback url. 
-`transactionId` parameter will allways be available in the returned query url.
-
-Payment can be verified after receiving the callback request.
-
-```php
-$receipt = $payment->via('local')->verify();
-```
-
-In case of succesful payment, `$receipt` will contains the following parameters
-```php
-[
-'orderId' => // fake order number 
-'traceNo' => // fake trace number (this should be stored in databse)
-'referenceNo' => // generated transaction ID in `purchase` method callback
-'cardNo' => // fake last four digits of card 
-]
-```
-
-In case of canceled payment, `PurchaseFailedException` will be thrown to simulate the failed verification of gateway.
-
-Driver functionalities can be configured via `Invoice` detail bag.
-
-- ###### `available parameters`
-
-```php
-$invoice->detail([
-    // setting this value will cause `purchase` method to throw an `PurchaseFailedException` 
-    // to simulate when a gateway can not initialize the payment.
-        'failedPurchase' => 'custom message to decribe the error',
-
-    // Setting this parameter will be shown in payment form.
-        'orderId' => 4444,
-]);
-```
-
-- ###### `appearance`
-
-Appearance of payment form can be customized via config parameter of `local` driver in `payment.php` file.
-
-```php
-'local' => [
-    // default callback url of the driver
-    'callbackUrl' => '/callback',
-
-    // main title of the form
-    'title' => 'Test gateway',
-    
-    // a description to show under the title for more clarification
-    'description' => 'This gateway is for using in development environments only.',
-    
-    // custom label to show as order No.
-    'orderLabel' => 'Order No.',
-    
-    // custom label to show as payable amount
-    'amountLabel' => 'Payable amount',
-    
-    // custom label of successful payment button
-    'payButton' => 'Successful Payment',
-    
-    // custom label of cancel payment button
-    'cancelButton' => 'Cancel Payment',
-],
-```
-
-
 
 ## Change log
 

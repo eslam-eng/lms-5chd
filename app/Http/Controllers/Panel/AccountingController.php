@@ -185,7 +185,7 @@ class AccountingController extends Controller
                     data-image="' . $generalSettings['logo'] . '"
                     data-prefill.name="' . $order->user->full_name . '"
                     data-prefill.email="' . $order->user->email . '"
-                    data-theme.color="#43d477">
+                    data-theme.color="#0e76bc">
             </script>
 
             <style>

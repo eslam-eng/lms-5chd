@@ -18,12 +18,10 @@ app('router')->group($routeConfig, function ($router) {
         'as' => 'debugbar.clockwork',
     ]);
 
-    if (class_exists(\Laravel\Telescope\Telescope::class)) {
-        $router->get('telescope/{id}', [
-            'uses' => 'TelescopeController@show',
-            'as' => 'debugbar.telescope',
-        ]);
-    }
+    $router->get('telescope/{id}', [
+        'uses' => 'TelescopeController@show',
+        'as' => 'debugbar.telescope',
+    ]);
 
     $router->get('assets/stylesheets', [
         'uses' => 'AssetController@css',

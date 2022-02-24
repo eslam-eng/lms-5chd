@@ -12,7 +12,6 @@ namespace Twilio\Rest\Api\V2010\Account;
 use Twilio\Deserialize;
 use Twilio\Exceptions\TwilioException;
 use Twilio\InstanceResource;
-use Twilio\Options;
 use Twilio\Rest\Api\V2010\Account\Message\FeedbackList;
 use Twilio\Rest\Api\V2010\Account\Message\MediaList;
 use Twilio\Values;
@@ -123,12 +122,12 @@ class MessageInstance extends InstanceResource {
     /**
      * Update the MessageInstance
      *
-     * @param array|Options $options Optional Arguments
+     * @param string $body The text of the message you want to send
      * @return MessageInstance Updated MessageInstance
      * @throws TwilioException When an HTTP error occurs.
      */
-    public function update(array $options = []): MessageInstance {
-        return $this->proxy()->update($options);
+    public function update(string $body): MessageInstance {
+        return $this->proxy()->update($body);
     }
 
     /**

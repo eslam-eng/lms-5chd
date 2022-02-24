@@ -149,7 +149,7 @@ and verify the captcha using this method:
     //key is the one that you got from json response
     // fix validator
     // $rules = ['captcha' => 'required|captcha_api:'. request('key')];
-    $rules = ['captcha' => 'required|captcha_api:'. request('key') . ',math'];
+    $rules = ['captcha' => 'required|captcha_api:'. request('key') . ',default'];
     $validator = validator()->make(request()->all(), $rules);
     if ($validator->fails()) {
         return response()->json([

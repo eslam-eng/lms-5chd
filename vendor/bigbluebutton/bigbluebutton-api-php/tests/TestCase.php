@@ -16,14 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace BigBlueButton;
 
-use BigBlueButton\Core\GuestPolicy;
-use BigBlueButton\Core\MeetingLayout;
 use BigBlueButton\Parameters\CreateMeetingParameters as CreateMeetingParameters;
 use BigBlueButton\Parameters\EndMeetingParameters;
 use BigBlueButton\Parameters\JoinMeetingParameters as JoinMeetingParameters;
+use BigBlueButton\Parameters\SetConfigXMLParameters as SetConfigXMLParameters;
 use BigBlueButton\Parameters\UpdateRecordingsParameters as UpdateRecordingsParameters;
 use BigBlueButton\Responses\CreateMeetingResponse;
 use BigBlueButton\Responses\UpdateRecordingsResponse;
@@ -44,7 +42,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -69,52 +67,38 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function generateCreateParams()
     {
         return [
-            'meetingName'                            => $this->faker->name,
-            'meetingId'                              => $this->faker->uuid,
-            'attendeePassword'                       => $this->faker->password,
-            'moderatorPassword'                      => $this->faker->password,
-            'autoStartRecording'                     => $this->faker->boolean(50),
-            'dialNumber'                             => $this->faker->phoneNumber,
-            'voiceBridge'                            => $this->faker->randomNumber(5),
-            'webVoice'                               => $this->faker->word,
-            'logoutUrl'                              => $this->faker->url,
-            'maxParticipants'                        => $this->faker->numberBetween(2, 100),
-            'record'                                 => $this->faker->boolean(50),
-            'duration'                               => $this->faker->numberBetween(0, 6000),
-            'welcomeMessage'                         => $this->faker->sentence,
-            'allowStartStopRecording'                => $this->faker->boolean(50),
-            'moderatorOnlyMessage'                   => $this->faker->sentence,
-            'webcamsOnlyForModerator'                => $this->faker->boolean(50),
-            'logo'                                   => $this->faker->imageUrl(330, 70),
-            'copyright'                              => $this->faker->text,
-            'muteOnStart'                            => $this->faker->boolean(50),
-            'lockSettingsDisableCam'                 => $this->faker->boolean(50),
-            'lockSettingsDisableMic'                 => $this->faker->boolean(50),
-            'lockSettingsDisablePrivateChat'         => $this->faker->boolean(50),
-            'lockSettingsDisablePublicChat'          => $this->faker->boolean(50),
-            'lockSettingsDisableNote'                => $this->faker->boolean(50),
-            'lockSettingsHideUserList'               => $this->faker->boolean(50),
-            'lockSettingsLockedLayout'               => $this->faker->boolean(50),
-            'lockSettingsLockOnJoin'                 => $this->faker->boolean(50),
-            'lockSettingsLockOnJoinConfigurable'     => $this->faker->boolean(50),
-            'allowModsToUnmuteUsers'                 => $this->faker->boolean(50),
-            'allowModsToEjectCameras'                => $this->faker->boolean(50),
-            'guestPolicy'                            => $this->faker->randomElement([GuestPolicy::ALWAYS_ACCEPT, GuestPolicy::ALWAYS_DENY, GuestPolicy::ASK_MODERATOR]),
-            'endWhenNoModerator'                     => $this->faker->boolean(50),
-            'endWhenNoModeratorDelayInMinutes'       => $this->faker->numberBetween(1, 30),
-            'meetingKeepEvents'                      => $this->faker->boolean(50),
-            'learningDashboardEnabled'               => $this->faker->boolean(50),
-            'learningDashboardCleanupDelayInMinutes' => $this->faker->numberBetween(1, 30),
-            'bannerText'                             => $this->faker->sentence,
-            'bannerColor'                            => $this->faker->hexColor,
-            'breakoutRoomsEnabled'                   => $this->faker->boolean(50),
-            'breakoutRoomsRecord'                    => $this->faker->boolean(50),
-            'breakoutRoomsPrivateChatEnabled'        => $this->faker->boolean(50),
-            'meetingEndedURL'                        => $this->faker->url,
-            'meetingLayout'                          => $this->faker->randomElement([MeetingLayout::CUSTOM_LAYOUT, MeetingLayout::SMART_LAYOUT, MeetingLayout::PRESENTATION_FOCUS, MeetingLayout::VIDEO_FOCUS]),
-            'meta_presenter'                         => $this->faker->name,
-            'meta_endCallbackUrl'                    => $this->faker->url,
-            'meta_bbb-recording-ready-url'           => $this->faker->url,
+            'meetingName'                        => $this->faker->name,
+            'meetingId'                          => $this->faker->uuid,
+            'attendeePassword'                   => $this->faker->password,
+            'moderatorPassword'                  => $this->faker->password,
+            'autoStartRecording'                 => $this->faker->boolean(50),
+            'dialNumber'                         => $this->faker->phoneNumber,
+            'voiceBridge'                        => $this->faker->randomNumber(5),
+            'webVoice'                           => $this->faker->word,
+            'logoutUrl'                          => $this->faker->url,
+            'maxParticipants'                    => $this->faker->numberBetween(2, 100),
+            'record'                             => $this->faker->boolean(50),
+            'duration'                           => $this->faker->numberBetween(0, 6000),
+            'welcomeMessage'                     => $this->faker->sentence,
+            'allowStartStopRecording'            => $this->faker->boolean(50),
+            'moderatorOnlyMessage'               => $this->faker->sentence,
+            'webcamsOnlyForModerator'            => $this->faker->boolean(50),
+            'logo'                               => $this->faker->imageUrl(330, 70),
+            'copyright'                          => $this->faker->text,
+            'muteOnStart'                        => $this->faker->boolean(50),
+            'lockSettingsDisableCam'             => $this->faker->boolean(50),
+            'lockSettingsDisableMic'             => $this->faker->boolean(50),
+            'lockSettingsDisablePrivateChat'     => $this->faker->boolean(50),
+            'lockSettingsDisablePublicChat'      => $this->faker->boolean(50),
+            'lockSettingsDisableNote'            => $this->faker->boolean(50),
+            'lockSettingsHideUserList'           => $this->faker->boolean(50),
+            'lockSettingsLockedLayout'           => $this->faker->boolean(50),
+            'lockSettingsLockOnJoin'             => $this->faker->boolean(50),
+            'lockSettingsLockOnJoinConfigurable' => $this->faker->boolean(50),
+            'allowModsToUnmuteUsers'             => $this->faker->boolean(50),
+            'meta_presenter'                     => $this->faker->name,
+            'meta_endCallbackUrl'                => $this->faker->url,
+            'meta_bbb-recording-ready-url'       => $this->faker->url,
         ];
     }
 
@@ -169,21 +153,6 @@ class TestCase extends \PHPUnit\Framework\TestCase
             ->setLockSettingsLockedLayout($params['lockSettingsLockedLayout'])
             ->setLockSettingsLockOnJoin($params['lockSettingsLockOnJoin'])
             ->setLockSettingsLockOnJoinConfigurable($params['lockSettingsLockOnJoinConfigurable'])
-            ->setEndWhenNoModerator($params['endWhenNoModerator'])
-            ->setEndWhenNoModeratorDelayInMinutes($params['endWhenNoModeratorDelayInMinutes'])
-            ->setAllowModsToUnmuteUsers($params['allowModsToUnmuteUsers'])
-            ->setAllowModsToEjectCameras($params['allowModsToEjectCameras'])
-            ->setGuestPolicy($params['guestPolicy'])
-            ->setMeetingKeepEvents($params['meetingKeepEvents'])
-            ->setLearningDashboardEnabled($params['learningDashboardEnabled'])
-            ->setLearningDashboardCleanupDelayInMinutes($params['learningDashboardCleanupDelayInMinutes'])
-            ->setBannerColor($params['bannerColor'])
-            ->setBannerText($params['bannerText'])
-            ->setBreakoutRoomsEnabled($params['breakoutRoomsEnabled'])
-            ->setBreakoutRoomsRecord($params['breakoutRoomsRecord'])
-            ->setBreakoutRoomsPrivateChatEnabled($params['breakoutRoomsPrivateChatEnabled'])
-            ->setMeetingEndedURL($params['meetingEndedURL'])
-            ->setMeetingLayout($params['meetingLayout'])
             ->addMeta('presenter', $params['meta_presenter'])
             ->addMeta('bbb-recording-ready-url', $params['meta_bbb-recording-ready-url']);
     }
@@ -206,15 +175,15 @@ class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function generateJoinMeetingParams()
     {
-        return ['meetingId'        => $this->faker->uuid,
-            'userName'             => $this->faker->name,
-            'password'             => $this->faker->password,
-            'userId'               => $this->faker->numberBetween(1, 1000),
-            'webVoiceConf'         => $this->faker->word,
-            'creationTime'         => $this->faker->unixTime,
-            'userdata_countrycode' => $this->faker->countryCode,
-            'userdata_email'       => $this->faker->email,
-            'userdata_commercial'  => false
+        return ['meetingId'            => $this->faker->uuid,
+                'userName'             => $this->faker->name,
+                'password'             => $this->faker->password,
+                'userId'               => $this->faker->numberBetween(1, 1000),
+                'webVoiceConf'         => $this->faker->word,
+                'creationTime'         => $this->faker->unixTime,
+                'userdata_countrycode' => $this->faker->countryCode,
+                'userdata_email'       => $this->faker->email,
+                'userdata_commercial'  => false
         ];
     }
 
@@ -238,7 +207,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function generateEndMeetingParams()
     {
         return ['meetingId' => $this->faker->uuid,
-            'password'      => $this->faker->password];
+                'password'  => $this->faker->password];
     }
 
     /**
@@ -286,6 +255,26 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return $updateRecordingsParams->addMeta('presenter', $params['meta_presenter']);
     }
 
+    /**
+     * @return array
+     */
+    protected function generateSetConfigXMLParams()
+    {
+        return [
+            'meetingId' => $this->faker->uuid,
+        ];
+    }
+
+    /**
+     * @param $params array
+     *
+     * @return SetConfigXMLParameters
+     */
+    protected function getSetConfigXMLMock($params)
+    {
+        return new SetConfigXMLParameters($params['meetingId']);
+    }
+
     // Load fixtures
 
     protected function loadXmlFile($path)
@@ -299,6 +288,14 @@ class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     // Additional assertions
+
+    public function assertIsString($actual, $message = '')
+    {
+        if (empty($message)) {
+            $message = 'Got a ' . gettype($actual) . ' instead of a string';
+        }
+        $this->assertTrue(is_string($actual), $message);
+    }
 
     public function assertIsInteger($actual, $message = '')
     {

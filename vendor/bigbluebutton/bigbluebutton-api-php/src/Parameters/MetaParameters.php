@@ -51,10 +51,6 @@ abstract class MetaParameters extends BaseParameters
         return $this;
     }
 
-    /**
-     * @param $queries
-     * @return void
-     */
     protected function buildMeta(&$queries)
     {
         if (count($this->meta) !== 0) {

@@ -22,8 +22,7 @@ class CredentialListMappingList extends ListResource {
      * @param Version $version Version that contains the resource
      * @param string $accountSid The unique id of the Account that is responsible
      *                           for this resource.
-     * @param string $domainSid The unique string that identifies the SipDomain
-     *                          resource.
+     * @param string $domainSid The unique string that identifies the resource
      */
     public function __construct(Version $version, string $accountSid, string $domainSid) {
         parent::__construct($version);

@@ -152,7 +152,7 @@
                     $.toast({
                         heading: '',
                         text: learningToggleLangSuccess,
-                        bgColor: '#43d477',
+                        bgColor: '#0e76bc',
                         textColor: 'white',
                         hideAfter: 10000,
                         position: 'bottom-right',

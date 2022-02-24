@@ -246,8 +246,7 @@ final class TestSuiteSorter
     {
         return array_reduce(
             $suite->tests(),
-            static function ($carry, $test)
-            {
+            static function ($carry, $test) {
                 return $carry && ($test instanceof TestCase || $test instanceof DataProviderTestSuite);
             },
             true
@@ -273,8 +272,7 @@ final class TestSuiteSorter
             /**
              * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
              */
-            function ($left, $right)
-            {
+            function ($left, $right) {
                 return $this->cmpDefectPriorityAndTime($left, $right);
             }
         );
@@ -289,8 +287,7 @@ final class TestSuiteSorter
             /**
              * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
              */
-            function ($left, $right)
-            {
+            function ($left, $right) {
                 return $this->cmpDuration($left, $right);
             }
         );
@@ -305,8 +302,7 @@ final class TestSuiteSorter
             /**
              * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
              */
-            function ($left, $right)
-            {
+            function ($left, $right) {
                 return $this->cmpSize($left, $right);
             }
         );
@@ -390,8 +386,7 @@ final class TestSuiteSorter
                 /**
                  * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
                  */
-                static function ($test)
-                {
+                static function ($test) {
                     return self::getTestSorterUID($test);
                 },
                 $tests
@@ -422,8 +417,7 @@ final class TestSuiteSorter
         }
 
         $names = array_map(
-            static function ($name) use ($testClass)
-            {
+            static function ($name) use ($testClass) {
                 return strpos($name, '::') === false ? $testClass . '::' . $name : $name;
             },
             $test->getDependencies()
